@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>HackForAfrica</title>
+		<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+	</head>
+	<body>
+		<header id="homeHeader">
+			<div class = "WebsiteTitle">
+				<h1>HackForAfrica</h1>
+			</div>
+			<div class ="WebsiteSmallerTitle">
+				<p> Breaking Down Information Barriers </p>
+			</div>
+
+			<div class = "SignInButtons">
+				<a href="/askQuestions">
+					<button class="SignInButtonUser">
+						Seeking Medical Advice
+					</button>
+				</a>
+				<a href="/answerQuestions">
+					<button class="SignInButtonDoctor">
+						Offering Medical Advice 
+					</button>
+				</a>
+			</div>
+
+			<a href="#aboutHeader"><input class="downButton" type="image" src="https://cdn1.iconfinder.com/data/icons/arrows-14/24/Arrow-Down_in_Circle-512.png"/></a>
+		</header>
+
+		<header id="aboutHeader">
+			<br>
+			<div class = "MissionTitle">
+				<h1>Our Mission</h1>
+			</div>
+			<br><br><br>
+			<div class = "missionImage">
+				<img src="https://thebridgesinstitute.org/website/wp-content/uploads/2015/04/color-vision-mission.jpg" alt="Our Mission" height="80%" width="80%">
+			</div>
+			<a href="#contactUs"><input class="downButton" type="image" src="https://cdn1.iconfinder.com/data/icons/arrows-14/24/Arrow-Down_in_Circle-512.png"/></a>
+		</header>
+
+		<header id="contactUs">
+			<div class="container">
+				<div class="ContactUsTitle">
+					<h1>Contact Us</h1>
+				</div>
+				<form action="#">
+					<label for="name">Name:</label>
+					<br>
+					<input type="text" id="name" name="name" placeholder="Your name..">
+					<br>
+					<label for="email">Email:</label>
+					<br>
+					<input type="text" id="email" name="email" placeholder="Your email..">
+					<br>
+					<label for="message">Message:</label>
+					<br>
+					<textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+					<br>
+					<input type="submit" value="Submit">
+				</form>
+				<a href="#homeHeader"><input class="upButton" type="image" src="https://cdn1.iconfinder.com/data/icons/arrows-224/48/arrow-up-circle-512.png"/></a>
+			</div>
+		</header>
+
+		<header id="footerHeader">
+			<div class = "BottomText">
+				<p> Email Us: rajat.doshi@yale.edu | Tel: (203) 432-4771 | Yale University, New Haven, Connecticut 06520 </p>
+			</div>
+		</header>
+
+	</body>
+</html>

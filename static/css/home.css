@@ -1,0 +1,133 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/*
+CSS for home.html
+*/
+header {
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+}
+
+#homeHeader {
+	background-image: url("https://images.unsplash.com/photo-1444664361762-afba083a4d77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80");
+	opacity: 0.5;
+	height: 100vh;
+}
+
+#aboutHeader {
+	height: 100vh;
+}
+
+#contactUs {
+	height: 68vh;
+}
+
+#footerHeader {
+	background-color: #282828;
+	height: 10vh;
+}
+
+.WebsiteTitle {
+	text-align: center;
+	font-size: 70px;	
+	padding-top: 5%;
+}
+
+.WebsiteSmallerTitle {
+	text-align: center;
+	font-size: 36px;
+}
+
+.MissionTitle, .ContactUsTitle {
+  color: grey;
+  text-transform: uppercase;
+  font-size: 40px;
+  text-align: center;
+}
+
+.missionImage {
+	padding-right: 2%;
+	padding-left: 18%;
+}
+
+.downButton {
+	opacity: 50%;
+	margin-left: 50%;
+	margin-right: 50%;
+	margin-top: 4.5%;
+	width: 3.75%;
+	height: 5.5%;
+}
+
+.upButton {
+	opacity: 50%;
+	margin-left: 50%;
+	margin-right: 50%;
+	width: 3.75%;
+	height: 5.5%;
+}
+
+.BottomText {
+	text-align: center;
+	padding: 2%;
+	color: white;
+	font-size: 18px;
+}
+
+button.SignInButtonUser, button.SignInButtonDoctor {
+  background-color: green;
+  color: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+  cursor: pointer;
+  margin-left: 18.5%;
+  margin-top: 23%;
+}
+
+input[type=text], select, textarea {
+	margin-left: 25%;
+	margin-right: 20%;	
+	width: 50%; 
+	padding: 12px; 
+	border: 1px solid #ccc; 
+	border-radius: 4px; 
+	box-sizing: border-box; 
+	margin-top: 6px; 
+	margin-bottom: 16px; 
+	resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+/* Style the submit button with a specific background color etc */
+input[type=submit] {
+	margin-left: 25%;
+	margin-right: 20%;	
+	background-color: lightblue;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+label {
+	margin-left: 25%;
+	margin-right: 20%;	
+}
+
+/* Add a background color and some padding around the form */
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
