@@ -83,3 +83,65 @@ form.searchForm button:hover {
 	width: 3.75%;
 	height: 5.5%;
 }
+
+.row {
+	padding-right: 2%;
+}
+
+.main-nav {
+	float: right;
+	list-style: none;
+	margin-top: 30px;
+}
+
+.main-nav li {
+	display: inline-block;
+}
+
+.main-nav li a {
+	color: white;
+	text-decoration: none;
+	padding: 5px 20px;
+	font-family: sans-serif;
+}
+
+.main-nav li.active a {
+  border: 2px solid white;
+}
+
+.main-nav li a:hover {
+  border: 2px solid white;
+}
+
+.mainNav li.active a {
+	border: 2px solid white;
+}
+
+.mainNav li a:hover {
+	border: 2px solid white;
+}
+
+.mainNav {
+  float: right;
+  list-style: none;
+  margin-top: 30px;
+}
+
+.mainNav li {
+  display: inline-block;
+}
+
+.mainNav li a {
+  color: #336B6B;
+  text-decoration: none;
+  padding: 5px 20px;
+  font-family: sans-serif;
+}
+
+.mainNav li.active a {
+  border: 2px solid #336B6B;
+}
+
+.mainNav li a:hover {
+  border: 2px solid #336B6B;
+}

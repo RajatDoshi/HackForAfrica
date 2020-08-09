@@ -11,6 +11,19 @@
 	</head>
 	<body>
 		<header id="askQuestionHeader">
+			<div class="row">
+				<ul class="main-nav">
+				  <li><a href="/"> Home </a></li>
+				  <li class="active"><a href="/askQuestions"> Ask Question </a></li>
+				  <li><a href="/schedule"> Schedule Apt </a></li>
+		          {% if signInStatus == "Sign Out" %}
+		          	<li><a href="/signOut"> Sign Out </a></li>
+		          {% else %}
+		          	<li><a href="/"> Sign In </a></li>
+		          {% endif %}
+		        </ul>
+			</div>
+
 			<div class = "MissionTitle">
 				<h2>HAVE A QUESTION?</h2>
 			</div>

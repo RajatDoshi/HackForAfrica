@@ -7,9 +7,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/*
-CSS for home.html
-*/
 header {
 	background-size: cover;
 	background-position: center;
@@ -103,11 +100,10 @@ input[type=text], select, textarea {
 	box-sizing: border-box; 
 	margin-top: 6px; 
 	margin-bottom: 16px; 
-	resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+	resize: vertical 
 }
 
-/* Style the submit button with a specific background color etc */
-input[type=submit] {
+#submitContactUs {
 	margin-left: 25%;
 	margin-right: 20%;	
 	background-color: lightblue;
@@ -118,12 +114,11 @@ input[type=submit] {
 	cursor: pointer;
 }
 
-label {
+#slightSpace {
 	margin-left: 25%;
 	margin-right: 20%;	
 }
 
-/* Add a background color and some padding around the form */
 .container {
   border-radius: 5px;
   background-color: #f2f2f2;
