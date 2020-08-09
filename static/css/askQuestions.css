@@ -1,0 +1,85 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+header {
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+}
+
+#askQuestionHeader {
+	background-image: url("https://miro.medium.com/max/3200/1*KDndaWBDKNZueHu__K4bwg.jpeg");
+	opacity: 0.8;
+	height: 100vh;
+}
+
+#questionPage2 {
+	height: 100vh;
+}
+
+.MissionTitle {
+	padding-top: 22%;
+	text-align: center;
+	color: white;
+	font-size: 48px;
+}
+
+.MissionSubTitle {
+	text-align: center;
+	color: white;
+	font-size: 24px;
+}
+
+.searchDIV {
+	margin-left: 30%;
+	margin-right: 5%;
+}
+
+
+form.searchForm input[type=text] {
+  padding: 15px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 58%;
+  background: #f1f1f1;
+}
+
+form.searchForm button {
+  float: left;
+  width: 5%;
+  padding: 15px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.searchForm button:hover {
+  background: #0b7dda;
+}
+
+.downButton {
+	margin-left: 50%;
+	margin-top: 15.5%;
+	width: 3.75%;
+	height: 5.5%;
+}
+
+.upButton {
+	opacity: 50%;
+	margin-left: 50%;
+	margin-right: 50%;
+	width: 3.75%;
+	height: 5.5%;
+}

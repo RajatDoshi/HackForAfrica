@@ -61,7 +61,6 @@ header {
 .downButton {
 	opacity: 50%;
 	margin-left: 50%;
-	margin-right: 50%;
 	margin-top: 4.5%;
 	width: 3.75%;
 	height: 5.5%;
@@ -70,7 +69,6 @@ header {
 .upButton {
 	opacity: 50%;
 	margin-left: 50%;
-	margin-right: 50%;
 	width: 3.75%;
 	height: 5.5%;
 }
@@ -91,8 +89,8 @@ button.SignInButtonUser, button.SignInButtonDoctor {
   display: inline-block;
   font-size: 30px;
   cursor: pointer;
-  margin-left: 18.5%;
   margin-top: 23%;
+  margin-left: 8%;
 }
 
 input[type=text], select, textarea {
