@@ -116,9 +116,10 @@ hr {
 }
 
 #signInButtonNav {
-  background-color: #501b1d; /* Green */
+  background-color: Transparent; /* Green */
   border: none;
-  color: white;
+  color: #c32323;
+  font-family: 'Recursive', sans-serif
   padding: 5px 16px;
   text-align: center;
   text-decoration: none;

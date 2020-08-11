@@ -1,156 +1,178 @@
 <!DOCTYPE html>
 
 <html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Quattrocento&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap" rel="stylesheet">
+        <meta name = "viewport" content="width = device-width, initial-scale = 1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
+        
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/land.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/signIn.css') }}">
+    </head>
 
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=Quattrocento&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap" rel="stylesheet">
-    <meta name = "viewport" content="width = device-width, initial-scale = 1">
-    <link rel = "stylesheet" type = "text/css" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/land.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/signin.css') }}">
-
-</head>
-
-<body>
-    <div class="row">
-        <ul class="main-nav">
-          <li class="active"><a href="/"> Home </a></li>
-          <li><a href="/askQuestions"> Ask Medical Question </a></li>
-          <li><a href="/schedule"> Schedule Consultation </a></li>
-          <li><a href="/answerQuestions"> Volunteer </a></li>
-          {% if signInStatus == "Sign Out" %}
-            <li><a href="/signOut"> Sign Out </a></li>
-          {% else %}
-            <button id="signInButtonNav" onclick="document.getElementById('id01').style.display='block'" class="SignInButtonDoctor">Sign In</button>
-          {% endif %}
-        </ul>
-    </div>
-
-    <div class = "website-back">
-        <div class = "space">
-            <h1 class = "motto">Connecting <span style= "color :white">Doctors</span> Who Serve To <span style= "color :white">Patients</span> In Need.<div class = "newline"> <br></div>
-            <span style = "font-size:50%"> <span style= "color :rgb(187, 8, 8)">Malaria</span> Does Not Know Boundaries. </span> </h1>
-            <div class = trapezoid></div>
-            <h1 class = motto2>So Why Should <span style= "color :rgb(187, 8, 8)">Medicine?</span></h1>
-        </div>
-        <hr>
-        <div class = "africa-container">
-            <div class = diagonal-split-background></div>
-            <div class = diagonal-split-background2></div>
-            <h1 class = "africa">Africa has 25% of the world's diseased and 2% of the world's doctors.</h1>
-            <!-- <h1 class = "africa-text">FACTS:</h2> -->
-            <h1 class = "second-africa-fact">17% of the world has less than 1% of the global health expenditure. This is Africa.</h1>
-            <h1 class = "work">Let's get to work.</h1>
-            <h1 class = "facts">The facts:</h1>
-            
-        </div>
-        <hr>
-
-        <div class = "container">
+    <body>
+        <div class = "website-back">
+            <div class = "space">
+                <nav class="navbar navbar-expand-lg navbar-light " style="background-color:transparent; padding:0;margin:0">
+                        <a class = "navbar-brand " style= "margin:15px;color:white;font-size:2.3em;font-family: 'Schoolbell', cursive;" href = "#"> <span style = "color:green">Hack</span><span style = "color:rgb(248, 206, 18)">ForAf</span><span style = "color:red">rica</span></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                          <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
+                            </li>
+                          </ul>
+                            <ul class="navbar-nav ">
+                                <li class="nav-item">
+                                    <a class="nav-link tab1" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/schedule">Schedule Help</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tab2" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/doctorPortal">Doctors Portal</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tab3" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/login">Our Mission</a>
+                                </li>
+                                {% if signInStatus == "Sign Out" %}
+                                    <a class="nav-link tab3" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/signOut">Sign Out</a>
+                                {% else %}
+                                    <button id="signInButtonNav" onclick="document.getElementById('id01').style.display='block'" class="SignInButtonDoctor">Sign In</button>
+                                {% endif %}                                
+                                
+                            </ul>
+                        </div>                    
+                </nav>
+                <h1 class = "motto">Connecting <span style= "color :white">Doctors</span> Who Serve To <span style= "color :white">Patients</span> In Need.<div class = "newline"> <br></div>
+                <span style = "font-size:50%"> <span style= "color :rgb(187, 8, 8)">Malaria</span> Does Not Know Boundaries. </span> </h1>
+                <div class = trapezoid></div>
+                <h1 class = motto2>So Why Should <span style= "color :rgb(187, 8, 8)">Medicine?</span></h1>
+            </div>
             <br>
-            <div class="portfolio-wrapper">
-                <div class = "portfolio">
-                    <div class = "item1 mouse">
-                        <div class ="text">
-                            <div class = "title">
-                                Doctors
-                            </div>
-                            <br>
-                            <div class = "message">
-                                We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
-                            </div>
-                        </div>
-                        <img class = "image" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-PEZhiIbtjZ2ibk1jlUqF8dJvFn_Ym6apZe5f_XNTOOaCArOH&s">
-                    </div>
-                    <div class  = "item2 mouse">
-                        <div class ="text">
-                            <div class = "title">
-                                Our Triage System
-                            </div>
-                            <br>
-                            <div class = "message">
-                                We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
-                            </div>
-                        </div>
-                        <img class = "image" src = "https://ionemadamenoire.files.wordpress.com/2020/04/1585945942334.jpg?w=640">
-                    </div>
-                    <div class = "item3 mouse">
-                        <div class ="text">
-                            <div class = "title">
-                                Join the Discussion
-                            </div>
-                            <br>
-                            <div class = "message">
-                                We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
-                            </div>
-                        </div>
-                        <img class = "image" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdSmJxJBeTc7RZRj4kL0eVwBoKOOGHeBIGMJ_N82H5m0cCocBn&s">
-                    </div>
-                    <div class = "item4 mouse">
-                        <div class ="text">
-                            <div class = "title">
-                                How We Help & Mission: A telemedicine approach
-                            </div>
-                            <br>
-                            <div class = "message">
-                                We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
-                            </div>
-                        </div>
-                        <img class = "image" src = "https://media.istockphoto.com/photos/xhosa-woman-infront-of-shelter-picture-id182043277?k=6&m=182043277&s=612x612&w=0&h=DIxn2w31lBdfnY7W4D8jffAN1U1m5k7kj4kdF1YGXUo=">
-                    </div>
+            <br>
 
+            <div class = "africa-container">
+                <div class = diagonal-split-background></div>
+                <div class = diagonal-split-background2></div>
+                <h1 class = "africa">Africa has 25% of the world's diseased and 2% of the world's doctors.</h1>
+                <h1 class = "second-africa-fact">17% of the world has less than 1% of the global health expenditure.</h1>
+                <h1 class = "work">Let's get to work.</h1>
+                <h1 class = "facts">The facts:</h1>
+            </div>
+
+            <div class = "container">
+                <br>
+                <div class="portfolio-wrapper">
+                    <div class = "portfolio">
+                        <div class = "item1 mouse">
+                            <div class ="text">
+                                <div class = "title">
+                                    Doctors
+                                </div>
+                                <br>
+                                <div class = "message">
+                                    We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
+                                </div>
+                            </div>
+                            <img class = "image" src = "https://assets.weforum.org/article/image/DgeR-s4ifm6WrbnQ61V_IyuWBnZsSjX4KKswOyHdvvQ.jpeg">
+                        </div>
+                        <div class  = "item2 mouse">
+                            <div class ="text">
+                                <div class = "title">
+                                    Our Triage System
+                                </div>
+                                <br>
+                                <div class = "message">
+                                    We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
+                                </div>
+                            </div>
+                            <img class = "image" src = "https://ionemadamenoire.files.wordpress.com/2020/04/1585945942334.jpg?w=640">
+                        </div>
+                        <div class = "item3 mouse">
+                            <div class ="text">
+                                <div class = "title">
+                                    Join the Discussion
+                                </div>
+                                <br>
+                                <div class = "message">
+                                    We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
+                                </div>
+                            </div>
+                            <img class = "image" src = "https://cdn-wordpress-info.futurelearn.com/info/wp-content/uploads/FL__Partner_blog_-_COVID-19_in_Africa.jpg">
+                        </div>
+                        <div class = "item4 mouse">
+                            <div class ="text">
+                                <div class = "title">
+                                    How We Help & Mission: A telemedicine approach
+                                </div>
+                                <br>
+                                <div class = "message">
+                                    We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
+                                </div>
+                            </div>
+                            <img class = "image" src = "https://media.istockphoto.com/photos/xhosa-woman-infront-of-shelter-picture-id182043277?k=6&m=182043277&s=612x612&w=0&h=DIxn2w31lBdfnY7W4D8jffAN1U1m5k7kj4kdF1YGXUo=">
+                        </div>
+
+                    </div>
                 </div>
             </div>
+        <div>
+        <br>
+        <br>
+        <br>
         </div>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-    <div id="id01" class="modal">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <form class="modal-content" action="/signIn" method="POST">
-          <div class="containerModal">
-          <div class="titleModalSignUp">
-              <h1>Log In</h1>
-          </div>
-          <hr>
-          <label for="email"><b>Email</b></label>
-          <input id="modal_input" type="text" placeholder="Enter Email" name="email" required>
-
-          <label for="psw"><b>Password</b></label>
-          <input id="modal_input" type="password" placeholder="Enter Password" name="psw" required>
-          
-          <label>
-            <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-          </label>
-
-          <div class="clearfix">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-            <button type="submit" class="signupbtn">Sign In</button>
-          </div>
+        <footer style = "height:9em;background-color:#2E1114">
+            <p class = "footerT"><a href = "https://github.com/ashwin0030"style = "text-decoration:none;color:green">Ashwin Agnihotri</a> <span style = "color:black">|</span>  <a href = "https://github.com/RajatDoshi"style = "text-decoration:none; color:rgb(248, 206, 18)">Rajat Doshi</a>  |  <a href = "https://github.com/Roshanwarman" style = "text-decoration:none;color:red">Roshan Warman</a><br>
+        </footer>
         </div>
-        <div class="container signin">
-            <p>Create an account? <a href="/signUp">Sign Up</a>.</p>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+        <div id="id01" class="modal">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <form class="modal-content" action="/signIn" method="POST">
+              <div class="containerModal">
+              <div class="titleModalSignUp">
+                  <h1>Sign In</h1>
+              </div>
+              <hr>
+              <label for="email"><b>Email</b></label>
+              <input id="modal_input" type="text" placeholder="Enter Email" name="email" required>
+
+              <label for="psw"><b>Password</b></label>
+              <input id="modal_input" type="password" placeholder="Enter Password" name="psw" required>
+              
+              <label>
+                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+              </label>
+
+              <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <button type="submit" class="signupbtn">Sign In</button>
+              </div>
+            </div>
+            <div class="container signin">
+                <p>Create an account? <a href="/signUp">Sign Up</a>.</p>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
 
-    <script>
-        var modal = document.getElementById('id01');
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        }
-    </script>
+        <script>
+            var modal = document.getElementById('id01');
+            window.onclick = function(event) {
+              if (event.target == modal) {
+                modal.style.display = "none";
+              }
+            }
+        </script>
 
-
-</body>
-
-
+    </body>
 </html>

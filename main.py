@@ -106,7 +106,7 @@ def askQuestions():
 #        db.child("inventoryData").child(str(prodStore+prodName+prodSize)).set(prod_var)
 
 
-@app.route("/answerQuestions")                   
+@app.route("/doctorPortal")                   
 def answerQuestions():                     
 	return render_template('answerQuestions.html')
 
