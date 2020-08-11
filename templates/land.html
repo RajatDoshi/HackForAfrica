@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Quattrocento&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
@@ -9,256 +10,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap" rel="stylesheet">
     <meta name = "viewport" content="width = device-width, initial-scale = 1">
     <link rel = "stylesheet" type = "text/css" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/land.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signin.css') }}">
 
-
-    <style>
-         /* html, div, body{
-            height: 100%;
-            width: 100%;
-        } */
-        .website-back{
-            width : 100%;
-            height:100%;
-            background-color:#FFFAFA;
-            /* background-color: black; */
-        }
-        .container{
-            margin: 0 auto;
-            width: 85%;
-        }
-        .portfolio-wrapper{
-            margin-top:3%;
-            display:grid;
-            margin-bottom: 3%;
-        }
-
-        .portfolio{
-            display:grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr ;
-            grid-gap: 2%;
-            overflow: hidden;
-
-        }
-        .mouse{
-        }
-        .item1{
-            position: relative;
-            width:100%;
-            height:100%;
-            grid-row: 1;
-            grid-column: 1;
-        }
-        .item2{
-            position: relative;
-            width:100%;
-            height : 100%;
-            grid-row: 1;
-            grid-column: 2;
-        }
-        .item3{
-            position: relative;
-            /* width : 100%; */
-            /* height: 100%; */
-            grid-row : 2;
-            grid-column: 1;
-        }
-        .item4{
-            position: relative;
-            grid-row: 2;
-            grid-column: 2;
-
-        }
-        .image{
-            width : 100%;
-            height : 100%;
-        }
-        .image:hover{
-            opacity: 10%;
-            transition: .2s;
-        }
-        .mouse .text{
-            position:absolute;
-            margin: 5% 0 0 5%;
-            visibility: hidden;
-            color:#c32323;
-        }
-        .title{
-            font-size: 2vw;  
-            font-family: 'Sen', sans-serif;
-        }
-        .message{
-            font-size: 1.3vw;
-            color:gray;
-            font-family: 'Quattrocento', serif;
-
-        }
-        .mouse:hover .text{
-            visibility: visible;
-        }
-        .diagonal-split-background{
-            position:relative;
-            background-color: #013A6B;
-                background-image: -webkit-linear-gradient(45deg, #2E1114 33.4%, #FFFAFA 33.4%);
-            font-family: 'Quattrocento', serif;
-            /* font-style: normal; */
-            text-align: center;
-            color:white;
-            font-size: 10vw;
-            padding-top:10%;
-            padding-bottom:10%;
-        }
-        .diagonal-split-background2{
-            position:relative;
-            background-color: #013A6B;
-            background-image: -webkit-linear-gradient(45deg, #FFFAFA 50%,  #501b1d 50%);
-            font-family: 'Quattrocento', serif;
-            /* font-style: normal; */
-            text-align: center;
-            color:white;
-            font-size: 4vw;
-            padding-top:10%; 
-            padding-bottom:8.73%; 
-            /* change back to 10% if get rid of <hr> and margin */
-            margin-bottom:3%;
-        }
-
-        .africa-container .diagonal-split-background{
-            grid-row : 1;
-            grid-column: 1/-1;
-        }
-        .africa-container .diagonal-split-background2{
-            grid-row : 2;
-            grid-column: 1/-1;
-        }
-        .africa-container{
-            display:grid;
-            grid-template-rows: 5fr 5fr;
-            grid-template-columns: 4fr 2fr 2fr 3fr 6fr;
-        }
-        
-      
-        .africa-container .africa-text{
-            grid-row:1;
-            grid-column: 1;
-            font-family: 'Recursive', sans-serif;
-            z-index: 10;
-            color : white;
-
-        }
-        .africa-container .africa{
-            grid-row:1;
-            grid-column:4/-1;
-            color : black;
-            z-index: 10;
-            font-family: 'Recursive', sans-serif;
-            font-size:350%;
-            align-self:center;
-            justify-self: center;
-
-        }
-        .africa-container .second-africa-fact{
-            grid-row:2;
-            grid-column: 1/span 2;
-            color: black;
-            z-index : 10;
-            font-family: 'Recursive', sans-serif;
-            font-size:280%;
-            justify-self: center;
-            align-self: center;
-
-        }
-        .africa-container .facts{
-            grid-row:1;
-            grid-column: 1;
-            color: white;
-            z-index : 10;
-            font-family: 'Recursive', sans-serif;
-            font-size:300%;
-            align-self:center;
-            justify-self: center;
-        }
-
-        .space{
-            width : 100%;
-            overflow: hidden;
-            height: 45em;
-            display:grid;
-            grid-template-columns: .5fr .5fr .5fr 1fr 1fr 1fr 1fr 1fr 1fr;
-            grid-template-rows:2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
-            background-image: url("./imagesForHome/background.jpeg");
-            /* opacity: 80%; */
-            background-position:center;
-           
-        }
-        .main-front{
-         
-       
-            background-position: center;
-            position:relative;
-        }
-        .background{
-            grid-row:1/-1;
-            grid-column: 1/-1;
-        }
-        .motto{
-            font-family: 'Recursive', sans-serif;
-            grid-row:1/span 5;
-            grid-column: 2/span 8;
-            font-size:500%;
-            color:white;
-        }
-        .motto2{
-            font-family: 'Recursive', sans-serif;
-            grid-row: 9;
-            grid-column:-1;
-            font-size:250%;
-            color:white;
-            z-index: 10;
-            justify-self:center;
-            align-self:center;
-        }
-        div.newline{
-            line-height: .01em;
-        }
-        .africa-container .work{
-            grid-row: 2;
-            grid-column: 5;
-            color: white;
-            z-index : 10;
-            font-family: 'Recursive', sans-serif;
-            font-size:300%;
-            margin: auto;
-        }
-        .trapezoid {
-            border-bottom: 15em solid #501b1d;
-            border-left: 13em solid transparent;
-            /* border-right: 25px solid transparent; */
-            height: 0;
-            width: 50em;
-            grid-row:9;
-            grid-column: 10;
-        }
-  
-    </style>
 </head>
 
-
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-static-top" style="background-color:#2E1114;margin:0">
-        <a class="navbar-brand" style = "color:" href="#" >Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-              <a class="nav-item nav-link" href="#">ask question</a>
-              <a class="nav-item nav-link" href="#">schedule</a>
-              <a class="nav-item nav-link disabled" href="#">triage portal</a>
-            </div>
-    </nav>
+    <div class="row">
+        <ul class="main-nav">
+          <li class="active"><a href="/"> Home </a></li>
+          <li><a href="/askQuestions"> Ask Medical Question </a></li>
+          <li><a href="/schedule"> Schedule Consultation </a></li>
+          <li><a href="/answerQuestions"> Volunteer </a></li>
+          {% if signInStatus == "Sign Out" %}
+            <li><a href="/signOut"> Sign Out </a></li>
+          {% else %}
+            <button id="signInButtonNav" onclick="document.getElementById('id01').style.display='block'" class="SignInButtonDoctor">Sign In</button>
+          {% endif %}
+        </ul>
+    </div>
 
     <div class = "website-back">
         <div class = "space">
@@ -280,7 +50,6 @@
         </div>
         <hr>
 
-        <!-- Add one of those square things for showing that we are breaking the information barrier -->
         <div class = "container">
             <br>
             <div class="portfolio-wrapper">
@@ -295,7 +64,7 @@
                                 We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
                             </div>
                         </div>
-                        <img class = "image" src = "./imagesForHome/item1.png">
+                        <img class = "image" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-PEZhiIbtjZ2ibk1jlUqF8dJvFn_Ym6apZe5f_XNTOOaCArOH&s">
                     </div>
                     <div class  = "item2 mouse">
                         <div class ="text">
@@ -307,7 +76,7 @@
                                 We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
                             </div>
                         </div>
-                        <img class = "image" src = "./imagesForHome/item2.png">
+                        <img class = "image" src = "https://ionemadamenoire.files.wordpress.com/2020/04/1585945942334.jpg?w=640">
                     </div>
                     <div class = "item3 mouse">
                         <div class ="text">
@@ -319,7 +88,7 @@
                                 We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
                             </div>
                         </div>
-                        <img class = "image" src = "./imagesForHome/item3.png">
+                        <img class = "image" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdSmJxJBeTc7RZRj4kL0eVwBoKOOGHeBIGMJ_N82H5m0cCocBn&s">
                     </div>
                     <div class = "item4 mouse">
                         <div class ="text">
@@ -331,7 +100,7 @@
                                 We need you to help sick patients Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolorum nemo, dolorem cumque nesciunt autem iure nam porro, pariatur minima accusamus nostrum reprehenderit ducimus voluptatem voluptatum aut minus quas doloribus iste, ut amet earum aliquam. Nesciunt aliquid reprehenderit repellat fugiat?.
                             </div>
                         </div>
-                        <img class = "image" src = "./imagesForHome/item4.png">
+                        <img class = "image" src = "https://media.istockphoto.com/photos/xhosa-woman-infront-of-shelter-picture-id182043277?k=6&m=182043277&s=612x612&w=0&h=DIxn2w31lBdfnY7W4D8jffAN1U1m5k7kj4kdF1YGXUo=">
                     </div>
 
                 </div>
@@ -339,15 +108,48 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
+    <div id="id01" class="modal">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <form class="modal-content" action="/signIn" method="POST">
+          <div class="containerModal">
+          <div class="titleModalSignUp">
+              <h1>Log In</h1>
+          </div>
+          <hr>
+          <label for="email"><b>Email</b></label>
+          <input id="modal_input" type="text" placeholder="Enter Email" name="email" required>
+
+          <label for="psw"><b>Password</b></label>
+          <input id="modal_input" type="password" placeholder="Enter Password" name="psw" required>
+          
+          <label>
+            <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+          </label>
+
+          <div class="clearfix">
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+            <button type="submit" class="signupbtn">Sign In</button>
+          </div>
+        </div>
+        <div class="container signin">
+            <p>Create an account? <a href="/signUp">Sign Up</a>.</p>
+        </div>
+      </form>
+    </div>
+
+    <script>
+        var modal = document.getElementById('id01');
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
+
+
 </body>
 
 

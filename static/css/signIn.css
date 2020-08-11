@@ -62,8 +62,8 @@ button:hover {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: #474e5d;
-  padding-top: 50px;
+/*  background-color: #474e5d;
+*/  padding-top: 50px;
 }
 
 /* Modal Content/Box */
@@ -113,4 +113,14 @@ hr {
 .signin {
   background-color: #f1f1f1;
   text-align: center;
+}
+
+#signInButtonNav {
+  background-color: #501b1d; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }

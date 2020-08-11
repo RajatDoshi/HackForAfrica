@@ -3,6 +3,7 @@ import json
 import pyrebase
 
 app = Flask(__name__)   
+
 app.secret_key = '#d\xe9X\x00\xbe~Uq\xebX\xae\x82\x1fs\t\xb4\x99\xa3\x87\xe6.\xd1_'
 
 firebaseConfig = {
@@ -36,10 +37,11 @@ def idGivenEmail(email):
 
 @app.route("/")                   
 def home():  
+	
 	if 'user' in session:
-		return render_template('home.html', signInStatus = "Sign Out")
+		return render_template('land.html', signInStatus = "Sign Out")
 	else: 
-		return render_template('home.html')
+		return render_template('land.html')
 
 @app.route("/signIn", methods=['GET', 'POST'])
 def signIn():
@@ -54,9 +56,9 @@ def signIn():
 		try:
 			user = auth.sign_in_with_email_and_password(email, password)
 		except:
-			return render_template('home.html')
+			return render_template('land.html')
 		session['user'] = auth.get_account_info(user['idToken'])['users'][0]['email']
-		return redirect('/schedule') 
+		return redirect('/') 
 
 @app.route("/signUp", methods=['GET', 'POST'])                   
 def signUp():
@@ -79,6 +81,7 @@ def signUp():
 
 		db.child("userInfo").child(idGivenEmail(email)).set({"Names": name, "Email": email, "AccountType": "User", "Password":password})
 		auth.send_email_verification(user['idToken'])
+		session['user'] = email
 		return redirect('/')
 
 @app.route("/signOut", methods=['GET', 'POST'])                   
@@ -108,8 +111,11 @@ def answerQuestions():
 	return render_template('answerQuestions.html')
 
 @app.route("/schedule")                   
-def schedule():                     
-	return render_template('schedule.html')
+def schedule():
+	if 'user' in session:                  
+		return render_template('schedule.html')
+	else:
+		return redirect('/signUp')
 
 if __name__ == "__main__":        
 	app.run()                     
