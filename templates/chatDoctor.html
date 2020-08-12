@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/chatDoctor.css') }}">
+  </head>
+  <body>
+    <div class="small">
+    <h2 style="text-align: center">Chat Messages</h2>
+    <div class="container">
+      <img src="https://recap-project.eu/wp-content/uploads/2017/02/default-user.jpg" alt="Avatar" style="width:100%;">
+      <p> This is where patients will message you questions.</p>
+      <span class="time-right">12:00AM on Aug 14, 2020</span>
+    </div>
+    {% for msg in msgDict %}
+      {% if msg.Type == "doctor" %}
+        <div class="container darker">
+          <img src="https://www.avikadoctors.com/wp-includes/images/media/default.png" alt="Avatar" class="right" style="width:100%;">
+          <p> {{ msg.Chat }} </p>
+          <span class="time-left">{{ msg.Time }}</span>
+        </div>
+      {% else %}
+        <div class="container">
+          <img src="https://recap-project.eu/wp-content/uploads/2017/02/default-user.jpg" alt="Avatar" style="width:100%;">
+          <p> {{ msg.Chat }} </p>
+          <span class="time-right">{{ msg.Time }}</span>
+        </div>
+      {% endif%}
+    {% endfor %}
+    
+    <form action="/sendMessageDoctor/{{chattingWith}}" method="POST">
+      <input type="text" id="chatMsg" name="chatMsg" placeholder="Your Message">
+    </form>
+
+  </div>
+  </body>
+</html>

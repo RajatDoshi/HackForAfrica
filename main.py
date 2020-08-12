@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect, request, session
 import json
+import time
 import pyrebase
+import symptomClassifierAPI
+from googlesearch import search
 
 app = Flask(__name__)   
 
@@ -24,6 +27,8 @@ db = firebase.database()
 
 from firebase import firebase
 userDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/userInfo')
+doctorPortalDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/doctorPortal')
+doctorChat = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/doctorChat')
 questionBank = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/questionBank')
 
 
@@ -39,51 +44,144 @@ def idGivenEmail(email):
 
 @app.route("/")                   
 def home():  
-	
 	if 'user' in session:
-		return render_template('land.html', signInStatus = "Sign Out")
+		return render_template('land.html', signInStatus = "Sign Out", acctType=session['AccountType'])
 	else: 
-		return render_template('land.html')
+		return render_template('land.html', acctType="User")
 
 
 @app.route("/diagnose", methods=['GET', 'POST'])                   
-def askQuestions():               
+def diagnose():               
 	if request.method == 'GET':
 		if 'user' in session:
-			return render_template('askQuestions.html', signInStatus = "Sign Out")
+			if session['AccountType'] == "User":
+				return render_template('askQuestions.html', signInStatus = "Sign Out")
+			else:
+				return redirect('/doctorPortal')
 		else:
-			return redirect('/')
+			return redirect('/signUp')
 	else:
 		searchText = request.form['search']
-
-		questionDict = questionBank.get('/questionBank', idGivenEmail(session['user']))
-
-		if questionDict != None:
-			questionArr = questionDict['Question']
-			questionArr.append(searchText)
-			db.child("questionBank").child(idGivenEmail(session['user'])).set({"Question": questionArr})
-		else:
-			db.child("questionBank").child(idGivenEmail(session['user'])).set({"Question": [searchText]})
-		
+		data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
+		data['Question'] = searchText
+		db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)		
 		return redirect('/diagnose#questionPage2')
-		# return searchText
 
-#        prod_var = {"Store":prodStore, "Name":prodName, "Price":prodPrice, "Size":prodSize, "Quantity":prodQuantity}
-#        db.child("inventoryData").child(str(prodStore+prodName+prodSize)).set(prod_var)
+#for putting filler data into table
+@app.route("/testRoute")                   
+def dummyData():  
+	allData = doctorPortalDatabase.get('/doctorPortal', None)
+	for email in allData:
+		data = doctorPortalDatabase.get('/doctorPortal', email)
+		for url in search(data['Symptoms'], tld="com", num=1, stop=1, pause=0):
+			data['SymptomsLink'] = url
+		for url in search(data['Diagnosis'], tld="com", num=1, stop=1, pause=0):
+			data['DiagnosisLink'] = url
+		db.child("doctorPortal").child(email).set(data)	
 
 
+	return "this is for sole testing purposes"
 
-
-@app.route("/doctorPortal")                   
-def doctorsPortal():                     
-	return render_template('doctorsPortal.html')
-
-@app.route("/schedule")                   
-def schedule():
-	if 'user' in session:                  
-		return render_template('schedule.html')
+@app.route("/chat")                   
+def chat():  
+	if 'name' in session:
+		msgDict = doctorPortalDatabase.get('/doctorChat', idGivenEmail(session['name']))
+		msgList = []
+		if msgDict != None:
+			for i in range(0, len(msgDict["Chat"])):
+				msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]})
+		return render_template('chat.html', msgDict=msgList)
 	else:
 		return redirect('/signUp')
+
+@app.route("/chatDoctor/<chattingWith>")                   
+def chatDoctor(chattingWith):  
+	msgDict = doctorPortalDatabase.get('/doctorChat', chattingWith)
+	msgList = []
+	if msgDict != None:
+		for i in range(0, len(msgDict["Chat"])):
+			msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]})
+	return render_template('chatDoctor.html', msgDict=msgList, chattingWith=chattingWith)
+
+@app.route("/sendMessageDoctor/<chattingWith>", methods=['POST'])
+def sendMessageDoctor(chattingWith):
+	chatMsg = request.form['chatMsg']
+	data = doctorPortalDatabase.get('/doctorChat', chattingWith)
+	print(data)
+	if data != None:
+		data['Chat'].append(chatMsg)
+		data['Time'].append(time.strftime('%l:%M%p on %b %d, %Y'))
+		data['Type'].append("doctor")
+	else:
+		data = {"Chat": [chatMsg], "Time": [time.strftime('%l:%M%p on %b %d, %Y')], "Type": ["doctor"]}
+	
+	db.child("doctorChat").child(chattingWith).set(data)	
+	return redirect('/chatDoctor/'+chattingWith)
+
+@app.route("/sendMessageUser", methods=['POST'])
+def sendMessageUser():
+	chatMsg = request.form['chatMsg']
+	data = doctorPortalDatabase.get('/doctorChat', idGivenEmail(session['name']))
+	print(data)
+	if data != None:
+		data['Chat'].append(chatMsg)
+		data['Time'].append(time.strftime('%l:%M%p on %b %d, %Y'))
+		data['Type'].append("user")
+	else:
+		data = {"Chat": [chatMsg], "Time": [time.strftime('%l:%M%p on %b %d, %Y')], "Type": ["user"]}
+	
+	db.child("doctorChat").child(idGivenEmail(session['name'])).set(data)	
+	return redirect('/chat')
+
+@app.route('/diagnoseDisease', methods=['GET'])
+def diagnoseDisease():
+	if session['AccountType'] == "User":
+		symptomInput = ["Cough", "Choking"]  #change to form value
+		diagnoses_json, main_diagnosis, warnings = symptomClassifierAPI.symptomClassifierFunc(symptomInput=symptomInput)
+		if len(diagnoses_json) > 0:
+				data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
+				data['Diagnosis'] = main_diagnosis['Professional Name']
+				symptomInputString = ', '.join(symptomInput)
+				data['Symptoms'] = symptomInputString			
+				
+				for url in search(symptomInput[0], tld="com", num=1, stop=1, pause=0):
+					data['SymptomsLink'] = url
+				for url in search(data['Diagnosis'], tld="com", num=1, stop=1, pause=0):
+					data['DiagnosisLink'] = url
+
+				db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)	
+
+				return main_diagnosis
+		else:
+			return redirect('/diagnose')
+	else:
+		return redirect('/doctorPortal')
+
+@app.route("/doctorPortal")                   
+def doctorsPortal():  
+	doctorPortalList = getPortalInfo()
+	return render_template('doctorsPortal.html', tasks=doctorPortalList)
+def getPortalInfo():
+    portalDict = doctorPortalDatabase.get('/doctorPortal', None)
+    portalList = []
+    if portalDict != None:
+        portalList = [value for value in portalDict.values()]
+    return portalList
+
+@app.route("/schedule", methods=['GET', 'POST'])                   
+def schedule():
+	if request.method == 'GET':
+		if 'user' in session:                  
+			return render_template('schedule.html')
+		else:
+			return redirect('/signUp')
+	else:
+		dateVal = "Aug 30th @ 1pm EST" #change to form value
+		data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
+		data['Date'] = dateVal
+		data['Link'] = "https://yale.zoom.us/j/983"
+		db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)	
+		return redirect('/schedule')
 
 
 @app.route("/signIn", methods=['GET', 'POST'])
@@ -101,7 +199,33 @@ def signIn():
 		except:
 			return render_template('land.html')
 		session['user'] = auth.get_account_info(user['idToken'])['users'][0]['email']
-		return redirect('/') 
+		try:
+			session['name'] = userDatabase.get('/userInfo', idGivenEmail(session['user']))['Names']
+			session['AccountType'] = userDatabase.get('/userInfo', idGivenEmail(session['user']))['AccountType']
+			return redirect('/') 
+		except:
+			session['name'] = userDatabase.get('/doctorInfo', idGivenEmail(session['user']))['Names']
+			session['AccountType'] = userDatabase.get('/doctorInfo', idGivenEmail(session['user']))['AccountType']
+			return redirect('/doctorPortal')			
+
+@app.route("/signUp2/<email>", methods=['GET', 'POST'])                   
+def signUp2(email):
+	if request.method == 'GET':
+		return render_template('createAccount2.html', email=email)
+	else:
+		data = userDatabase.get('/doctorInfo', idGivenEmail(email))
+		data['medicallicense'] = request.form['medicallicense']
+		data['employeer'] = request.form['medicallicense']
+		data['medSchoolName'] = request.form['medicallicense']
+		data['years'] = request.form['years']
+		db.child("doctorInfo").child(idGivenEmail(email)).set(data)
+		
+		session['user'] = email
+		otherMetaData = userDatabase.get('/doctorInfo', idGivenEmail(email))
+		session['name'] = otherMetaData['Names']
+		session['AccountType'] = otherMetaData['AccountType']
+		return redirect('/doctorPortal')
+
 
 @app.route("/signUp", methods=['GET', 'POST'])                   
 def signUp():
@@ -112,6 +236,7 @@ def signUp():
 		email = request.form['email']
 		password = request.form['psw']
 		passwordRepeat = request.form['psw-repeat']
+		acctType = request.form['acctType']
 
 		if password != passwordRepeat:
 			return render_template('createAccount.html', errorMessage="Passwords Do Not Match")
@@ -122,16 +247,24 @@ def signUp():
 			err = json.loads(fullErrorMessage)["error"]["message"]
 			return render_template('createAccount.html', errorMessage=err)
 
-		db.child("userInfo").child(idGivenEmail(email)).set({"Names": name, "Email": email, "AccountType": "User", "Password":password})
-		auth.send_email_verification(user['idToken'])
-		session['user'] = email
-		return redirect('/')
-
+		if acctType == 'User':
+			db.child("userInfo").child(idGivenEmail(email)).set({"Names": name, "Email": email, "AccountType": acctType, "Password":password})
+			auth.send_email_verification(user['idToken'])
+			session['user'] = email
+			session['name'] = name
+			session['AccountType'] = acctType
+			db.child("doctorPortal").child(idGivenEmail(email)).set({"Name":name, "Symptoms": "", "Diagnosis": "", "Question": "", "Date": "", "Link": ""})
+			return redirect('/')
+		else:
+			db.child("doctorInfo").child(idGivenEmail(email)).set({"Names": name, "Email": email, "AccountType": acctType, "Password":password})
+			return redirect('/signUp2/'+email)
 @app.route("/signOut", methods=['GET', 'POST'])                   
 def signOut():
     if 'user' not in session:
         return redirect('/')
     del session['user']
+    del session['name']
+    del session['AccountType']
     return redirect('/')
 
 if __name__ == "__main__":        

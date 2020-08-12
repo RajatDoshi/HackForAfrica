@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Log In to Sherrands</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+
+<body>
+
+  <form class="modal-content" action="/signUp2/{{email}}" method="POST">
+    <div class="container">
+      <div class="upperRegion">
+        <h1>Sign Up</h1>
+        {% if errorMessage == "" %}
+          <p>Please fill in this form to create an account.</p>
+        {% else %}
+            <p style="color:red">{{errorMessage}}</p>
+        {% endif %}
+      </div>
+      <hr>
+
+      <label for="medicallicense"><b>Medical license Number (DEA) </b></label>
+      <input type="text" placeholder="Enter Medical license" id="medicallicense" name="medicallicense" required>
+
+      <label for="employeer"><b>Current Employeer</b></label>
+      <input type="text" placeholder="Enter Employeer Name" name="employeer" required>
+      
+      <label for="medSchoolName"><b>Medical School</b></label>
+      <input type="text" placeholder="Enter Medical School" name="medSchoolName" required>
+
+      <label for="years"><b> Number of Years Practicing</b></label><br>
+      <div class="box">
+        <select name="years" id="years">
+          <option value="1-5">1-5</option>
+          <option value="6-10">6-10</option>
+          <option value="11-15">11-15</option>
+          <option value="16-20">16-20</option>
+          <option value="20-25">20-25</option>
+          <option value="25+">25+</option>
+        </select>
+      </div>
+
+      <br><br><br><br>
+      <label>
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+      </label>
+
+      <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+      <div class="clearfix">
+        <a href="/"> <button type="button" class="cancelbtn">Cancel</button> </a>
+        <button type="submit" class="signupbtn">Sign Up</button>
+      </div>
+    </div>
+  </form>
+
+</body>
+</html>
