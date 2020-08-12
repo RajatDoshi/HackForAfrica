@@ -1,0 +1,151 @@
+<!DOCTPYE html>
+
+<head>
+    <script src = "calendar.js" defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <style>
+
+        /* .body, html, div{
+            width:100%;
+            height:100%;
+        } */
+
+        .inb{
+            display:inline-block;
+        }
+        .circle{
+            /* display: inline-block;
+            /* height: 2em; */
+            width: 20px;
+            height:20px;
+            /* line-height: 2em;
+            max-width:100%; */
+
+            /* -moz-border-radius: px;  */
+            /* border-radius: 50%; 
+            padding:10px;  */
+            border-radius:50%;
+
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        .Calendar{
+            visibility: visible;
+        }
+        th{
+            vertical-align: center;
+            text-align:center;
+            width: 5px;
+        }
+        td{
+            vertical-align: center;
+            text-align:center;
+            overflow: hidden;
+            
+        }
+        .fal:hover{
+            /* display: inline-block;
+            height: 1.5em;
+            width: 1.5em;
+            line-height: 1.5em;
+
+            -moz-border-radius: 30px; 
+            border-radius: 50%;  */
+            border-radius:50%;
+            background-color: blue;
+            color: white;
+            text-align: center;
+        }
+        .choose{
+            /* display: inline-block;
+            height: 1.5em;
+            width: 1.5em;
+            line-height: 1.5em;
+
+            -moz-border-radius: 30px; 
+            border-radius: 50%; 
+
+            background-color: black;
+            color: white;
+            text-align: center; */
+        }
+        .web{
+            width:60%;
+            margin:auto
+        }
+        
+    </style>
+</head>
+
+
+<body>
+
+    <div class= circle>2</div>
+    <div class= circle>3</div>
+
+    <form><input type="file">
+
+    </form>
+    <div class = "web">
+    <table class = "Calendar table">
+        <tr>
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+        </tr>
+
+    </table>
+    </div>
+   
+
+    <select id="months" onchange="monthc()">
+        <option value="Jan">Jan</option>
+        <option value="Feb">Feb</option>
+        <option value="Mar">Mar</option>
+        <option value="Apr">Apr</option>
+        <option value="May">May</option>
+        <option value="Jun">Jun</option>
+        <option value="Jul">Jul</option>
+        <option value="Aug">Aug</option>
+        <option value="Sep">Sep</option>
+        <option value="Oct">Oct</option>
+        <option value="Nov">Nov</option>
+        <option value="Dec">Dec</option>
+     </select>
+
+
+     <select id="years" onchange="yearc()">
+        <option>2020</option>
+        <option>2021</option>
+        <option>2022</option>
+        <option>2023</option>
+        <option>2024</option>
+        <option>2025</option>
+        <option>2026</option>
+        <option>2027</option>
+        <option>2028</option>
+        <option>2029</option>
+        <option>2030</option>
+        <option>2031</option>
+     </select>
+
+     <!-- <select id = "days" onchange = "day()">
+        <option value="Jan">Sun</option>
+        <option value="Feb">Mon</option>
+        <option value="Mar">Tue</option>
+        <option value="Apr">Wed</option>
+        <option value="May">Thu</option>
+        <option value="Jun">Fri</option>
+        <option value="Jul">Sat</option>
+    </select> -->
+
+     <table class = "final">     
+      </table>
+
+</body>
