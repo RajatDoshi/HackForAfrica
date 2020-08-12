@@ -23,7 +23,9 @@ auth = firebase.auth()
 db = firebase.database()
 
 from firebase import firebase
-userDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/inventoryData')
+userDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/userInfo')
+questionBank = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/questionBank')
+
 
 def idGivenEmail(email):
 	listVersionOfEmail = list(email) 
@@ -42,6 +44,47 @@ def home():
 		return render_template('land.html', signInStatus = "Sign Out")
 	else: 
 		return render_template('land.html')
+
+
+@app.route("/diagnose", methods=['GET', 'POST'])                   
+def askQuestions():               
+	if request.method == 'GET':
+		if 'user' in session:
+			return render_template('askQuestions.html', signInStatus = "Sign Out")
+		else:
+			return redirect('/')
+	else:
+		searchText = request.form['search']
+
+		questionDict = questionBank.get('/questionBank', idGivenEmail(session['user']))
+
+		if questionDict != None:
+			questionArr = questionDict['Question']
+			questionArr.append(searchText)
+			db.child("questionBank").child(idGivenEmail(session['user'])).set({"Question": questionArr})
+		else:
+			db.child("questionBank").child(idGivenEmail(session['user'])).set({"Question": [searchText]})
+		
+		return redirect('/diagnose#questionPage2')
+		# return searchText
+
+#        prod_var = {"Store":prodStore, "Name":prodName, "Price":prodPrice, "Size":prodSize, "Quantity":prodQuantity}
+#        db.child("inventoryData").child(str(prodStore+prodName+prodSize)).set(prod_var)
+
+
+
+
+@app.route("/doctorPortal")                   
+def doctorsPortal():                     
+	return render_template('doctorsPortal.html')
+
+@app.route("/schedule")                   
+def schedule():
+	if 'user' in session:                  
+		return render_template('schedule.html')
+	else:
+		return redirect('/signUp')
+
 
 @app.route("/signIn", methods=['GET', 'POST'])
 def signIn():
@@ -90,32 +133,6 @@ def signOut():
         return redirect('/')
     del session['user']
     return redirect('/')
-
-@app.route("/askQuestions", methods=['GET', 'POST'])                   
-def askQuestions():               
-	if request.method == 'GET':
-		if 'user' in session:
-			return render_template('askQuestions.html', signInStatus = "Sign Out")
-		else:
-			return render_template('askQuestions.html')
-	else:
-		searchText = request.form['search']
-		return searchText
-
-#        prod_var = {"Store":prodStore, "Name":prodName, "Price":prodPrice, "Size":prodSize, "Quantity":prodQuantity}
-#        db.child("inventoryData").child(str(prodStore+prodName+prodSize)).set(prod_var)
-
-
-@app.route("/doctorPortal")                   
-def answerQuestions():                     
-	return render_template('answerQuestions.html')
-
-@app.route("/schedule")                   
-def schedule():
-	if 'user' in session:                  
-		return render_template('schedule.html')
-	else:
-		return redirect('/signUp')
 
 if __name__ == "__main__":        
 	app.run()                     
