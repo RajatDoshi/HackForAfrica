@@ -106,6 +106,8 @@ function buildCalendar(month, year){
                 // dat.onmouseover = function(){this.style.color = "blue";};
                 // dat.onmouseout = function(){this.style.color = "black";};
                 sp.classList.add("fal");
+                sp.classList.add("hvr-sweep-to-right");
+
                 sp.onclick = function(){ this.classList.toggle("circle");};
 
 
