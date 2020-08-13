@@ -55,7 +55,7 @@
                             </ul>
                         </div>                    
                 </nav>
-                <h1 class = "motto">Connecting <span style= "color :white">Doctors</span> Who Serve To <span style= "color :white">Patients</span> In Need.<div class = "newline"> <br></div>
+                <h1 class = "motto">Connecting <span class = "uniqueDoctor" style= "color :white">Doctors</span> Who Serve To <span style= "color :white">Patients</span> In Need.<div class = "newline"> <br></div>
                 <span style = "font-size:50%"> <span style= "color :rgb(187, 8, 8)">Disease</span> Does Not Know Boundaries. </span> </h1>
                 <div class = trapezoid></div>
                 <h1 class = motto2>So Why Should <span style= "color :rgb(187, 8, 8)">Medicine?</span></h1>
@@ -178,6 +178,15 @@
               if (event.target == modal) {
                 modal.style.display = "none";
               }
+            }
+
+
+            var hero = document.getElementsByClassName("uniqueDoctor");
+            hero.onmouseover = function(){
+                this.innerHTML = "Heros";
+            }
+            hero.onmouseout = function(){
+                this.innerHTML = "Doctors";
             }
         </script>
 
