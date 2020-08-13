@@ -38,23 +38,57 @@ let day = new Date()
 let month;
 let year;
 let doctorDays = [];
+let ghettoTarget;
 // let tbl = document.querySelector(".Calendar")
 
 // console.log(months[day.getMonth()])
 // console.log(daysInMonth[months[day.getMonth()]])
 
-document.addEventListener("click", function(){
+// document.addEventListener("click", function(element){
+//     doctorDays = [];
+//     let selected = document.getElementsByClassName("circle")
+//     let len = selected.length;
+//     for(var i = 0; i < len;i++ ){
+//         doctorDays.push(selected[i].innerHTML);
+//     }
+//     const specific = element.target;
+//     console.log(element.target)
+//     let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
+//     console.log(cardDate);
+
+//     let date = document.querySelector("span.carDDate");
+//     date.innerHTML = cardDate;
+//     let actualCard = document.querySelector(".decideHere");
+//     actualCard.style.visibility = "visible";
+
+    
+// })
+
+document.addEventListener("CalendarDateClicked", function(e){
     doctorDays = [];
     let selected = document.getElementsByClassName("circle")
     let len = selected.length;
     for(var i = 0; i < len;i++ ){
         doctorDays.push(selected[i].innerHTML);
     }
-    
-})
+    const specific = ghettoTarget;
+    console.log(ghettoTarget)
+    let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
+    console.log(cardDate);
+
+    let date = document.querySelector("span.carDDate");
+    date.innerHTML = cardDate;
+    let actualCard = document.querySelector(".decideHere");
+    if(ghettoTarget.getAttribute("data-clicked") == 1){
+        actualCard.style.visibility = "visible";
+    }else{
+        actualCard.style.visibility = "hidden";
+
+    }
+});
 
 document.addEventListener("DOMContentLoaded", function(){
-    year = years[day.getFullYear()];
+    year = day.getFullYear();
     month = months[day.getMonth()];
     document.getElementById("months").selectedIndex = day.getMonth();
     document.getElementById("years")
@@ -95,10 +129,11 @@ function buildCalendar(month, year){
         for(let j = 0; j < 7;j++){
             let t = 0
             let index = i*7 + j;
-            // let but = document.createElement("button");
 
             let dat = document.createElement("td");
             let sp = document.createElement("span");
+            sp.setAttribute("data-day", dates);
+            sp.setAttribute("data-clicked", 0);
             sp.style.lineHeight = 2;
             if(index < dayNum){
                 sp.innerHTML = "";
@@ -111,16 +146,21 @@ function buildCalendar(month, year){
                     sp.classList.add("today");
                 }
                 dates++;
-                // dat.onmouseover = function(){this.style.color = "blue";};
-                // dat.onmouseout = function(){this.style.color = "black";};
                 sp.classList.add("fal");
                 sp.classList.add("hvr-sweep-to-right");
-
-                
-
-                sp.onclick = function(){ this.classList.toggle("circle");};
-
-
+                sp.onclick = function(){  
+                    cValue = sp.getAttribute("data-clicked")
+                    if( cValue == 0){
+                        sp.setAttribute("data-clicked", 1);
+                        sp.classList.add("circle");
+                    }else{
+                        sp.setAttribute("data-clicked", 0);
+                        sp.classList.remove("circle");
+                    }
+                    const event = new Event("CalendarDateClicked");
+                    ghettoTarget = sp;
+                    document.dispatchEvent(event);
+                }
             }else{
                 sp.innerHTML = "";
             }
@@ -144,20 +184,33 @@ function monthc(){
     let choices = document.getElementById("months");
     let choices1 = document.getElementById("years");
     year = years[choices1.selectedIndex];
-    month = choices.selectedIndex;
+    monthE = choices.selectedIndex;
     // alert(`you chose ${month}`);
-    buildCalendar(month, year)
+    buildCalendar(monthE, year)
+    month = months[monthE];
 }
 
 function yearc(){
     let choices = document.getElementById("months");
     let choices1 = document.getElementById("years");
     year = years[choices1.selectedIndex];
-    console.log("hi")
-
-    console.log(choices1.selectedIndex);
-    console.log("hi")
-    month = choices.selectedIndex;
-    console.log(month);
-    buildCalendar(month, year)
+    
+    monthE = choices.selectedIndex;
+    buildCalendar(monthE, year)
+    month = months[monthE];
 }
+
+// function updateChosenDate(element){
+//     console.log("hello")
+//     cValue = element.getAttribute("data-clicked")
+//     if( cValue == 0){
+//         element.setAttribute("data-clicked", 1);
+//         element.classList.add("circle");
+//     }else{
+//         element.setAttribute("data-clicked", 0);
+//         element.classList.remove("circle");
+//     }
+
+//     const event = new Event("CalendarDateClicked");
+//     element.dispatchEvent(event);
+// }
