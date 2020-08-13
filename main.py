@@ -30,7 +30,7 @@ userDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.co
 doctorPortalDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/doctorPortal')
 doctorChat = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/doctorChat')
 questionBank = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/questionBank')
-
+diagnosisTableData = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/diagnosisTableData')
 
 def idGivenEmail(email):
 	listVersionOfEmail = list(email) 
@@ -58,17 +58,60 @@ def diagnose():
 	if request.method == 'GET':
 		if 'user' in session:
 			if session['AccountType'] == "User":
-				return render_template('askQuestions.html', signInStatus = "Sign Out")
+				symList = ['Abdominal pain', 'Anxiety', 'Back pain', 'Burning eyes', 'Burning in the throat', 'Cheek swelling', 'Chest pain', 'Chest tightness', 'Chills', 'Cold sweats', 'Cough', 'Dizziness', 'Drooping eyelid', 'Dry eyes', 'Earache', 'Early satiety', 'Eye pain', 'Eye redness', 'Fast, deepened breathing', 'Feeling of foreign body in the eye', 'Fever', 'Going black before the eyes', 'Headache', 'Heartburn', 'Hiccups', 'Hot flushes', 'Increased thirst', 'Itching eyes', 'Itching in the nose', 'Lip swelling', 'Memory gap', 'Menstruation disorder', 'Missed period', 'Nausea', 'Neck pain', 'Nervousness', 'Night cough', 'Pain in the limbs', 'Pain on swallowing', 'Palpitations', 'Paralysis', 'Reduced appetite', 'Runny nose', 'Shortness of breath', 'Skin rash', 'Sleeplessness', 'Sneezing', 'Sore throat', 'Sputum', 'Stomach burning', 'Stuffy nose', 'Sweating', 'Swollen glands in the armpits', 'Swollen glands on the neck', 'Tears', 'Tiredness', 'Tremor at rest', 'Unconsciousness', 'Vomiting', 'Vomiting blood', 'Weight gain', 'Wheezing'] 
+				data = doctorPortalDatabase.get('/diagnosisTableData', idGivenEmail(session['user']))
+				tasks = []
+				if data != None:
+					for i in range(0, len(data['Confidence'])):
+						tasks.append({'Name': data['Name'][i],'Symptoms': ', '.join(data['Symptoms'][i]),'Confidence': data['Confidence'][i], "Spec": ', '.join(data['Spec'][i]) })
+				return render_template('diagnose.html', signInStatus = "Sign Out", symList=symList, tasks=tasks)
 			else:
 				return redirect('/')
 		else:
 			return redirect('/signUp')
 	else:
-		searchText = request.form['search']
-		data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
-		data['Question'] = searchText
-		db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)		
-		return redirect('/diagnose#questionPage2')
+		data = request.form.keys()
+		symptomInput = []
+		for sym in data:
+			symptomInput.append(sym)
+		diagnoses_json, main_diagnosis, warnings = symptomClassifierAPI.symptomClassifierFunc(symptomInput=symptomInput)
+		if len(diagnoses_json) > 0:
+				data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
+				data['Diagnosis'] = main_diagnosis['Professional Name']
+				symptomInputString = ', '.join(symptomInput)
+				data['Symptoms'] = symptomInputString			
+				
+				for url in search(symptomInput[0], tld="com", num=1, stop=1, pause=0):
+					data['SymptomsLink'] = url
+				for url in search(data['Diagnosis'], tld="com", num=1, stop=1, pause=0):
+					data['DiagnosisLink'] = url
+				db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)	
+
+				commonNameLst = []
+				confidenceLst = []
+				specOuterLst = []
+				symOuterLst = []
+				for possibleDiagnosis in diagnoses_json:
+					symOuterLst.append(symptomInput)
+					issue = possibleDiagnosis['Issue']
+					commonNameLst.append(issue['Name'])
+					confidenceLst.append(issue['Accuracy'])
+					spec = possibleDiagnosis['Specialisation']
+					specLst = []
+					for eachSpec in spec:
+						specLst.append(eachSpec['Name'])
+					specOuterLst.append(specLst)
+
+				db.child("diagnosisTableData").child(idGivenEmail(session['user'])).set({"Name": commonNameLst, "Confidence": confidenceLst, "Symptoms": symOuterLst, "Spec": specOuterLst})
+
+				return redirect('/diagnose')
+		else:
+			return redirect('/diagnose')
+
+		# data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
+		# data['Question'] = searchText
+		# db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)		
+		# return redirect('/diagnose#questionPage2')
 
 @app.route("/scheduleDoctor")                   
 def scheduleDoctor():  
@@ -140,30 +183,6 @@ def sendMessageUser():
 	
 	db.child("doctorChat").child(idGivenEmail(session['name'])).set(data)	
 	return redirect('/chat')
-
-@app.route('/diagnoseDisease', methods=['GET'])
-def diagnoseDisease():
-	if session['AccountType'] == "User":
-		symptomInput = ["Cough", "Choking"]  #change to form value
-		diagnoses_json, main_diagnosis, warnings = symptomClassifierAPI.symptomClassifierFunc(symptomInput=symptomInput)
-		if len(diagnoses_json) > 0:
-				data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
-				data['Diagnosis'] = main_diagnosis['Professional Name']
-				symptomInputString = ', '.join(symptomInput)
-				data['Symptoms'] = symptomInputString			
-				
-				for url in search(symptomInput[0], tld="com", num=1, stop=1, pause=0):
-					data['SymptomsLink'] = url
-				for url in search(data['Diagnosis'], tld="com", num=1, stop=1, pause=0):
-					data['DiagnosisLink'] = url
-
-				db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)	
-
-				return main_diagnosis
-		else:
-			return redirect('/diagnose')
-	else:
-		return redirect('/')
 
 @app.route("/doctorPortal")                   
 def doctorsPortal():  

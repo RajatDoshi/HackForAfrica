@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>HackForAfrica</title>
+		<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/diagnose.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+
+	<body>
+		<header id="askQuestionHeader">
+			<br><br>
+			<h1 style="text-align: center"> AI Diagnosis Results </h1>
+			<br>
+			<table id="customers"> 
+				<tr>
+					<th>Symptoms</th>
+					<th>Detected Disease</th>
+					<th>Contact Doctor From</th>
+					<th>Confidence</th>
+				</tr>
+				{% for task in tasks%}
+				<tr>
+					<td>{{ task.Symptoms }}</td>
+					<td>{{ task.Name }}</td>
+					<td>{{ task.Spec }}</td>
+					<td>{{ task.Confidence }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<br><br><br>
+			<h2 style="text-align: center"> Select Symptoms Below</h2>
+			<form id = "UserSymptomsForm" action="/diagnose" method="POST">
+				{% for sym in symList %}
+					<label class="container"> {{ sym }}
+					  <input type="checkbox" name="{{ sym }}" id="checkbox" value="Checked">
+					  <span class="checkmark"></span>
+					</label>
+				{% endfor %}
+				<br>
+				<button type="submit" class="signupbtn">Diagnose</button>
+			</form>
+		</header>
+	</body>
+</html>
+
+

@@ -1,6 +1,7 @@
 <!DOCTPYE html>
 
 <head>
+
     <script src = "calendar.js" defer></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -11,6 +12,22 @@
             height:100%;
         } */
 
+        .overall{
+            display:grid;
+            grid-template-columns: 2;
+            grid-template-rows: 1;
+            margin:auto;
+        }
+        .web{
+            justify-self: center;
+            align-self:center;
+            width:40%;
+            margin:0;
+        }
+        .monthAndYear{
+            position:relative;
+            left:50%;
+        }
         .inb{
             display:inline-block;
         }
@@ -20,16 +37,31 @@
             width: 2em;
             line-height: 2em;
 
-           
+            /* border-radius:0%; */
             background-color: black;
             color: white;
             text-align: center;
         }
+        .today{
+            display: inline-block;
+            height: 2em;
+            width: 2em;
+            line-height: 2em;
+
+            /* border-radius: 50%; */
+            background-color: red;
+            color: white;
+            text-align: center;
+        }
         .Calendar{
+            grid-row:1;
+            grid-column: 1;
+            align-self:center;
+            justify-self: center;
             visibility: visible;
         }
         th{
-            vertical-align: center;
+            vertical-align: middle;
             text-align:center;
             width: 5px;
         }
@@ -45,9 +77,8 @@
             width: 2em;
             line-height: 2em;
 
-            /* -moz-border-radius: 30px;  */
             /* border-radius: 50%;  */
-            background-color: blue;
+            background-color: transparent;
             color: white;
             text-align: center;
         }
@@ -64,10 +95,7 @@
             color: white;
             text-align: center; */
         } 
-        .web{
-            width:60%;
-            margin:auto
-        }
+        
         .table{
             table-layout: fixed;
         }
@@ -81,8 +109,8 @@
             position: relative;
             -webkit-transition-property: color;
             transition-property: color;
-            -webkit-transition-duration: 0.3s;
-            transition-duration: 0.3s;
+            -webkit-transition-duration: 0.2s;
+            transition-duration: 0.2s;
             
         }
         .hvr-sweep-to-right:before {
@@ -100,10 +128,11 @@
             transform-origin: 0 50%;
             -webkit-transition-property: transform;
             transition-property: transform;
-            -webkit-transition-duration: 0.3s;
-            transition-duration: 0.3s;
+            -webkit-transition-duration: 0.1s;
+            transition-duration: 0.1s;
             -webkit-transition-timing-function: ease-out;
             transition-timing-function: ease-out;
+            /* border-radius:50%; */
         }
         .hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
             color: white;
@@ -112,6 +141,26 @@
             -webkit-transform: scaleX(1);
             transform: scaleX(1);
         }
+        .CAL{
+            grid-row:1;
+            grid-column:1;
+            justify-self: center;
+            align-self:center;
+        }
+        .card{
+            visibility: hidden;
+            grid-row:1;
+            grid-column:2;
+            justify-self: center;
+            align-self: center;
+        }
+        .carDDate{
+            color:rgb(187, 8, 8);
+        }
+        /* .decideHere{
+            display: none;
+        } */
+
         
     </style>
 </head>
@@ -119,70 +168,103 @@
 
 <body>
 
-    <div class= circle>2</div>
-    <div class= circle>3</div>
 
-    <form><input type="file">
+    <!-- <form><input type="file">
 
-    </form>
-    <div class = "web">
-    <table class = "Calendar table">
-        <tr>
-            <th>Sun</th>
-            <th>Mon</th>
-            <th>Tue</th>
-            <th>Wed</th>
-            <th>Thu</th>
-            <th>Fri</th>
-            <th>Sat</th>
-        </tr>
+    </form> -->
+    <div class = overall>
+        <div class = "CAL">
+            <div class = "web">
+                <table class = "Calendar table">
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
 
-    </table>
+                </table>
+            
+        
+                <div class = "monthAndYear">
+                    <select id="months" onchange="monthc()">
+                        <option value="Jan">Jan</option>
+                        <option value="Feb">Feb</option>
+                        <option value="Mar">Mar</option>
+                        <option value="Apr">Apr</option>
+                        <option value="May">May</option>
+                        <option value="Jun">Jun</option>
+                        <option value="Jul">Jul</option>
+                        <option value="Aug">Aug</option>
+                        <option value="Sep">Sep</option>
+                        <option value="Oct">Oct</option>
+                        <option value="Nov">Nov</option>
+                        <option value="Dec">Dec</option>
+                    </select>
+                    <select id="years" onchange="yearc()">
+                        <option>2020</option>
+                        <option>2021</option>
+                        <option>2022</option>
+                        <option>2023</option>
+                        <option>2024</option>
+                        <option>2025</option>
+                        <option>2026</option>
+                        <option>2027</option>
+                        <option>2028</option>
+                        <option>2029</option>
+                        <option>2030</option>
+                        <option>2031</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="card decideHere" style="width: 18rem;">
+            <img class="card-img-top" src="./templates/imagesForHome/hut.png" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">What times work well for <span style = "color:rgb(187, 8, 8)">you</span> on <span class = "carDDate"></span>?</h5>
+              <select id = "times">
+                  <option selected>--Choose Time--</option>
+              </select>
+              <div></div>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
     </div>
-   
+    
 
-    <select id="months" onchange="monthc()">
-        <option value="Jan">Jan</option>
-        <option value="Feb">Feb</option>
-        <option value="Mar">Mar</option>
-        <option value="Apr">Apr</option>
-        <option value="May">May</option>
-        <option value="Jun">Jun</option>
-        <option value="Jul">Jul</option>
-        <option value="Aug">Aug</option>
-        <option value="Sep">Sep</option>
-        <option value="Oct">Oct</option>
-        <option value="Nov">Nov</option>
-        <option value="Dec">Dec</option>
-     </select>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function(){
+            let chooseTimes = document.getElementById("times");
+            hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+            minutes = ["00",30]
+            let hlen = hours.length;
+            let mlen = minutes.length;
+            for(let i = 0; i < hlen; i++){
+                for(let j = 0; j < mlen; j++){
+                    let opt = document.createElement("option");
+
+                    if(j < mlen -1){
+                        opt.innerHTML = `${hours[i]}:${minutes[j]} — ${hours[i]}:${minutes[(j+1)%mlen]}`;
+                    }else if(j == mlen - 1 && i < hlen -1){
+                        opt.innerHTML = `${hours[i]}:${minutes[j]} — ${hours[i+1]}:${minutes[(j+1)%mlen]}`;
+                    }else{
+                        opt.innerHTML = "23:30 —— 0:00";
+                    }
+                    chooseTimes.appendChild(opt);
+                }
+            }
+        });
 
 
-     <select id="years" onchange="yearc()">
-        <option>2020</option>
-        <option>2021</option>
-        <option>2022</option>
-        <option>2023</option>
-        <option>2024</option>
-        <option>2025</option>
-        <option>2026</option>
-        <option>2027</option>
-        <option>2028</option>
-        <option>2029</option>
-        <option>2030</option>
-        <option>2031</option>
-     </select>
 
-     <!-- <select id = "days" onchange = "day()">
-        <option value="Jan">Sun</option>
-        <option value="Feb">Mon</option>
-        <option value="Mar">Tue</option>
-        <option value="Apr">Wed</option>
-        <option value="May">Thu</option>
-        <option value="Jun">Fri</option>
-        <option value="Jul">Sat</option>
-    </select> -->
-
-     <table class = "final">     
-      </table>
-
+    </script>
 </body>
+
+
+
