@@ -9,12 +9,15 @@
   <body>
     <div class="small">
     <h2 style="text-align: center">Chat Messages</h2>
-    {% for msg in msgDict %}
+      {% if msgDict == "" %}
       <div class="container darker">
         <img src="https://www.avikadoctors.com/wp-includes/images/media/default.png" alt="Avatar" class="right" style="width:100%;">
         <p> Hi, I am Dr. Doshi! Please feel free to message me here. </p>
-        <span class="time-left">{{ msg.Time }}</span>
+        <span class="time-left"></span>
       </div>
+      {% endif %}
+
+    {% for msg in msgDict %}
 
       {% if msg.Type == "doctor" %}
         <div class="container darker">

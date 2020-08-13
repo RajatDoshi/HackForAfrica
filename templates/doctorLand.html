@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
         
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/land.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/doctorsLand.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/signIn.css') }}">
     </head>
 
@@ -30,22 +30,16 @@
                             </li>
                           </ul>
                             <ul class="navbar-nav ">
-                                {% if acctType == "User" %}
-                                    <li class="nav-item">
-                                        <a class="nav-link tab3" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/diagnose">Diagnose Disease</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link tab1" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/schedule">Schedule Appointment</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tab3" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/scheduleDoctor">Schedule Patients</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tab1" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/doctorPortal">Manage Patients</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tab1" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/chatDoctor">Message Patients</a>
+                                </li>
 
-                                    <li class="nav-item">
-                                        <a class="nav-link tab1" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/chat">Message Doctors</a>
-                                    </li>
-                                {% elif acctType == "Doctor"%}
-                                    <li class="nav-item">
-                                        <a class="nav-link tab2" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/doctorPortal">Doctors Portal</a>
-                                    </li>
-                                {% endif%}
                                 {% if signInStatus == "Sign Out" %}
                                     <a class="nav-link tab3" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/signOut">Sign Out</a>
                                 {% else %}
@@ -141,45 +135,6 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
-
-        <div id="id01" class="modal">
-          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-          <form class="modal-content" action="/signIn" method="POST">
-              <div class="containerModal">
-              <div class="titleModalSignUp">
-                  <h1>Sign In</h1>
-              </div>
-              <hr>
-              <label for="email"><b>Email</b></label>
-              <input id="modal_input" type="text" placeholder="Enter Email" name="email" required>
-
-              <label for="psw"><b>Password</b></label>
-              <input id="modal_input" type="password" placeholder="Enter Password" name="psw" required>
-              
-              <label>
-                <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-              </label>
-
-              <div class="clearfix">
-                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                <button type="submit" class="signupbtn">Sign In</button>
-              </div>
-            </div>
-            <div class="container signin">
-                <p>Create an account? <a href="/signUp">Sign Up</a>.</p>
-            </div>
-          </form>
-        </div>
-
-        <script>
-            var modal = document.getElementById('id01');
-            window.onclick = function(event) {
-              if (event.target == modal) {
-                modal.style.display = "none";
-              }
-            }
-        </script>
 
     </body>
 </html>

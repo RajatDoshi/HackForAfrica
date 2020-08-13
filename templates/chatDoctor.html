@@ -9,11 +9,14 @@
   <body>
     <div class="small">
     <h2 style="text-align: center">Chat Messages</h2>
+    {% if msgDict == "" %}
     <div class="container">
       <img src="https://recap-project.eu/wp-content/uploads/2017/02/default-user.jpg" alt="Avatar" style="width:100%;">
       <p> This is where patients will message you questions.</p>
       <span class="time-right">12:00AM on Aug 14, 2020</span>
     </div>
+    {% endif %}
+
     {% for msg in msgDict %}
       {% if msg.Type == "doctor" %}
         <div class="container darker">

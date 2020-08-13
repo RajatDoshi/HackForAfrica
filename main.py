@@ -45,9 +45,12 @@ def idGivenEmail(email):
 @app.route("/")                   
 def home():  
 	if 'user' in session:
-		return render_template('land.html', signInStatus = "Sign Out", acctType=session['AccountType'])
+		if session['AccountType'] == 'User':
+			return render_template('land.html', signInStatus = "Sign Out", acctType=session['AccountType'])
+		else:
+			return render_template('doctorLand.html', signInStatus = "Sign Out", acctType=session['AccountType'])
 	else: 
-		return render_template('land.html', acctType="User")
+		return render_template('land.html')	
 
 
 @app.route("/diagnose", methods=['GET', 'POST'])                   
@@ -57,7 +60,7 @@ def diagnose():
 			if session['AccountType'] == "User":
 				return render_template('askQuestions.html', signInStatus = "Sign Out")
 			else:
-				return redirect('/doctorPortal')
+				return redirect('/')
 		else:
 			return redirect('/signUp')
 	else:
@@ -67,20 +70,16 @@ def diagnose():
 		db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)		
 		return redirect('/diagnose#questionPage2')
 
+@app.route("/scheduleDoctor")                   
+def scheduleDoctor():  
+	return render_template('scheduleDoctor.html')
+
+
 #for putting filler data into table
 @app.route("/testRoute")                   
 def dummyData():  
-	allData = doctorPortalDatabase.get('/doctorPortal', None)
-	for email in allData:
-		data = doctorPortalDatabase.get('/doctorPortal', email)
-		for url in search(data['Symptoms'], tld="com", num=1, stop=1, pause=0):
-			data['SymptomsLink'] = url
-		for url in search(data['Diagnosis'], tld="com", num=1, stop=1, pause=0):
-			data['DiagnosisLink'] = url
-		db.child("doctorPortal").child(email).set(data)	
-
-
-	return "this is for sole testing purposes"
+	data = doctorChat.get('/doctorChat', None)
+	return data
 
 @app.route("/chat")                   
 def chat():  
@@ -93,6 +92,15 @@ def chat():
 		return render_template('chat.html', msgDict=msgList)
 	else:
 		return redirect('/signUp')
+
+@app.route("/chatDoctor")                   
+def chatDoctorGeneric():
+	doctorChatDict = doctorPortalDatabase.get('/doctorChat', None)
+	info = []
+	for i,person in enumerate(doctorChatDict):
+		lastChat = doctorChatDict[person]['Chat'][-1]
+		info.append( {"Name": person, "Question": lastChat})
+	return render_template('chatGeneric.html', tasks=info)
 
 @app.route("/chatDoctor/<chattingWith>")                   
 def chatDoctor(chattingWith):  
@@ -155,7 +163,7 @@ def diagnoseDisease():
 		else:
 			return redirect('/diagnose')
 	else:
-		return redirect('/doctorPortal')
+		return redirect('/')
 
 @app.route("/doctorPortal")                   
 def doctorsPortal():  
@@ -202,11 +210,10 @@ def signIn():
 		try:
 			session['name'] = userDatabase.get('/userInfo', idGivenEmail(session['user']))['Names']
 			session['AccountType'] = userDatabase.get('/userInfo', idGivenEmail(session['user']))['AccountType']
-			return redirect('/') 
 		except:
 			session['name'] = userDatabase.get('/doctorInfo', idGivenEmail(session['user']))['Names']
 			session['AccountType'] = userDatabase.get('/doctorInfo', idGivenEmail(session['user']))['AccountType']
-			return redirect('/doctorPortal')			
+		return redirect('/')			
 
 @app.route("/signUp2/<email>", methods=['GET', 'POST'])                   
 def signUp2(email):
@@ -224,7 +231,7 @@ def signUp2(email):
 		otherMetaData = userDatabase.get('/doctorInfo', idGivenEmail(email))
 		session['name'] = otherMetaData['Names']
 		session['AccountType'] = otherMetaData['AccountType']
-		return redirect('/doctorPortal')
+		return redirect('/')
 
 
 @app.route("/signUp", methods=['GET', 'POST'])                   

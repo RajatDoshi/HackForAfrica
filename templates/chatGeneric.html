@@ -11,18 +11,14 @@
 	<body>
 
 	<header id="TableHeader">
-		
 		<br>
-		<h1><span class="blue"></span>Schedule<span class="blue"></span> <span class="white">Portal</pan></h1>
+		<h1><span class="blue"></span>Message<span class="blue"></span> <span class="white">Patients</pan></h1>
 		<table class="container">
 			<div class="tbl-header">
 				<thead>
 					<tr>
 						<th><h1>Patient Name</h1></th>
-						<th><h1>Symptoms</h1></th>
-						<th><h1>AI Diagnosis</h1></th>
-						<th><h1>Apt. Date</h1></th>
-						<th><h1>Zoom Link</h1></th>
+						<th><h1>Last Message</h1></th>
 					</tr>
 				</thead>
 			</div>
@@ -31,10 +27,7 @@
 					{% for task in tasks %}
 					<tr>
 					  <td onclick="window.location='/chatDoctor/{{ task.Name }}';">{{ task.Name }}</td>
-                      <td onclick="window.location='{{ task.SymptomsLink }}';">{{ task.Symptoms }}</td> 
-                      <td onclick="window.location='{{ task.DiagnosisLink }}';">{{ task.Diagnosis }}</td>
-                      <td>{{ task.Date }}</td>
-                      <td onclick="window.location='{{ task.Link }}';">{{ task.Link }}</td>
+                      <td onclick="window.location='/chatDoctor/{{ task.Name }}';">{{ task.Question }}</td>
                 	</tr>
                 	{% endfor %}
 				</tbody>
