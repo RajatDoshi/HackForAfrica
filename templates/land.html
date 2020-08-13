@@ -180,13 +180,16 @@
               }
             }
 
-
-            var hero = document.getElementsByClassName("uniqueDoctor");
+            let hero = document.querySelector("span.uniqueDoctor")
             hero.onmouseover = function(){
-                this.innerHTML = "Heros";
+                hero.innerHTML = "Heros";
+                hero.style.color = "rgb(187, 8, 8)";
+
             }
-            hero.onmouseout = function(){
-                this.innerHTML = "Doctors";
+            hero.onmouseout = function (){
+                hero.innerHTML = "Doctors";
+                hero.style.color = "white";
+
             }
         </script>
 

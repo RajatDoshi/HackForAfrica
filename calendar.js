@@ -1,6 +1,6 @@
-days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-years = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031];
+let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+let years = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031];
 
 // for(let i = 0; i < 2100; i++){
 //     years.push(i);
@@ -9,7 +9,6 @@ years = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031];
 
 
 
-console.log(years[2010])
 daysInMonth={
     "Jan":31,
     "Feb":28,
@@ -38,12 +37,21 @@ dayStart={
 let day = new Date()
 let month;
 let year;
+let doctorDays = [];
 // let tbl = document.querySelector(".Calendar")
 
-console.log(months[day.getMonth()])
-console.log(daysInMonth[months[day.getMonth()]])
+// console.log(months[day.getMonth()])
+// console.log(daysInMonth[months[day.getMonth()]])
 
-
+document.addEventListener("click", function(){
+    doctorDays = [];
+    let selected = document.getElementsByClassName("circle")
+    let len = selected.length;
+    for(var i = 0; i < len;i++ ){
+        doctorDays.push(selected[i].innerHTML);
+    }
+    
+})
 
 document.addEventListener("DOMContentLoaded", function(){
     year = years[day.getFullYear()];
@@ -57,25 +65,22 @@ document.addEventListener("DOMContentLoaded", function(){
 // alert(`${year} and ${month}`)
 // document.getElementById("MyElement").classList.add('MyClass');
 
-document.addEventListener("DOMContentLoaded", function(){
 
-    let t = document.createElement("h1");
-    t.innerHTML = "akjsdf";
-    document.body.append(t);
-
-})
 
 let tbl = document.querySelector(".Calendar");
 
 function buildCalendar(month, year){
     tbl.innerHTML = " <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>";
-
-    let m = document.createElement("h1");
-    m.innerHTML = months[month];
-    document.body.append(m);
-    let y = document.createElement("h1");
-    y.innerHTML = year;
-    document.body.append(y);
+    let f= new Date();
+    let todayDay = f.getDate();
+    let todayMonth = f.getMonth();
+    let todayYear = f.getFullYear();
+    // let m = document.createElement("h1");
+    // m.innerHTML = months[month];
+    // document.body.append(m);
+    // let y = document.createElement("h1");
+    // y.innerHTML = year;
+    // document.body.append(y);
     let arr = [];
     let dayR = parseInt(daysInMonth[months[month]])
     // return dayR;
@@ -102,11 +107,16 @@ function buildCalendar(month, year){
             }
             if(index < dayR+dayNum){
                 sp.innerHTML =  dates;
+                if(dates == todayDay && todayMonth == month && todayYear == year){
+                    sp.classList.add("today");
+                }
                 dates++;
                 // dat.onmouseover = function(){this.style.color = "blue";};
                 // dat.onmouseout = function(){this.style.color = "black";};
                 sp.classList.add("fal");
                 sp.classList.add("hvr-sweep-to-right");
+
+                
 
                 sp.onclick = function(){ this.classList.toggle("circle");};
 
@@ -129,16 +139,7 @@ function buildCalendar(month, year){
 
 }
 
-function hov(object){
-    object.classList.add("hov");
-}
 
-function dehov(object){
-    object.classList.add("dehov");
-}
-function cli(object){
-    object.classList.add("cli");
-}
 function monthc(){
     let choices = document.getElementById("months");
     let choices1 = document.getElementById("years");
