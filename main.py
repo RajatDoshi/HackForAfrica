@@ -46,7 +46,7 @@ def idGivenEmail(email):
 def home():  
 	if 'user' in session:
 		if session['AccountType'] == 'User':
-			return render_template('land.html', signInStatus = "Sign Out", acctType=session['AccountType'])
+			return render_template('userLand.html', signInStatus = "Sign Out", acctType=session['AccountType'])
 		else:
 			return render_template('doctorLand.html', signInStatus = "Sign Out", acctType=session['AccountType'])
 	else: 

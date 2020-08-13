@@ -1,0 +1,257 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>userLand</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+         crossorigin="anonymous">
+      <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/userLand.css') }}">
+   </head>
+   <body>
+      <div class="page-wrapper chiller-theme toggled">
+         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+         <i class="fas fa-bars"></i>
+         </a>
+         <nav id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-content">
+               <div class="sidebar-brand">
+                  <a class = "navbar-brand " style= "color:white;font-size:1.3rem;font-family: 'Schoolbell', cursive;" href = "#"> <span style = "color:green">Hack</span><span style = "color:rgb(248, 206, 18)">ForAf</span><span style = "color:red">rica</span></a>
+                  <div style="margin-left: 5%" id="close-sidebar">
+                     <i class="fas fa-times"></i>
+                  </div>
+               </div>
+               <div class="sidebar-header">
+                  <div class="user-pic">
+                     <img  class="img-responsive img-rounded" src="https://media.istockphoto.com/photos/portrait-of-smiling-handsome-man-in-blue-tshirt-standing-with-crossed-picture-id1045886560?k=6&m=1045886560&s=612x612&w=0&h=hXrxai1QKrfdqWdORI4TZ-M0ceCVakt4o6532vHaS3I="
+                        alt="User picture">
+                  </div>
+                  <div class="user-info">
+                     <span class="user-name">
+                     <strong>John Smith</strong>
+                     </span>
+                     <span class="user-status">
+                     <span>Patient</span>
+                     </span>
+                  </div>
+               </div>
+               <!-- sidebar-search  -->
+               <div class="sidebar-menu">
+                  <ul>
+                     <li class="header-menu">
+                        <span>Dashboard Navigation</span>
+                     </li>
+                     <li>
+                        <a href="#calendar">
+                        <i class="fa fa-calendar"></i>
+                        <span>Calendar</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#scheduleVisit">
+                        <i class="fa fa-book"></i>
+                        <span>Schedule Visit</span>
+                        </a>
+                     </li>
+                     <li class="header-menu">
+                        <span>Medical Profile</span>
+                     </li>
+                     <li class="sidebar-dropdown">
+                        <a href="#">
+                        <i class="fas fa-id-card"></i>
+                        <span>Characteristics</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                           <ul>
+                              <li><a>Sex: Male</a></li>
+                              <li><a>Height: 5'10</a></li>
+                              <li><a>Weight: 170 lbs</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="sidebar-dropdown">
+                        <a href="#">
+                        <i class="fa fa-user-md"></i>
+                        <span>Previous Doctors</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                           <ul>
+                              <li>
+                                 <a href="#">Kanye West</a>
+                              </li>
+                              <li>
+                                 <a href="#">Biggie Smalls</a>
+                              </li>
+                              <li>
+                                 <a href="#">Jay Z</a>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="sidebar-dropdown">
+                        <a href="#">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Medical History</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                           <ul>
+                              <li>
+                                 <a href="#">Breathing Problems</a>
+                              </li>
+                              <li>
+                                 <a href="#">Migraines</a>
+                              </li>
+                              <li>
+                                 <a href="#">Spine Surgery</a>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="header-menu">
+                        <span>Other Services</span>
+                     </li>
+                     <li>
+                        <a href="/diagnose">
+                        <i class="fa fa-stethoscope"></i>
+                        <span>Instant Diagnosis</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="/chat">
+                        <i class="fa fa-comments"></i>
+                        <span>Message Doctors</span>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+               <!-- sidebar-menu  -->
+            </div>
+            <!-- sidebar-content  -->
+            <div class="sidebar-footer">
+               <a href="/signOut">
+               <i class="fas fa-sign-out-alt"></i>
+               Sign Out
+               </a>
+            </div>
+         </nav>
+         <!-- sidebar-wrapper  -->
+         <main class="page-content">
+            <div class="container-fluid">
+               <section id="calendar" style="padding: 2%; text-align: center">
+                  <h1>Calendar</h1>
+                  <div class="container">
+                     <div class="row">
+                        <div style="width:90%">
+                           <ul class="event-list">
+                              <li >
+                                 <time>
+                                 <span class="day">20</span>
+                                 <span class="month">Jan</span>
+                                 </time>
+                                 <div class="info" style="text-align: center">
+                                    <h2 class="title">Checkup</h2>
+                                    <br>
+                                    <p class="desc">Dr. Bob Smith ● 5:00pm EST</p>
+                                    <br>
+                                    <ul>
+                                       <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
+                                       <li style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
+                                       <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
+                                    </ul>
+                                 </div>
+                              </li>
+                              <li >
+                                 <time>
+                                 <span class="day">21</span>
+                                 <span class="month">Jan</span>
+                                 </time>
+                                 <div class="info" style="text-align: center">
+                                    <h2 class="title">Physical Examination</h2>
+                                    <br>
+                                    <p class="desc">Dr. Bob Smith ● 6:00pm EST</p>
+                                    <ul>
+                                       <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
+                                       <li style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
+                                       <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
+                                    </ul>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+               <section id="scheduleVisit" style="padding: 2%;text-align: center">
+                  <h1>Schedule Visit</h1>
+                  <form style="margin: 2% 30%;">
+                     <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                     </div>
+                     <div class="row">
+                        <div class="col">
+                           <label for="date">Date</label>
+                           <input id="date" type="date" class="form-control" placeholder="First name">
+                        </div>
+                        <div class="col">
+                           <label for="time">Time</label>
+                           <input id="time" type="time" class="form-control" placeholder="Last name">
+                        </div>
+                     </div>
+                     <br>
+                     <div class="form-group">
+                        <label for="Description">Describe Your Condition</label>
+                        <textarea class="form-control" id="Description" rows="3"></textarea>
+                     </div>
+                     <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+               </section>
+            </div>
+         </main>
+         <!-- page-content" -->
+      </div>
+      <!-- page-wrapper -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+         crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+         crossorigin="anonymous"></script>
+      <script>
+         jQuery(function ($) {
+         $(".sidebar-dropdown > a").click(function() {
+         $(".sidebar-submenu").slideUp(200);
+         if (
+         $(this)
+         .parent()
+         .hasClass("active")
+         ) {
+         $(".sidebar-dropdown").removeClass("active");
+         $(this)
+         .parent()
+         .removeClass("active");
+         } else {
+         $(".sidebar-dropdown").removeClass("active");
+         $(this)
+         .next(".sidebar-submenu")
+         .slideDown(200);
+         $(this)
+         .parent()
+         .addClass("active");
+         }
+         });
+         $("#close-sidebar").click(function() {
+         $(".page-wrapper").removeClass("toggled");
+         });
+         $("#show-sidebar").click(function() {
+         $(".page-wrapper").addClass("toggled");
+         });
+         });
+      </script>
+   </body>
+</html>
