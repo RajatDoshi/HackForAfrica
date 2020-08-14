@@ -187,15 +187,16 @@ document.addEventListener("TimeSaved", function(){
     deleteButton.classList.add("card-text");
     deleteButton.innerHTML = `Delete ${cardDate} from my schedule.`
     cBody.appendChild(deleteButton);
-    // deleteButton.onclick = unClickDateSelected();
+    deleteButton.onclick = function(){unClickDateSelected()};
 })
 
 document.addEventListener("TimeNotSaved", function(){
    
     ghettoTarget.setAttribute("data-savedTime", 0);
     let cBody = document.querySelector("div.card-body");
+    let cardDate = `${month}. ${ghettoTarget.innerHTML}, ${year}`;
     // cBody.innerHTML = "";
-    cBody.innerHTML= ` <h5 class="card-title">What times work well for <span style = "color:rgb(187, 8, 8)">you</span> on <span class = "carDDate"></span>?</h5>
+    cBody.innerHTML= ` <h5 class="card-title">What times work well for <span style = "color:rgb(187, 8, 8)">you</span> on <span class = "carDDate">${cardDate}</span>?</h5>
     <select id = "times" class = "oneTimeStamp lastTime">
         <option selected>--Choose Time--</option>
     </select>
@@ -203,7 +204,7 @@ document.addEventListener("TimeNotSaved", function(){
     <div></div>
     <div onclick = newTimes()>Add more times.</div>
     <div></div>
-    <a onclick = unClickDateSelected()>Remove <span class = "carDDate"></span></a>
+    <a onclick = unClickDateSelected()>Remove <span class = "carDDate">${cardDate}</span></a>
     <div></div>
     <div onclick = saveTime()>Save times.</div>`;
 
