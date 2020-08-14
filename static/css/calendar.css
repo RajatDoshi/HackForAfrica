@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:calendar.html
 <!DOCTPYE html>
 
 <head>
@@ -291,36 +292,164 @@
           </div>
 
     </div>
+=======
+/* .body, html, div{
+    width:100%;
+    height:100%;
+} */
+
+.overall{
+    display:grid;
+    grid-template-columns: 2;
+    grid-template-rows: 1;
+    margin:auto;
+}
+.web{
+    justify-self: center;
+    align-self:center;
+    width:60%;
+    margin:auto;
+}
+.monthAndYear{
+    position:relative;
+    left:50%;
+}
+.inb{
+    display:inline-block;
+}
+.circle{
+    display: inline-block;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+
+    /* border-radius:0%; */
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+.today{
+    display: inline-block;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+
+    /* border-radius: 50%; */
+    background-color: red;
+    color: white;
+    text-align: center;
+}
+.Calendar{
+    grid-row:1;
+    grid-column: 1;
+    align-self:center;
+    justify-self: center;
+    visibility: visible;
+}
+th{
+    vertical-align: middle;
+    text-align:center;
+    width: 5px;
+}
+td{
+    vertical-align: center;
+    text-align:center;
+    overflow: hidden;
+>>>>>>> Stashed changes:static/css/calendar.css
     
+}
+.fal:hover{
+    display: inline-block;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
 
-    <script>
-        
-        document.addEventListener("timeStampsForCard", function(){
-            let chooseTimes = document.getElementById("times");
-            hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
-            minutes = ["00",30]
-            let hlen = hours.length;
-            let mlen = minutes.length;
-            for(let i = 0; i < hlen; i++){
-                for(let j = 0; j < mlen; j++){
-                    let opt = document.createElement("option");
+    /* border-radius: 50%;  */
+    background-color: transparent;
+    color: white;
+    text-align: center;
+}
+.choose{
+    /* display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.5em;
 
-                    if(j < mlen -1){
-                        opt.innerHTML = `${hours[i]}:${minutes[j]} — ${hours[i]}:${minutes[(j+1)%mlen]}`;
-                    }else if(j == mlen - 1 && i < hlen -1){
-                        opt.innerHTML = `${hours[i]}:${minutes[j]} — ${hours[i+1]}:${minutes[(j+1)%mlen]}`;
-                    }else{
-                        opt.innerHTML = "23:30 —— 0:00";
-                    }
-                    chooseTimes.appendChild(opt);
-                }
-            }
-        });
+    -moz-border-radius: 30px; 
+    border-radius: 50%; 
 
+    background-color: black;
+    color: white;
+    text-align: center; */
+} 
 
+.table{
+    table-layout: fixed;
+}
 
-    </script>
-</body>
-
-
-
+.hvr-sweep-to-right {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    
+}
+.hvr-sweep-to-right:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #2098D1;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+    /* border-radius:50%; */
+}
+.hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
+    color: white;
+}
+.hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+.CAL{
+    grid-row:1;
+    grid-column:1;
+    justify-self: center;
+    align-self:center;
+}
+.card{
+    display: none;
+    grid-row:1;
+    grid-column:2;
+    justify-self: center;
+    align-self: center;
+}
+.carDDate{
+    color:rgb(187, 8, 8);
+}
+/* .decideHere{
+    display: none;
+} */
+.lastTime{
+    position:relative;
+}
+.oneTimeStamp{
+    position:relative;
+}

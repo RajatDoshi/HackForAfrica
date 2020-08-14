@@ -117,7 +117,7 @@ def diagnose():
 
 @app.route("/scheduleDoctor")                   
 def scheduleDoctor():  
-	return render_template('scheduleDoctor.html')
+	return render_template('calendar.html')
 
 
 #for putting filler data into table
@@ -149,16 +149,25 @@ def chatDoctorGeneric():
 	for i,person in enumerate(doctorChatDict):
 		lastChat = doctorChatDict[person]['Chat'][-1]
 		info.append( {"Name": person, "Question": lastChat})
-	return render_template('chatGeneric.html', tasks=info)
+	if len(info) >= 1:
+		chattingWith = info[0]["Name"]
+		msgDict = doctorPortalDatabase.get('/doctorChat', chattingWith)
+		msgList = []
+		if msgDict != None:
+			for i in range(0, len(msgDict["Chat"])):
+				msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]})
+		return render_template('chatDoctor.html', tasks=info, msgDict=msgList, chattingWith=chattingWith, active="active")
+	else:
+		return render_template('chatDoctor.html') 		
 
 @app.route("/chatDoctor/<chattingWith>")                   
-def chatDoctor(chattingWith):  
+def chatDoctor(chattingWith): 
 	msgDict = doctorPortalDatabase.get('/doctorChat', chattingWith)
 	msgList = []
 	if msgDict != None:
 		for i in range(0, len(msgDict["Chat"])):
-			msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]})
-	return render_template('chatDoctor.html', msgDict=msgList, chattingWith=chattingWith)
+			msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]}) 
+	return render_template('chatDoctor.html', msgDict=msgList, chattingWith=chattingWith, active="active")
 
 @app.route("/sendMessageDoctor/<chattingWith>", methods=['POST'])
 def sendMessageDoctor(chattingWith):
@@ -195,11 +204,11 @@ def doctorsPortal():
 	doctorPortalList = getPortalInfo()
 	return render_template('doctorsPortal.html', tasks=doctorPortalList)
 def getPortalInfo():
-    portalDict = doctorPortalDatabase.get('/doctorPortal', None)
-    portalList = []
-    if portalDict != None:
-        portalList = [value for value in portalDict.values()]
-    return portalList
+	portalDict = doctorPortalDatabase.get('/doctorPortal', None)
+	portalList = []
+	if portalDict != None:
+		portalList = [value for value in portalDict.values()]
+	return portalList
 
 @app.route("/schedule", methods=['GET', 'POST'])                   
 def schedule():
@@ -292,12 +301,12 @@ def signUp():
 			return redirect('/signUp2/'+email)
 @app.route("/signOut", methods=['GET', 'POST'])                   
 def signOut():
-    if 'user' not in session:
-        return redirect('/')
-    del session['user']
-    del session['name']
-    del session['AccountType']
-    return redirect('/')
+	if 'user' not in session:
+		return redirect('/')
+	del session['user']
+	del session['name']
+	del session['AccountType']
+	return redirect('/')
 
 if __name__ == "__main__":        
 	app.run()                     
