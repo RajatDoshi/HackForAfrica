@@ -10,6 +10,18 @@
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
       <link rel="stylesheet" href="{{ url_for('static', filename='css/chatDoctor.css') }}">
+
+      <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#filterID *").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+      </script>
+
    </head>
    <body style="padding: 2%">
       <h1 style="text-align: center">Messaging</h1>
@@ -20,7 +32,7 @@
          <div class="card mb-sm-3 mb-md-0 contacts_card">
             <div class="card-header">
                <div class="input-group">
-                  <input type="text" placeholder="Search..." name="" class="form-control search">
+                  <input id="myInput" type="text" placeholder="Search..." name="" class="form-control search">
                   <div class="input-group-prepend">
                      <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
                   </div>
@@ -28,55 +40,56 @@
             </div>
             <div class="card-body contacts_body">
                <ui class="contacts">
-                  
                   {% if chattingWith == 'Rajat Doshi' %}
-                  <li class="active">
+                  <li id="filterID" class="active">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img onclick="window.location='/chatDoctor/Rajat Doshi';" src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t31.0-1/cp0/c457.201.567.567a/s80x80/26063455_2000808266865216_2112541681492013849_o.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=XizTM4FZEY8AX9AyJ70&_nc_ht=scontent.ftpa1-1.fna&oh=f362a9f114f0deb174a4de24476caefc&oe=5F598890" class="rounded-circle user_img">
                            <span class="online_icon"></span>
                         </div>
                         <div class="user_info">
-                           <span>Rajat Doshi</span>
+                           <span onclick="window.location='/chatDoctor/Rajat Doshi';">Rajat Doshi</span>
                            <p>Rajat is online</p>
                         </div>
                      </div>
                   </li>
                   {% else %}
-                  <div class="d-flex bd-highlight">
-                     <div class="img_cont">
-                        <img onclick="window.location='/chatDoctor/Rajat Doshi';" src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t31.0-1/cp0/c457.201.567.567a/s80x80/26063455_2000808266865216_2112541681492013849_o.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=XizTM4FZEY8AX9AyJ70&_nc_ht=scontent.ftpa1-1.fna&oh=f362a9f114f0deb174a4de24476caefc&oe=5F598890" class="rounded-circle user_img">
-                        <span class="online_icon"></span>
+                  <li id="filterID">
+                     <div id="filterID" class="d-flex bd-highlight">
+                        <div class="img_cont">
+                           <img onclick="window.location='/chatDoctor/Rajat Doshi';" src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t31.0-1/cp0/c457.201.567.567a/s80x80/26063455_2000808266865216_2112541681492013849_o.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=XizTM4FZEY8AX9AyJ70&_nc_ht=scontent.ftpa1-1.fna&oh=f362a9f114f0deb174a4de24476caefc&oe=5F598890" class="rounded-circle user_img">
+                           <span class="online_icon"></span>
+                        </div>
+                        <div class="user_info">
+                           <span onclick="window.location='/chatDoctor/Rajat Doshi';">Rajat Doshi</span>
+                           <p>Rajat is online</p>
+                        </div>
                      </div>
-                     <div class="user_info">
-                        <span>Rajat Doshi</span>
-                        <p>Rajat is online</p>
-                     </div>
-                  </div>
+                  </li>
                   {% endif %}
 
                   {% if chattingWith == 'Sukesh Ram' %}
-                  <li class="active">
+                  <li id="filterID" class="active">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img onclick="window.location='/chatDoctor/Sukesh Ram';" src="https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-1/p200x200/82981735_641903363284269_1318200972962430976_o.jpg?_nc_cat=108&_nc_sid=dbb9e7&_nc_ohc=m1WIdYAYqIEAX-Y7Km5&_nc_ht=scontent-mia3-1.xx&_nc_tp=6&oh=7a3f3c213bdbfd3b7e3f06b4ec701f24&oe=5F59AD62" class="rounded-circle user_img">
                            <span class="online_icon offline"></span>
                         </div>
                         <div class="user_info">
-                           <span>Sukesh Ram</span>
+                           <span onclick="window.location='/chatDoctor/Sukesh Ram';">Sukesh Ram</span>
                            <p>Sukesh left 1 mins ago</p>
                         </div>
                      </div>
                   </li>
                   {% else %}
-                  <li>
+                  <li id="filterID">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img onclick="window.location='/chatDoctor/Sukesh Ram';" src="https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-1/p200x200/82981735_641903363284269_1318200972962430976_o.jpg?_nc_cat=108&_nc_sid=dbb9e7&_nc_ohc=m1WIdYAYqIEAX-Y7Km5&_nc_ht=scontent-mia3-1.xx&_nc_tp=6&oh=7a3f3c213bdbfd3b7e3f06b4ec701f24&oe=5F59AD62" class="rounded-circle user_img">
                            <span class="online_icon offline"></span>
                         </div>
                         <div class="user_info">
-                           <span>Sukesh Ram</span>
+                           <span onclick="window.location='/chatDoctor/Sukesh Ram';">Sukesh Ram</span>
                            <p>Sukesh left 1 mins ago</p>
                         </div>
                      </div>
@@ -84,27 +97,27 @@
                   {% endif %}
 
                   {% if chattingWith == 'Roshan Warman' %}
-                  <li class="active">
+                  <li id="filterID" class="active">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img onclick="window.location='/chatDoctor/Roshan Warman';" src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t1.0-1/p200x200/61041619_434946724003807_3242171954488147968_o.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=9jkAekeX4n4AX-tKQxy&_nc_ht=scontent.ftpa1-1.fna&_nc_tp=6&oh=2be503fe3515c4754056c8f2beaf124e&oe=5F5B257D" class="rounded-circle user_img">
                            <span class="online_icon"></span>
                         </div>
                         <div class="user_info">
-                           <span>Roshan Warman</span>
+                           <span onclick="window.location='/chatDoctor/Roshan Warman';">Roshan Warman</span>
                            <p>Roshan is online</p>
                         </div>
                      </div>
                   </li>
                   {% else %}
-                  <li>
+                  <li id="filterID">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img onclick="window.location='/chatDoctor/Roshan Warman';" src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t1.0-1/p200x200/61041619_434946724003807_3242171954488147968_o.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=9jkAekeX4n4AX-tKQxy&_nc_ht=scontent.ftpa1-1.fna&_nc_tp=6&oh=2be503fe3515c4754056c8f2beaf124e&oe=5F5B257D" class="rounded-circle user_img">
                            <span class="online_icon"></span>
                         </div>
                         <div class="user_info">
-                           <span>Roshan Warman</span>
+                           <span onclick="window.location='/chatDoctor/Roshan Warman';"> Roshan Warman</span>
                            <p>Roshan is online</p>
                         </div>
                      </div>
@@ -112,27 +125,27 @@
                   {% endif %}
 
                   {% if chattingWith == 'Ashwin Agnihotri' %}
-                  <li class="active">
+                  <li id="filterID" class="active">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img onclick="window.location='/chatDoctor/Ashwin Agnihotri';" src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t1.0-1/cp0/p80x80/94491304_1143093726039870_5755133649812979712_n.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=C5H5aN_oArQAX9eLrwv&_nc_ht=scontent.ftpa1-1.fna&oh=e9e7392d604590807cd6c2279e97b798&oe=5F5A2618" class="rounded-circle user_img">
                            <span class="online_icon offline"></span>
                         </div>
                         <div class="user_info">
-                           <span>Ashwin Agnihotri </span>
+                           <span onclick="window.location='/chatDoctor/Ashwin Agnihotri';">Ashwin Agnihotri </span>
                            <p>Ashwin left 30 mins ago</p>
                         </div>
                      </div>
                   </li>
                   {% else %}
-                  <li>
+                  <li id="filterID">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img onclick="window.location='/chatDoctor/Ashwin Agnihotri';" src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t1.0-1/cp0/p80x80/94491304_1143093726039870_5755133649812979712_n.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=C5H5aN_oArQAX9eLrwv&_nc_ht=scontent.ftpa1-1.fna&oh=e9e7392d604590807cd6c2279e97b798&oe=5F5A2618" class="rounded-circle user_img">
                            <span class="online_icon offline"></span>
                         </div>
                         <div class="user_info">
-                           <span>Ashwin Agnihotri </span>
+                           <span onclick="window.location='/chatDoctor/Ashwin Agnihotri';">Ashwin Agnihotri </span>
                            <p>Ashwin left 30 mins ago</p>
                         </div>
                      </div>
@@ -140,33 +153,32 @@
                   {% endif %}
 
                   {% if chattingWith == 'Sanchita Kedia' %}
-                  <li>
+                  <li id="filterID" class="active">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img onclick="window.location='/chatDoctor/Sanchita Kedia';" src="https://scontent.ftpa1-2.fna.fbcdn.net/v/t1.0-1/cp0/p80x80/90225897_1175381119477424_1635268038712360960_n.jpg?_nc_cat=100&_nc_sid=dbb9e7&_nc_ohc=BKk-2o9LyEQAX8nslCp&_nc_oc=AQl58gA0hAZNmYqJkP0mF37b4kYfBFWc3aIojJxFC66vsXO0FWtKffBEMtIqRCkCnzZDj02rRNA88CigOmsf6LTB&_nc_ht=scontent.ftpa1-2.fna&oh=304b0256d14cc1717d00d82d11d45130&oe=5F5BDCF3" class="rounded-circle user_img">
                            <span class="online_icon offline"></span>
                         </div>
                         <div class="user_info">
-                           <span>Sanchita Kedia</span>
+                           <span onclick="window.location='/chatDoctor/Sanchita Kedia';">Sanchita Kedia</span>
                            <p>Sanchita left 50 mins ago</p>
                         </div>
                      </div>
                   </li>
                   {% else %}
-                  <li>
+                  <li id="filterID">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img onclick="window.location='/chatDoctor/Sanchita Kedia';" src="https://scontent.ftpa1-2.fna.fbcdn.net/v/t1.0-1/cp0/p80x80/90225897_1175381119477424_1635268038712360960_n.jpg?_nc_cat=100&_nc_sid=dbb9e7&_nc_ohc=BKk-2o9LyEQAX8nslCp&_nc_oc=AQl58gA0hAZNmYqJkP0mF37b4kYfBFWc3aIojJxFC66vsXO0FWtKffBEMtIqRCkCnzZDj02rRNA88CigOmsf6LTB&_nc_ht=scontent.ftpa1-2.fna&oh=304b0256d14cc1717d00d82d11d45130&oe=5F5BDCF3" class="rounded-circle user_img">
                            <span class="online_icon offline"></span>
                         </div>
                         <div class="user_info">
-                           <span>Sanchita Kedia</span>
+                           <span onclick="window.location='/chatDoctor/Sanchita Kedia';">Sanchita Kedia</span>
                            <p>Sanchita left 50 mins ago</p>
                         </div>
                      </div>
                   </li>
                   {% endif %}
-
                </ui>
             </div>
             <div class="card-footer"></div>
