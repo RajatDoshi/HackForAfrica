@@ -3,6 +3,8 @@ import json
 import time
 import pyrebase
 import symptomClassifierAPI
+import re
+import calendar
 from googlesearch import search
 
 app = Flask(__name__)   
@@ -130,8 +132,12 @@ def chat():
 		msgDict = doctorPortalDatabase.get('/doctorChat', idGivenEmail(session['name']))
 		msgList = []
 		if msgDict != None:
-			for i in range(0, len(msgDict["Chat"])):
-				msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]})
+			for i in range(0, len(msgDict["Chat"])):				
+				timeList = re.split("[, ]", msgDict["Time"][i])
+				if len(timeList) > 6:
+					timeList.remove(timeList[0])
+				formattedTime = timeList[0] + ' on ' + str(list(calendar.month_abbr).index(timeList[2])) + '/' + timeList[3] + '/' + timeList[5][:-2]
+				msgList.append({"Chat": msgDict["Chat"][i], "Time": formattedTime, "Type": msgDict["Type"][i]})
 		return render_template('chat.html', msgDict=msgList)
 	else:
 		return redirect('/signUp')
