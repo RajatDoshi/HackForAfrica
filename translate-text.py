@@ -4,6 +4,10 @@ endpoint = 'https://api.cognitive.microsofttranslator.com/'
 subscription_key = '6ae6871172f54a368b3515a709e3fa0c'
 location = 'canadacentral'
 
+#Afrikaans = "af"
+#Swahili = "sw"
+#French = "fr"
+
 def get_translation(text_input, language_output):
     base_url = endpoint
     path = '/translate?api-version=3.0'
