@@ -10,6 +10,18 @@
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
       <link rel="stylesheet" href="{{ url_for('static', filename='css/chatDoctor.css') }}">
+
+      <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#filterID *").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+      </script>
+
    </head>
    <body style="padding: 2%">
       <h1 style="text-align: center">Messaging</h1>
@@ -20,7 +32,7 @@
          <div class="card mb-sm-3 mb-md-0 contacts_card">
             <div class="card-header">
                <div class="input-group">
-                  <input type="text" placeholder="Search..." name="" class="form-control search">
+                  <input id="myInput" type="text" placeholder="Search..." name="" class="form-control search">
                   <div class="input-group-prepend">
                      <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
                   </div>
@@ -28,63 +40,27 @@
             </div>
             <div class="card-body contacts_body">
                <ui class="contacts">
-                  <li class="active">
+                  <li id="filterID" class="active">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
-                           <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+                           <img src="https://d.newsweek.com/en/full/997973/doctor-stock.jpg?w=1600&h=1200&q=88&f=416fa20ae7724e1e3d2b3f6e7c76c02e" class="rounded-circle user_img" class="rounded-circle user_img">
+                           <span class="online_icon offline"></span>
+                        </div>
+                        <div class="user_info">
+                           <span onclick="window.location='/chat';">Dr. Lisa Bert</span>
+                           <p>Dr. Bert left 7 mins ago</p>
+                        </div>
+                     </div>
+                  </li>
+               <li id="filterID">
+                     <div class="d-flex bd-highlight">
+                        <div class="img_cont">
+                           <img src="https://cdn.sanity.io/images/0vv8moc6/hcplive/0ebb6a8f0c2850697532805d09d4ff10e838a74b-200x200.jpg?auto=format" class="rounded-circle user_img">
                            <span class="online_icon"></span>
                         </div>
                         <div class="user_info">
-                           <span>Khalid</span>
-                           <p>Kalid is online</p>
-                        </div>
-                     </div>
-                  </li>
-                  <li>
-                     <div class="d-flex bd-highlight">
-                        <div class="img_cont">
-                           <img src="https://2.bp.blogspot.com/-8ytYF7cfPkQ/WkPe1-rtrcI/AAAAAAAAGqU/FGfTDVgkcIwmOTtjLka51vineFBExJuSACLcBGAs/s320/31.jpg" class="rounded-circle user_img">
-                           <span class="online_icon offline"></span>
-                        </div>
-                        <div class="user_info">
-                           <span>Taherah Big</span>
-                           <p>Taherah left 7 mins ago</p>
-                        </div>
-                     </div>
-                  </li>
-                  <li>
-                     <div class="d-flex bd-highlight">
-                        <div class="img_cont">
-                           <img src="https://i.pinimg.com/originals/ac/b9/90/acb990190ca1ddbb9b20db303375bb58.jpg" class="rounded-circle user_img">
-                           <span class="online_icon"></span>
-                        </div>
-                        <div class="user_info">
-                           <span>Sami Rafi</span>
-                           <p>Sami is online</p>
-                        </div>
-                     </div>
-                  </li>
-                  <li>
-                     <div class="d-flex bd-highlight">
-                        <div class="img_cont">
-                           <img src="http://profilepicturesdp.com/wp-content/uploads/2018/07/sweet-girl-profile-pictures-9.jpg" class="rounded-circle user_img">
-                           <span class="online_icon offline"></span>
-                        </div>
-                        <div class="user_info">
-                           <span>Nargis Hawa</span>
-                           <p>Nargis left 30 mins ago</p>
-                        </div>
-                     </div>
-                  </li>
-                  <li>
-                     <div class="d-flex bd-highlight">
-                        <div class="img_cont">
-                           <img src="https://static.turbosquid.com/Preview/001214/650/2V/boy-cartoon-3D-model_D.jpg" class="rounded-circle user_img">
-                           <span class="online_icon offline"></span>
-                        </div>
-                        <div class="user_info">
-                           <span>Rashid Samim</span>
-                           <p>Rashid left 50 mins ago</p>
+                           <span>Dr. Ronald Shiller</span>
+                           <p>Dr. Shiller is online</p>
                         </div>
                      </div>
                   </li>
@@ -102,7 +78,7 @@
                      <span class="online_icon"></span>
                   </div>
                   <div class="user_info">
-                     <span>Chat with Dr. Smith</span>
+                     <span>Chat with Dr. Bert</span>
                      <p>[number of] Messages</p>
                   </div>
                   <div class="video_cam">
@@ -143,8 +119,8 @@
                         <img src="https://img.etimg.com/thumb/width-640,height-480,imgsize-105371,resizemode-1,msid-50475116/markets/stocks/news/one-only-needs-common-sense-to-make-money-in-stock-market-porinju-veliyath-equity-intelligence.jpg" class="rounded-circle user_img_msg">
                      </div>
                   </div>
+                  {% endif%}
                </div>
-               {% endif%}
                {% endfor %}
             </div>
             <div class="card-footer">

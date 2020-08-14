@@ -117,7 +117,7 @@ def diagnose():
 
 @app.route("/scheduleDoctor")                   
 def scheduleDoctor():  
-	return render_template('calendar.html')
+	return render_template('calendar.html', data=[{"Date": "Aug. 15, 2020", "Time": ['1:30 — 2:00']}, {"Date": "Aug. 16, 2020", "Time": ['1:30 — 2:00']}])
 
 
 #for putting filler data into table
@@ -156,7 +156,7 @@ def chatDoctorGeneric():
 		if msgDict != None:
 			for i in range(0, len(msgDict["Chat"])):
 				msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]})
-		return render_template('chatDoctor.html', tasks=info, msgDict=msgList, chattingWith=chattingWith, active="active")
+		return render_template('chatDoctor.html', tasks=info, msgDict=msgList, chattingWith=chattingWith, )
 	else:
 		return render_template('chatDoctor.html') 		
 
@@ -167,7 +167,7 @@ def chatDoctor(chattingWith):
 	if msgDict != None:
 		for i in range(0, len(msgDict["Chat"])):
 			msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]}) 
-	return render_template('chatDoctor.html', msgDict=msgList, chattingWith=chattingWith, active="active")
+	return render_template('chatDoctor.html', msgDict=msgList, chattingWith=chattingWith)
 
 @app.route("/sendMessageDoctor/<chattingWith>", methods=['POST'])
 def sendMessageDoctor(chattingWith):
