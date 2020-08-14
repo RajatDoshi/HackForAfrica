@@ -1,8 +1,7 @@
 let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 let years = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031];
-
-
+let optionlist = [];
 
 
 daysInMonth={
@@ -42,6 +41,8 @@ let doctorDays = [];
 let ghettoTarget;
 let SelectedDates = new Map();
 let timesSelected = [];
+
+
 
 
 document.addEventListener("CalendarDateClicked", function(e){
@@ -220,7 +221,31 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("months").selectedIndex = day.getMonth();
     document.getElementById("years")
     let f = new Date();
-   buildCalendar(f.getMonth(), f.getFullYear());
+    buildCalendar(f.getMonth(), f.getFullYear());
+    let x = document.getElementsByClassName("fal");
+
+    //mont. day, year : arroftimes
+
+    //for key, vlaue in dict:
+        // x[key.day - 1].click();
+        // timeSelected= value;
+        // saveTime2();
+    x[10].click();
+    
+    // let time = document.getElementById("times");
+    // let tlen = time.options.length;
+    // for(let i = 0; i <tlen; i++){
+    //     optionlist.push(time.options[i].innerHTML);
+    // }
+    // console.log(whichIndex(optionlist, "3:00 — 3:30"))
+    timesSelected = ["1:00 — 1:30", "3:00 — 3:30"];
+    saveTime2();
+    x[22].click()
+    timesSelected = ["3:00 — 3:30", "5:00 — 5:30"];
+    saveTime2();
+
+
+
 })
 
 
@@ -349,6 +374,26 @@ function saveTime(){
     document.dispatchEvent(event);
 
 }
+
+function saveTime2(){
+
+    let event = new Event("TimeSaved");
+    const specific = ghettoTarget;
+    let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
+  
+    SelectedDates.set(cardDate, timesSelected);
+    document.dispatchEvent(event);
+}
+
+function whichIndex(arr, value){
+    let len  = arr.length;
+    for(let i = 0; i < len; i++){
+        if(arr[i] == value){
+            return i;
+        }
+    }
+    return -1;
+}
 function unClickDateSelected(){
     const specific = ghettoTarget;
     let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
@@ -362,3 +407,4 @@ function unClickDateSelected(){
     let weird = new Event("w");
     document.dispatchEvent(weird);
 }
+
