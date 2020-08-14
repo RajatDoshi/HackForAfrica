@@ -421,7 +421,7 @@ def signUp():
 			session['user'] = email
 			session['name'] = name
 			session['AccountType'] = acctType
-			db.child("doctorPortal").child(idGivenEmail(email)).set({"Name":name, "Symptoms": "", "Diagnosis": "", "Question": "", "Date": "", "Link": ""})
+			db.child("doctorPortal").child(idGivenEmail(email)).set({"Name":name, "Symptoms": "incomplete", "Diagnosis": "incomplete", "Question": "", "Date": "not scheduled", "Link": "not scheduled"})
 			return redirect('/')
 		else:
 			db.child("doctorInfo").child(idGivenEmail(email)).set({"Names": name, "Email": email, "AccountType": acctType, "Password":password})
