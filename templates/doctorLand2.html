@@ -29,15 +29,14 @@
                </div>
                <div class="sidebar-header">
                   <div class="user-pic">
-                     <img  class="img-responsive img-rounded" src="https://media.istockphoto.com/photos/portrait-of-smiling-handsome-man-in-blue-tshirt-standing-with-crossed-picture-id1045886560?k=6&m=1045886560&s=612x612&w=0&h=hXrxai1QKrfdqWdORI4TZ-M0ceCVakt4o6532vHaS3I="
-                        alt="User picture">
+                     <img  class="img-responsive img-rounded" src="https://d.newsweek.com/en/full/997973/doctor-stock.jpg?w=1600&h=1200&q=88&f=416fa20ae7724e1e3d2b3f6e7c76c02e">
                   </div>
                   <div class="user-info">
                      <span class="user-name">
                      <strong>{{nameVar}}</strong>
                      </span>
                      <span class="user-status">
-                     <span>Patient</span>
+                     <span>Doctor</span>
                      </span>
                   </div>
                </div>
@@ -65,31 +64,31 @@
                      <li class="sidebar-dropdown">
                         <a href="#">
                         <i class="fas fa-id-card"></i>
-                        <span>Characteristics</span>
+                        <span>Background</span>
                         </a>
                         <div class="sidebar-submenu">
                            <ul>
-                              <li><a>Sex: Male</a></li>
-                              <li><a>Height: 5'10</a></li>
-                              <li><a>Weight: 170 lbs</a></li>
+                              <li><a>Medical School: Harvard </a></li>
+                              <li><a>Employeer: AdventHealth</a></li>
+                              <li><a>Years of Experience: 25+ </a></li>
                            </ul>
                         </div>
                      </li>
                      <li class="sidebar-dropdown">
                         <a href="#">
                         <i class="fa fa-user-md"></i>
-                        <span>Previous Doctors</span>
+                        <span>Previous Patients</span>
                         </a>
                         <div class="sidebar-submenu">
                            <ul>
                               <li>
-                                 <a href="#">Dr. Ronald Shiller</a>
+                                 <a href="#">Shivani Doshi</a>
                               </li>
                               <li>
-                                 <a href="#">Dr. George Murphy</a>
+                                 <a href="#">Rohan Sharma</a>
                               </li>
                               <li>
-                                 <a href="#">Dr. Shawn Spencer</a>
+                                 <a href="#">Surtaz Khan</a>
                               </li>
                            </ul>
                         </div>
@@ -97,18 +96,15 @@
                      <li class="sidebar-dropdown">
                         <a href="#">
                         <i class="fas fa-heartbeat"></i>
-                        <span>Medical History</span>
+                        <span>Expertise</span>
                         </a>
                         <div class="sidebar-submenu">
                            <ul>
                               <li>
-                                 <a href="#">Breathing Problems</a>
+                                 <a href="#">Internal Medicine </a>
                               </li>
                               <li>
-                                 <a href="#">Migraines</a>
-                              </li>
-                              <li>
-                                 <a href="#">Spine Surgery</a>
+                                 <a href="#">Cardiology </a>
                               </li>
                            </ul>
                         </div>
@@ -117,21 +113,21 @@
                         <span>Other Services</span>
                      </li>
                      <li>
-                        <a href="/diagnose">
+                        <a href="/doctorPortal">
                         <i class="fa fa-stethoscope"></i>
-                        <span>Instant Diagnosis</span>
+                        <span>Patient Portal</span>
                         </a>
                      </li>
                      <li>
-                        <a href="/scheduleU">
+                        <a href="/scheduleDoctor">
                         <i class="fa fa-calendar"></i>
                         <span>Schedule Avaliability</span>
                         </a>
                      </li>
                      <li>
-                        <a href="/chat">
+                        <a href="/chatDoctor">
                         <i class="fa fa-comments"></i>
-                        <span>Message Doctors</span>
+                        <span>Message Patient</span>
                         </a>
                      </li>
                   </ul>
@@ -150,50 +146,6 @@
          <main class="page-content">
             <div class="container-fluid">
                <section id="calendar" style="padding: 2%; text-align: center">
-                  <h1>Past Appointments</h1>
-                  <div class="container">
-                     <div class="row">
-                        <div style="width:90%">
-                           <ul class="event-list">
-                              <li >
-                                 <time>
-                                 <span class="day">21</span>
-                                 <span class="month">June</span>
-                                 </time>
-                                 <div class="info" style="text-align: center">
-                                    <h2 class="title">Sick Visit</h2>
-                                    <br>
-                                    <p class="desc">Dr. Ronald Shiller ● 12:00 EST</p>
-                                    <br>
-                                    <ul>
-                                       <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
-                                       <li style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
-                                       <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
-                                    </ul>
-                                 </div>
-                              </li>
-                              <li >
-                                 <time>
-                                 <span class="day">3</span>
-                                 <span class="month">July</span>
-                                 </time>
-                                 <div class="info" style="text-align: center">
-                                    <h2 class="title">Follow Up</h2>
-                                    <br>
-                                    <p class="desc">Dr. Ronald Shiller ● 8:00 EST</p>
-                                    <ul>
-                                       <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
-                                       <li style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
-                                       <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
-                                    </ul>
-                                 </div>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-
-
                   <h1>Upcoming Appointments</h1>
                   <div class="container">
                      <div class="row">
@@ -205,27 +157,60 @@
                                  <span class="month">Aug</span>
                                  </time>
                                  <div class="info" style="text-align: center">
-                                    <h2 class="title">Physical Examination</h2>
+                                    <h2 class="title">Sick Visit</h2>
                                     <br>
-                                    <p class="desc">Dr. Ronald Shiller ● 12:00 EST</p>
+                                    <p class="desc">Sukesh Ram ● 9:00 EST</p>
                                     <br>
                                     <ul>
                                        <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
-                                       <li style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
+                                       <li style="width:34%;">Message Patient <span class="fa fa-comment"></span></li>
                                        <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
                                     </ul>
                                  </div>
                               </li>
-                              {% if dayVar != "" %}
+                                 <li >
+                                    <time>
+                                    <span class="day">18</span>
+                                    <span class="month">Aug</span>
+                                    </time>
+                                    <div class="info" style="text-align: center">
+                                       <h2 class="title">Sick Visit</h2>
+                                       <br>
+                                       <p class="desc">Ashwin Agnihotri ● 8:00 EST</p>
+                                       <ul>
+                                          <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
+                                          <li style="width:34%;">Message Patient <span class="fa fa-comment"></span></li>
+                                          <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              <li >
+                                 <time>
+                                 <span class="day">19</span>
+                                 <span class="month">Aug</span>
+                                 </time>
+                                 <div class="info" style="text-align: center">
+                                    <h2 class="title">Sick Visit</h2>
+                                    <br>
+                                    <p class="desc">Roshan Warman ● 10:00 EST</p>
+                                    <br>
+                                    <ul>
+                                       <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
+                                       <li style="width:34%;">Message Patient <span class="fa fa-comment"></span></li>
+                                       <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
+                                    </ul>
+                                 </div>
+                              </li>
+                              {% if namVar != "" %}
                                  <li >
                                     <time>
                                     <span class="day">{{dayVar}}</span>
                                     <span class="month">Aug</span>
                                     </time>
                                     <div class="info" style="text-align: center">
-                                       <h2 class="title">Consultation</h2>
+                                       <h2 class="title">Sick Visit</h2>
                                        <br>
-                                       <p class="desc">Dr. Lisa Bert ● {{timeVar}} EST</p>
+                                       <p class="desc">{{userNameVar}} ● {{timeVar}} EST</p>
                                        <ul>
                                           <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
                                           <li style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
@@ -238,31 +223,6 @@
                         </div>
                      </div>
                   </div>
-               </section>
-               <section id="scheduleVisit" style="padding: 2%;text-align: center">
-<!--                   <h1>Schedule Visit</h1> -->
-<!--                   <form style="margin: 2% 30%;" method="POST" action="/scheduleUser">
- --><!--                      <div class="form-group">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Email">
-                     </div>
-                     <div class="row">
-                        <div class="col">
-                           <label for="date">Date</label>
-                           <input name="date" id="date" type="date" class="form-control" placeholder="First name">
-                        </div>
-                        <div class="col">
-                           <label for="time">Time</label>
-                           <input name="time" id="time" type="time" class="form-control" placeholder="Last name">
-                        </div>
-                     </div>
-                     <br>
-                     <div class="form-group">
-                        <label for="Description">Describe Your Condition</label>
-                        <textarea name="Description" class="form-control" id="Description" rows="3"></textarea>
-                     </div> -->
-<!--                      <button type="submit" class="btn btn-primary">Submit</button> -->
-                  </form>
                </section>
             </div>
          </main>

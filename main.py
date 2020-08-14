@@ -29,9 +29,9 @@ db = firebase.database()
 
 from firebase import firebase
 userDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/userInfo')
+doctorInfoDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/doctorInfo')
 doctorPortalDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/doctorPortal')
 doctorChat = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/doctorChat')
-questionBank = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/questionBank')
 diagnosisTableData = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/diagnosisTableData')
 storeUserApptReqDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/storeUserApptReq')
 docSchedDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/storeCalendarDataTable')
@@ -59,7 +59,10 @@ def home():
 			else:
 				return render_template('userLand.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar="",nameVar=nameVar)
 		else:
-			return render_template('doctorLand.html', signInStatus = "Sign Out", acctType=session['AccountType'])
+			nameVar = doctorInfoDatabase.get('/doctorInfo', idGivenEmail(session['user']))['Names']
+			day = storeAptDateFinal.get('/storeAptDateFinal', 'lisa1bart@gmail1com')
+			if day != None:
+				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar=day['day'], timeVar=day['time'], userNameVar=day['name'])
 	else: 
 		return render_template('land.html')	
 
@@ -153,6 +156,7 @@ def scheduleUser():
 							currDoctorUserData['Link'] = "https://yale.zoom.us/j/983"
 							db.child("doctorPortal").child(idGivenEmail(session['user'])).set(currDoctorUserData)
 							db.child("storeAptDateFinal").child(idGivenEmail(session['user'])).set({"day": k, "time": finalTime[0:5]})
+							db.child("storeAptDateFinal").child(idGivenEmail('lisa.bart@gmail.com')).set({"day": k, "time": finalTime[0:5], "name": session['name']})
 						return redirect('/')
 		currDoctorUserData = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
 		if currDoctorUserData != None:
@@ -337,22 +341,6 @@ def getPortalInfo():
 		portalList = [value for value in portalDict.values()]
 	return portalList
 
-@app.route("/schedule", methods=['GET', 'POST'])                   
-def schedule():
-	if request.method == 'GET':
-		if 'user' in session:                  
-			return render_template('schedule.html')
-		else:
-			return redirect('/signUp')
-	else:
-		dateVal = "Aug 30th @ 1pm EST" #change to form value
-		data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
-		data['Date'] = dateVal
-		data['Link'] = "https://yale.zoom.us/j/983"
-		db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)	
-		return redirect('/schedule')
-
-
 @app.route("/signIn", methods=['GET', 'POST'])
 def signIn():
 	if request.method == 'GET':
@@ -383,8 +371,8 @@ def signUp2(email):
 	else:
 		data = userDatabase.get('/doctorInfo', idGivenEmail(email))
 		data['medicallicense'] = request.form['medicallicense']
-		data['employeer'] = request.form['medicallicense']
-		data['medSchoolName'] = request.form['medicallicense']
+		data['employeer'] = request.form['employeer']
+		data['medSchoolName'] = request.form['medSchoolName']
 		data['years'] = request.form['years']
 		db.child("doctorInfo").child(idGivenEmail(email)).set(data)
 		
