@@ -150,7 +150,7 @@ def chatDoctorGeneric():
 		lastChat = doctorChatDict[person]['Chat'][-1]
 		info.append( {"Name": person, "Question": lastChat})
 	if len(info) >= 1:
-		chattingWith = info[0]["Name"]
+		chattingWith = "Rajat Doshi" #info[0]["Name"]
 		msgDict = doctorPortalDatabase.get('/doctorChat', chattingWith)
 		msgList = []
 		if msgDict != None:

@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}">
 </head>
 
-
 <body>
     <div class = overall>
         <div class = "CAL">
@@ -24,6 +23,7 @@
 
                 </table>
             
+        
                 <div class = "monthAndYear">
                     <select id="months" onchange="monthc()">
                         <option value="Jan">Jan</option>
@@ -58,7 +58,7 @@
         </div>
 
         <div class="card decideHere" style="width: 18rem;">
-            <img class="card-img-top" src="https://media.istockphoto.com/photos/african-hut-in-ethiopia-picture-id157288202?k=6&m=157288202&s=170667a&w=0&h=0YVkvQ0XH4qTPpGwOvguo4ocbRH_P0ITYtaGAdwK1XE=" alt="Card image cap">
+            <img class="card-img-top" src="./templates/imagesForHome/hut.png" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">What times work well for <span style = "color:rgb(187, 8, 8)">you</span> on <span class = "carDDate"></span>?</h5>
               <select id = "times" class = "oneTimeStamp lastTime">
@@ -70,25 +70,14 @@
               <div></div>
               <a onclick = unClickDateSelected()>Remove <span class = "carDDate"></span></a>
               <div></div>
-              <div onclick = saveTime()>Save times.</div>
+              <div class = "timesaveButton" onclick = saveTime()>Save times.</div>
             </div>
           </div>
 
-          <form class="paragraph">
-              <input id="prodId" name="prodId" value="xm234jq">
-          </form>
-
     </div>
     
-    <div id="firebaseData">
-        {% for elm in data %}
-            <p>{{ elm.Date }}</p>
-            <p>{{ elm.Time }}</p>
-        {% endfor %}
-    </div>
 
     <script>
-        
         document.addEventListener("timeStampsForCard", function(){
             let chooseTimes = document.getElementById("times");
             hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
@@ -110,34 +99,44 @@
                 }
             }
         });
-
-//         <div id= "firebaseData"></div>
-
-// function() loadData(){
-//         firebaseStorage = [....] (each element in firebaseStorage is key:value pair where key is the form of 
-//             month. day, year and value is array of all times.)
-
-//         len = firebaseStorage.length;
-//         for(let i = 0; i < len; i++){
-            
-//             SelectedDates.set(firebaseStorge[i].key, firebaseStorage[i].value)
-//             //.key is the date; .value is array of all times
-//         }
-//     }
-
     </script>
 
-<!--     document.addEventListener("DOMContentLoaded", function(){
-        loadData();
-    });
- -->
     <script type="text/javascript">
         let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         let years = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031];
+        let optionlist = [];
 
-        daysInMonth={"Jan":31, "Feb":28, "Mar":31, "Apr":30, "May":31, "Jun":30, "Jul":31, "Aug":31, "Sep":30, "Oct":31, "Nov":30, "Dec":31 } 
-        dayStart={"Sun":0, "Mon":1, "Tue":2, "Wed":3, "Thu":4, "Fri":5, "Sat":6 }
+
+        daysInMonth={
+            "Jan":31,
+            "Feb":28,
+            "Mar":31,
+            "Apr":30,
+            "May":31,
+            "Jun":30,
+            "Jul":31,
+            "Aug":31,
+            "Sep":30,
+            "Oct":31,
+            "Nov":30,
+            "Dec":31
+        }
+        dayStart={
+            "Sun":0,
+            "Mon":1,
+            "Tue":2,
+            "Wed":3,
+            "Thu":4,
+            "Fri":5,
+            "Sat":6
+        }
+
+        /*
+        Calendar instructions: User clicks on the number of the calendar. SelectedDates is a hashtable with keys of the days 
+        in the form "month. day, year" and maps to an array of all the selected times. 
+        */
+
 
         let day = new Date()
         let month;
@@ -148,7 +147,25 @@
         let timesSelected = [];
 
 
+
+
         document.addEventListener("CalendarDateClicked", function(e){
+            // doctorDays = [];
+
+            // let selected = document.getElementsByClassName("circle")
+            // let len = selected.length;
+            // for(var i = 0; i < len;i++ ){
+            //     if(selected[i] == ghettoTarget){
+            //         // console.log(selected[i].innerHTML);
+            //         // console.log(selected[i].getAttribute("data-clicked"))
+            //     }
+            //     // console.log(selected[i].getAttribute("data-clicked"))
+            //     if(selected[i] != ghettoTarget && selected[i].getAttribute("data-savedTime") == 0){
+            //         selected[i].setAttribute("data-clicked", 0);
+            //         selected[i].setAttribute("data-cardClicked", 0);
+            //         selected[i].classList.remove("circle");
+            //     }
+            // }
             const specific = ghettoTarget;
             // console.log(ghettoTarget)
             let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
@@ -208,6 +225,8 @@
                 }
             }
 
+
+            
         });
 
         document.addEventListener("w", function(){
@@ -249,14 +268,6 @@
             last.parentNode.insertBefore(newT, last.nextSibling);
 
         });
-        document.addEventListener("TimeSaved", function(){
-            let calDate =  `${month}. ${ghettoTarget.innerHTML}, ${year}`;
-            let p = document.getElementById("prodId");
-            p.setAttribute("value", `${calDate}: ${[SelectedDates.get(calDate)]}`);
-        });
-
-
-
 
         document.addEventListener("TimeSaved", function(){
             ghettoTarget.setAttribute("data-savedTime", 1);
@@ -314,7 +325,31 @@
             document.getElementById("months").selectedIndex = day.getMonth();
             document.getElementById("years")
             let f = new Date();
-           buildCalendar(f.getMonth(), f.getFullYear());
+            buildCalendar(f.getMonth(), f.getFullYear());
+            let x = document.getElementsByClassName("fal");
+
+            //mont. day, year : arroftimes
+
+            //for key, vlaue in dict:
+                // x[key.day - 1].click();
+                // timeSelected= value;
+                // saveTime2();
+            x[10].click();
+            
+            // let time = document.getElementById("times");
+            // let tlen = time.options.length;
+            // for(let i = 0; i <tlen; i++){
+            //     optionlist.push(time.options[i].innerHTML);
+            // }
+            // console.log(whichIndex(optionlist, "3:00 — 3:30"))
+            timesSelected = ["1:00 — 1:30", "3:00 — 3:30"];
+            saveTime2();
+            x[22].click()
+            timesSelected = ["3:00 — 3:30", "5:00 — 5:30"];
+            saveTime2();
+
+
+
         })
 
 
@@ -443,6 +478,26 @@
             document.dispatchEvent(event);
 
         }
+
+        function saveTime2(){
+
+            let event = new Event("TimeSaved");
+            const specific = ghettoTarget;
+            let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
+          
+            SelectedDates.set(cardDate, timesSelected);
+            document.dispatchEvent(event);
+        }
+
+        function whichIndex(arr, value){
+            let len  = arr.length;
+            for(let i = 0; i < len; i++){
+                if(arr[i] == value){
+                    return i;
+                }
+            }
+            return -1;
+        }
         function unClickDateSelected(){
             const specific = ghettoTarget;
             let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
@@ -456,6 +511,6 @@
             let weird = new Event("w");
             document.dispatchEvent(weird);
         }
-
     </script>
 </body>
+
