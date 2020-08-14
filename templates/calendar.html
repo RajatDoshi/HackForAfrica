@@ -1,12 +1,19 @@
 <!DOCTPYE html>
 
 <head>
-    <script src = "calendar.js" defer></script>
+<!--     <script src = "calendar.js" defer></script> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}">
+     <script type="text/javascript">
+        var dataDict = JSON.parse('{{data|safe}}');
+        console.log(dataDict);
+    </script>
+
 </head>
 
 <body>
+    <br><br>
     <div class = overall>
         <div class = "CAL">
             <div class = "web">
@@ -58,7 +65,7 @@
         </div>
 
         <div class="card decideHere" style="width: 18rem;">
-            <img class="card-img-top" src="./templates/imagesForHome/hut.png" alt="Card image cap">
+            <img class="card-img-top" src="https://i.pinimg.com/originals/33/16/c1/3316c14722c6401415aba3d48fde223d.jpg" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">What times work well for <span style = "color:rgb(187, 8, 8)">you</span> on <span class = "carDDate"></span>?</h5>
               <select id = "times" class = "oneTimeStamp lastTime">
@@ -74,10 +81,30 @@
             </div>
           </div>
 
-    </div>
-    
+    </div>    
 
     <script>
+    </script>
+
+
+    <script type="text/javascript">
+        let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        let years = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031];
+        let optionlist = [];
+
+        daysInMonth={"Jan":31, "Feb":28, "Mar":31, "Apr":30, "May":31, "Jun":30, "Jul":31, "Aug":31, "Sep":30, "Oct":31, "Nov":30, "Dec":31 }
+        dayStart={"Sun":0, "Mon":1, "Tue":2, "Wed":3, "Thu":4, "Fri":5, "Sat":6 }
+
+
+        let day = new Date()
+        let month;
+        let year;
+        let doctorDays = [];
+        let ghettoTarget;
+        let SelectedDates = new Map();
+        let timesSelected = [];
+
         document.addEventListener("timeStampsForCard", function(){
             let chooseTimes = document.getElementById("times");
             hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
@@ -99,82 +126,15 @@
                 }
             }
         });
-    </script>
-
-    <script type="text/javascript">
-        let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        let years = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031];
-        let optionlist = [];
-
-
-        daysInMonth={
-            "Jan":31,
-            "Feb":28,
-            "Mar":31,
-            "Apr":30,
-            "May":31,
-            "Jun":30,
-            "Jul":31,
-            "Aug":31,
-            "Sep":30,
-            "Oct":31,
-            "Nov":30,
-            "Dec":31
-        }
-        dayStart={
-            "Sun":0,
-            "Mon":1,
-            "Tue":2,
-            "Wed":3,
-            "Thu":4,
-            "Fri":5,
-            "Sat":6
-        }
-
-        /*
-        Calendar instructions: User clicks on the number of the calendar. SelectedDates is a hashtable with keys of the days 
-        in the form "month. day, year" and maps to an array of all the selected times. 
-        */
-
-
-        let day = new Date()
-        let month;
-        let year;
-        let doctorDays = [];
-        let ghettoTarget;
-        let SelectedDates = new Map();
-        let timesSelected = [];
-
-
 
 
         document.addEventListener("CalendarDateClicked", function(e){
-            // doctorDays = [];
-
-            // let selected = document.getElementsByClassName("circle")
-            // let len = selected.length;
-            // for(var i = 0; i < len;i++ ){
-            //     if(selected[i] == ghettoTarget){
-            //         // console.log(selected[i].innerHTML);
-            //         // console.log(selected[i].getAttribute("data-clicked"))
-            //     }
-            //     // console.log(selected[i].getAttribute("data-clicked"))
-            //     if(selected[i] != ghettoTarget && selected[i].getAttribute("data-savedTime") == 0){
-            //         selected[i].setAttribute("data-clicked", 0);
-            //         selected[i].setAttribute("data-cardClicked", 0);
-            //         selected[i].classList.remove("circle");
-            //     }
-            // }
             const specific = ghettoTarget;
-            // console.log(ghettoTarget)
             let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
-            // console.log(cardDate);
 
             let date = document.getElementsByClassName("carDDate");
             let dlen = date.length;
             for(let i = 0; i < dlen; i++){
-                // console.log(date[i])
                 date[i].innerHTML = cardDate;
             }
             let actualCard = document.querySelector(".decideHere");
@@ -199,7 +159,6 @@
                 SelectedDates.delete(cardDate);
 
             }else{
-                //data-clicked = 0 and not saved-time
                 actualCard.style.display = "block";
                 ghettoTarget.setAttribute("data-cardClicked", 1);
                 ghettoTarget.setAttribute("data-clicked", 1);
@@ -214,19 +173,20 @@
             let len = selected.length;
             for(var i = 0; i < len;i++ ){
                 if(selected[i] == ghettoTarget){
-                    // console.log(selected[i].innerHTML);
-                    // console.log(selected[i].getAttribute("data-clicked"))
                 }
-                // console.log(selected[i].getAttribute("data-clicked"))
                 if(selected[i] != ghettoTarget && selected[i].getAttribute("data-savedTime") == 0){
                     selected[i].setAttribute("data-clicked", 0);
                     selected[i].setAttribute("data-cardClicked", 0);
                     selected[i].classList.remove("circle");
                 }
-            }
+            }            
+        });
 
-
-            
+        document.addEventListener("TimeSaved", function(){
+            let calDate =  `${month}. ${ghettoTarget.innerHTML}, ${year}`;
+            $.post( "/storeCalendarData", {
+                javascript_data: JSON.stringify({date:calDate , time:SelectedDates.get(calDate)})
+            });
         });
 
         document.addEventListener("w", function(){
@@ -234,6 +194,14 @@
             ghettoTarget.classList.remove("circle");
 
         })
+
+        document.addEventListener("w", function(){
+            console.log(SelectedDates)
+            let calDate =  `${month}. ${ghettoTarget.innerHTML}, ${year}`;
+            $.post( "/deleteCalendarData", {
+                javascript_data: JSON.stringify({date:calDate})
+            });
+        });
 
         document.addEventListener("newTimeSelected", function(){
             console.log("newTime")
@@ -284,7 +252,7 @@
                 let list = document.createElement("div");
                 list.classList.add("card-text");
                 list.innerHTML = timesOnThisDate[i];
-                console.log(list.innerHTML);
+                // console.log(list.innerHTML);
                 cBody.appendChild(list);
             }
 
@@ -318,6 +286,8 @@
 
         });
 
+        
+
 
         document.addEventListener("DOMContentLoaded", function(){
             year = day.getFullYear(); 
@@ -328,30 +298,15 @@
             buildCalendar(f.getMonth(), f.getFullYear());
             let x = document.getElementsByClassName("fal");
 
-            //mont. day, year : arroftimes
-
-            //for key, vlaue in dict:
-                // x[key.day - 1].click();
-                // timeSelected= value;
-                // saveTime2();
-            x[10].click();
-            
-            // let time = document.getElementById("times");
-            // let tlen = time.options.length;
-            // for(let i = 0; i <tlen; i++){
-            //     optionlist.push(time.options[i].innerHTML);
-            // }
-            // console.log(whichIndex(optionlist, "3:00 — 3:30"))
-            timesSelected = ["1:00 — 1:30", "3:00 — 3:30"];
-            saveTime2();
-            x[22].click()
-            timesSelected = ["3:00 — 3:30", "5:00 — 5:30"];
-            saveTime2();
-
-
-
+            var dateVar, timeVar;
+            for(i = 0; i < dataDict.length; i++) {
+                dateVar = dataDict[i].Date;
+                timeVar = dataDict[i].Time;
+                x[dateVar-1].click();
+                timesSelected = timeVar;
+                saveTime2();
+            }
         })
-
 
 
         let tbl = document.querySelector(".Calendar");
@@ -397,22 +352,9 @@
                         }
                         dates++;
                         sp.classList.add("fal");
-                        // sp.classList.add("hvr-sweep-to-right");
                         sp.classList.add("hvr-radial-out");
 
                         sp.onclick = function(){  
-                            // cValue = sp.getAttribute("data-clicked")
-                            // console.log(cValue);
-                            // if( cValue == 0){
-                            //     console.log("read")
-                            //     sp.setAttribute("data-clicked", 1);
-                            //     sp.classList.add("circle");
-                            // }
-                            // else{
-                            //     sp.setAttribute("data-clicked", 0);
-                            //     sp.classList.remove("circle");
-                            // }
-
                             const event = new Event("CalendarDateClicked");
                             ghettoTarget = sp;
                             document.dispatchEvent(event);
@@ -420,12 +362,6 @@
                     }else{
                         sp.innerHTML = "";
                     }
-
-
-                    // if(t == 1){
-                    //     counter++;
-                        
-                    // }
                     dat.appendChild(sp);
                     rw.appendChild(dat);
                     
@@ -441,7 +377,6 @@
             let choices1 = document.getElementById("years");
             year = years[choices1.selectedIndex];
             monthE = choices.selectedIndex;
-            // alert(`you chose ${month}`);
             buildCalendar(monthE, year)
             month = months[monthE];
         }
@@ -450,7 +385,6 @@
             let choices = document.getElementById("months");
             let choices1 = document.getElementById("years");
             year = years[choices1.selectedIndex];
-            
             monthE = choices.selectedIndex;
             buildCalendar(monthE, year)
             month = months[monthE];
@@ -511,6 +445,7 @@
             let weird = new Event("w");
             document.dispatchEvent(weird);
         }
+
     </script>
 </body>
 

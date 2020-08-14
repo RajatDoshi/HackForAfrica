@@ -54,7 +54,6 @@ def home():
 	else: 
 		return render_template('land.html')	
 
-
 @app.route("/diagnose", methods=['GET', 'POST'])                   
 def diagnose():               
 	if request.method == 'GET':
@@ -117,8 +116,46 @@ def diagnose():
 
 @app.route("/scheduleDoctor")                   
 def scheduleDoctor():  
-	return render_template('calendar.html', data=[{"Date": "Aug. 15, 2020", "Time": ['1:30 — 2:00']}, {"Date": "Aug. 16, 2020", "Time": ['1:30 — 2:00']}])
+	#process date to only day
+	firebaseData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
+	if firebaseData != None:
+		dataList = []
+		for key in firebaseData.keys():
+			dataList.append({"Date": int(key), "Time": firebaseData[key]})
+		print(dataList)
+		return render_template('calendar.html', data=json.dumps(dataList))
+	else:
+		return render_template('calendar.html')
+		
+@app.route('/storeCalendarData', methods = ['POST'])
+def storeCalendarData():
+    jsdata = request.form['javascript_data']
+    jsonLoadData = json.loads(jsdata)
+    time = jsonLoadData['time']
+    date = jsonLoadData['date']
+    day = getDay(date)
+    fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
+    if fireBaseCalendarData != None:
+    	fireBaseCalendarData[day] = (time)
+    	db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
+    else:
+    	db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set({int(day): (time)})
+    return 'success'
+def getDay(timeVar):
+	timeArr = str(timeVar).split()
+	return timeArr[1][:-1]
 
+@app.route('/deleteCalendarData', methods = ['POST'])
+def deleteCalendarData():
+    jsdata = request.form['javascript_data']
+    jsonLoadData = json.loads(jsdata)
+    date = jsonLoadData['date']
+    day= getDay(date)
+    fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
+    if fireBaseCalendarData != None:
+    	fireBaseCalendarData.pop(day)
+    	db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
+    return 'success'
 
 #for putting filler data into table
 @app.route("/testRoute")                   
