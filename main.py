@@ -33,6 +33,10 @@ doctorPortalDatabase = firebase.FirebaseApplication('https://hackforafrica.fireb
 doctorChat = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/doctorChat')
 questionBank = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/questionBank')
 diagnosisTableData = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/diagnosisTableData')
+storeUserApptReqDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/storeUserApptReq')
+docSchedDatabase = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/storeCalendarDataTable')
+storeCalendarDatabaseU = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/storeCalendarDataTableUser')
+storeAptDateFinal = firebase.FirebaseApplication('https://hackforafrica.firebaseio.com/storeAptDateFinal')
 
 def idGivenEmail(email):
 	listVersionOfEmail = list(email) 
@@ -48,7 +52,12 @@ def idGivenEmail(email):
 def home():  
 	if 'user' in session:
 		if session['AccountType'] == 'User':
-			return render_template('userLand.html', signInStatus = "Sign Out", acctType=session['AccountType'])
+			nameVar = userDatabase.get('/userInfo', idGivenEmail(session['user']))['Names']
+			day = storeAptDateFinal.get('/storeAptDateFinal', idGivenEmail(session['user']))
+			if day != None:
+				return render_template('userLand.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar=day['day'], timeVar=day['time'], nameVar=nameVar)
+			else:
+				return render_template('userLand.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar="",nameVar=nameVar)
 		else:
 			return render_template('doctorLand.html', signInStatus = "Sign Out", acctType=session['AccountType'])
 	else: 
@@ -109,14 +118,52 @@ def diagnose():
 		else:
 			return redirect('/diagnose')
 
-		# data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
-		# data['Question'] = searchText
-		# db.child("doctorPortal").child(idGivenEmail(session['user'])).set(data)		
-		# return redirect('/diagnose#questionPage2')
+@app.route("/nlp", methods=['POST'])
+def nlp():
+	paragraph = "dizzy"
+	symDict = {'Abdominal pain', 'Anxiety', 'Back pain', 'Burning eyes', 'Burning in the throat', 'Cheek swelling', 'Chest pain', 'Chest tightness', 'Chills', 'Cold sweats', 'Cough', 'Dizziness', 'Drooping eyelid', 'Dry eyes', 'Earache', 'Early satiety', 'Eye pain', 'Eye redness', 'Fast, deepened breathing', 'Feeling of foreign body in the eye', 'Fever', 'Going black before the eyes', 'Headache', 'Heartburn', 'Hiccups', 'Hot flushes', 'Increased thirst', 'Itching eyes', 'Itching in the nose', 'Lip swelling', 'Memory gap', 'Menstruation disorder', 'Missed period', 'Nausea', 'Neck pain', 'Nervousness', 'Night cough', 'Pain in the limbs', 'Pain on swallowing', 'Palpitations', 'Paralysis', 'Reduced appetite', 'Runny nose', 'Shortness of breath', 'Skin rash', 'Sleeplessness', 'Sneezing', 'Sore throat', 'Sputum', 'Stomach burning', 'Stuffy nose', 'Sweating', 'Swollen glands in the armpits', 'Swollen glands on the neck', 'Tears', 'Tiredness', 'Tremor at rest', 'Unconsciousness', 'Vomiting', 'Vomiting blood', 'Weight gain', 'Wheezing'}
+	symList = []
+	paragraphList = paragraph.split()
+	for word in paragraphList:
+		if word in symDict:
+			symList.append(word)
+	if len(symList) >= 1:
+		return "yo"
+		 
+
+@app.route("/scheduleUser", methods = ['POST'])                   
+def scheduleUser():
+	# description = request.form['Description']
+	uSchedData = storeCalendarDatabaseU.get('/storeCalendarDataTableUser', idGivenEmail(session['user']))	
+	if uSchedData != None:
+		uSchedList = uSchedData.keys()
+		uSchedDict = set(uSchedList)
+		doctorSchedData = docSchedDatabase.get('/storeCalendarDataTable', None)
+		for doc in doctorSchedData:
+			intersection = uSchedDict.intersection(doctorSchedData[doc].keys())
+			if len(intersection) != 0:
+				keyVar = list(intersection)
+				for k in keyVar:
+					intersection2 = set(uSchedData[k]).intersection(doctorSchedData[doc][k])
+					if len(intersection2) != 0:
+						finalTime = list(intersection2)[0]
+						currDoctorUserData = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
+						if currDoctorUserData != None:
+							currDoctorUserData['Date'] = "Aug " + k + " @ "  + finalTime + " EST "
+							currDoctorUserData['Link'] = "https://yale.zoom.us/j/983"
+							db.child("doctorPortal").child(idGivenEmail(session['user'])).set(currDoctorUserData)
+							db.child("storeAptDateFinal").child(idGivenEmail(session['user'])).set({"day": k, "time": finalTime[0:5]})
+						return redirect('/')
+		currDoctorUserData = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
+		if currDoctorUserData != None:
+			currDoctorUserData['Date'] = "Apt Passed"
+			db.child("doctorPortal").child(idGivenEmail(session['user'])).set(currDoctorUserData)
+		return redirect('/')
+	else:
+		return redirect('/scheduleU')
 
 @app.route("/scheduleDoctor")                   
 def scheduleDoctor():  
-	#process date to only day
 	firebaseData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
 	if firebaseData != None:
 		dataList = []
@@ -129,33 +176,76 @@ def scheduleDoctor():
 		
 @app.route('/storeCalendarData', methods = ['POST'])
 def storeCalendarData():
-    jsdata = request.form['javascript_data']
-    jsonLoadData = json.loads(jsdata)
-    time = jsonLoadData['time']
-    date = jsonLoadData['date']
-    day = getDay(date)
-    fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
-    if fireBaseCalendarData != None:
-    	fireBaseCalendarData[day] = (time)
-    	db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
-    else:
-    	db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set({int(day): (time)})
-    return 'success'
+	jsdata = request.form['javascript_data']
+	jsonLoadData = json.loads(jsdata)
+	time = jsonLoadData['time']
+	date = jsonLoadData['date']
+	day = getDay(date)
+	fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
+	if fireBaseCalendarData != None:
+		fireBaseCalendarData[day] = (time)
+		db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
+	else:
+		db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set({int(day): (time)})
+	return 'success'
 def getDay(timeVar):
 	timeArr = str(timeVar).split()
 	return timeArr[1][:-1]
 
 @app.route('/deleteCalendarData', methods = ['POST'])
 def deleteCalendarData():
-    jsdata = request.form['javascript_data']
-    jsonLoadData = json.loads(jsdata)
-    date = jsonLoadData['date']
-    day= getDay(date)
-    fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
-    if fireBaseCalendarData != None:
-    	fireBaseCalendarData.pop(day)
-    	db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
-    return 'success'
+	jsdata = request.form['javascript_data']
+	jsonLoadData = json.loads(jsdata)
+	date = jsonLoadData['date']
+	day= getDay(date)
+	fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
+	if fireBaseCalendarData != None:
+		fireBaseCalendarData.pop(day)
+		db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
+	return 'success'
+
+@app.route("/scheduleU")                   
+def scheduleU():  
+	firebaseData = storeCalendarDatabaseU.get('/storeCalendarDataTableUser', idGivenEmail(session['user']))
+	if firebaseData != None:
+		dataList = []
+		for key in firebaseData.keys():
+			dataList.append({"Date": int(key), "Time": firebaseData[key]})
+		print(dataList)
+		return render_template('calendarUser.html', data=json.dumps(dataList))
+	else:
+		return render_template('calendarUser.html')
+		
+@app.route('/storeCalendarDataUser', methods = ['POST'])
+def storeCalendarDataUser():
+	jsdata = request.form['javascript_data']
+	jsonLoadData = json.loads(jsdata)
+	time = jsonLoadData['time']
+	date = jsonLoadData['date']
+	day = getDay(date)
+	fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTableUser', idGivenEmail(session['user']))
+	if fireBaseCalendarData != None:
+		fireBaseCalendarData[day] = (time)
+		db.child("storeCalendarDataTableUser").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
+	else:
+		db.child("storeCalendarDataTableUser").child(idGivenEmail(session['user'])).set({int(day): (time)})
+	return 'success'
+def getDay(timeVar):
+	timeArr = str(timeVar).split()
+	return timeArr[1][:-1]
+
+@app.route('/deleteCalendarDataUser', methods = ['POST'])
+def deleteCalendarDataUser():
+	jsdata = request.form['javascript_data']
+	jsonLoadData = json.loads(jsdata)
+	date = jsonLoadData['date']
+	day= getDay(date)
+	fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTableUser', idGivenEmail(session['user']))
+	if fireBaseCalendarData != None:
+		fireBaseCalendarData.pop(day)
+		db.child("storeCalendarDataTableUser").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
+	return 'success'
+
 
 #for putting filler data into table
 @app.route("/testRoute")                   
