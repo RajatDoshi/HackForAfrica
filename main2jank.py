@@ -62,9 +62,9 @@ def home():
 			nameVar = doctorInfoDatabase.get('/doctorInfo', idGivenEmail(session['user']))['Names']
 			day = storeAptDateFinal.get('/storeAptDateFinal', 'lisa1bart@gmail1com')
 			if day != None:
-				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar=day['day'], timeVar=day['time'], userNameVar=day['name'])
-			else:
-				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar="", timeVar="", userNameVar="")
+				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar=day['day'], timeVar=day['time'], userNameVar=day['name'])			
+			return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar)
+			 
 	else: 
 		return render_template('land.html')	
 
@@ -426,5 +426,4 @@ def signOut():
 	return redirect('/')
 
 if __name__ == "__main__":        
-	app.run(port = 5000)
-                  
+	app.run(port = 4999)                     
