@@ -176,7 +176,7 @@ def scheduleDoctor():
 		for key in firebaseData.keys():
 			dataList.append({"Date": int(key), "Time": firebaseData[key]})
 		print(dataList)
-		return render_template('calendar.html', data=json.dumps(dataList))
+		return render_template('calendar.html', signInStatus = "Sign Out", data=json.dumps(dataList))
 	else:
 		return render_template('calendar.html')
 		
