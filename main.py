@@ -335,7 +335,7 @@ def sendMessageUser():
 @app.route("/doctorPortal")                   
 def doctorsPortal():  
 	doctorPortalList = getPortalInfo()
-	return render_template('doctorsPortal.html', tasks=doctorPortalList)
+	return render_template('doctorsPortal.html', signInStatus = 'Sign Out', tasks=doctorPortalList)
 def getPortalInfo():
 	portalDict = doctorPortalDatabase.get('/doctorPortal', None)
 	portalList = []
