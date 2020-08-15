@@ -25,9 +25,7 @@
    </head>
    <body style="padding: 2%">
       <h1 style="text-align: center">Messaging</h1>
-      <br>
-      <br>
-      <div class="row">
+      <div class="row" style="margin-top: 10%">
       <div class="col-3 chat">
          <div class="card mb-sm-3 mb-md-0 contacts_card">
             <div class="card-header">
@@ -40,7 +38,7 @@
             </div>
             <div class="card-body contacts_body">
                <ui class="contacts">
-                  <li id="filterID" class="active">
+                  <li id="filterID" class="active-texter">
                      <div class="d-flex bd-highlight">
                         <div class="img_cont">
                            <img src="https://d.newsweek.com/en/full/997973/doctor-stock.jpg?w=1600&h=1200&q=88&f=416fa20ae7724e1e3d2b3f6e7c76c02e" class="rounded-circle user_img" class="rounded-circle user_img">
@@ -66,7 +64,6 @@
                   </li>
                </ui>
             </div>
-            <div class="card-footer"></div>
          </div>
       </div>
       <div class="col-9 chat">
@@ -81,10 +78,6 @@
                      <span>Chat with Dr. Bert</span>
                      <p>physician</p>
                   </div>
-                  <div class="video_cam">
-                     <span><i class="fas fa-video"></i></span>
-                     <span><i class="fas fa-phone"></i></span>
-                  </div>
                </div>
                <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
                <div class="action_menu">
@@ -96,7 +89,7 @@
                   </ul>
                </div>
             </div>
-            <div id="chatDiv" style="overflow-y: auto; padding: 0 1%">
+            <div id="chatDiv" style="overflow-y: auto; overflow-x: hidden; padding: 1%; padding-bottom: 0;">
                {% for msg in msgDict %}
                <div class="card-body msg_card_body">
                   {% if msg.Type == "doctor" %}
@@ -123,7 +116,10 @@
                </div>
                {% endfor %}
             </div>
-            <div class="card-footer">
+         </div>
+      </div>
+      </div>
+                  <div class="card-footer">
                <form action="/sendMessageUser" method="POST" class="input-group">
                   <input name="chatMsg" type="text" id="chatMsg" class="form-control type_msg" placeholder="Type your message..."></input>
                   <div class="input-group-append">
@@ -131,9 +127,7 @@
                   </div>
                </form>
             </div>
-         </div>
-      </div>
-      </div>
+
       </div>
       </div>
       <script>

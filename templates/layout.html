@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--Meta tags-->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--Bootstrap css-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">        
+        <!--Font Awesome Icons-->
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        {% block importCssAndOtherLinks %}{% endblock %}
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="background-color: black; font-size:1rem;">
+            <a class = "navbar-brand " style= "color:white;font-size:2rem;font-family: 'Schoolbell', cursive;" href = "#"> <span style = "color:green">Inst</span><span style = "color:rgb(248, 206, 18)">ant</span><span style = "color:red">Doc</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    {% if  acctType != 'User' %}
+                            <li><a class="nav-link active" href="/">
+                                    <i class="fas fa-home"></i>
+                                    <span>Dashboard</span>
+                            </a></li>
+                            <li><a class="nav-link" href="/doctorPortal">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span>Patient Portal</span>
+                            </a></li>
+                            <li><a class="nav-link" href="/scheduleDoctor">
+                                    <i class="fa fa-calendar"></i>
+                                    <span>Schedule Avaliability</span>
+                            </a></li>
+                            <li><a class="nav-link" href="/chatDoctor">
+                                    <i class="fa fa-comments"></i>
+                                    <span>Message Patient</span>
+                            </a></li>
+                    {% else %}
+                        <li><a class="nav-link active" href="/">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a></li>
+                        <li><a class="nav-link" href="/diagnose">
+                            <i class="fa fa-stethoscope"></i>
+                            <span>Instant Diagnosis</span>
+                        </a></li>
+                        <li><a class="nav-link" href="/chat">
+                            <i class="fa fa-comments"></i>
+                            <span>Message Doctors</span>
+                        </a></li>
+                    {% endif %}
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            {% if signInStatus == "Sign Out" %}
+                                <a class="nav-link tab3" style = "color:rgb(187, 8, 8)" href="/signOut"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                            {% else %}
+                                <a class="nav-link tab3" style = "color: white" href="/signOut"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                            {% endif %}                                
+                        </li>
+                    </ul>
+            </div>
+        </nav>
+        <main class="container" style="padding: 5%">
+            {% block main %}{% endblock %}
+        </main>
+
+        <!--Bootstrap javascript-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!--Speech sythesis-->
+        <script src="../speech_synthesis.js"></script>
+    </body>
+</html>
