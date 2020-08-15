@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" style = "background-color:#f6f5f3; margin:0;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script>
+    const ROOM_ID = "<%= roomId %>"
+  </script>
+  <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="script.js" defer></script>
+  <title>Physician Call</title>
+  <style>
+    #video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 300px);
+      grid-auto-rows: 300px;
+      /* width:600px; */
+    }
+    
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    body{
+      height:100%;
+      width:100%;
+    }
+    .container{
+
+    }
+    .intro{
+      height:400px;
+      width:70%;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+    }
+    .phrase{
+      grid-row:1/span 2;
+      grid-column:1/span 3;
+      font-size:250%;
+    }
+    .phrase2{
+      grid-row:3;
+      grid-column: 1/span 3;
+      font-size:250%;
+    }
+  </style>
+</head>
+<body >
+
+  <div class = "website" style = "width:80%; margin:auto; background-color:#f6f5f3">
+    <div class = "intro">
+      <h1 class = "phrase"><span style = "font-size:250%;color:#3d3d3f ;">Hi, {patient name}.</span> <span><br></span><span style = "color:#3d3d3f;">Meet your assigned caretaker, {Doctor name}</span></h1>
+      <h1 class = "phrase2" style = "padding-top:.5em;"> <span style = "color:#bd8c7d">How are you today?</span></h1>
+    </div>
+    
+      <div id="video-grid" > </div>
+    </div>
+  </div>
+</body>
+</html>

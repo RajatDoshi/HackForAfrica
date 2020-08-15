@@ -52,7 +52,6 @@ def idGivenEmail(email):
 def home():  
 	if 'user' in session:
 		if session['AccountType'] == 'User':
-			# return render_template('userLanding.html', signInStatus = "Sign Out", acctType=session['AccountType'])
 			nameVar = userDatabase.get('/userInfo', idGivenEmail(session['user']))['Names']
 			day = storeAptDateFinal.get('/storeAptDateFinal', idGivenEmail(session['user']))
 			if day != None:
@@ -427,5 +426,4 @@ def signOut():
 	return redirect('/')
 
 if __name__ == "__main__":        
-	app.run(port = 5000)
-                  
+	app.run(port = 4999)                     
