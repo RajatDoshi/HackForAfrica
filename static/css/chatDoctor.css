@@ -3,6 +3,10 @@
     background-color: #ddd;
 }
 
+.container {
+    padding: 0 !important;
+}
+
 .container::after {
     content: "";
     clear: both;
@@ -51,9 +55,7 @@ body,
 html {
     height: 100%;
     margin: 0;
-    background: #7F7FD5;
-    background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
-    background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+    background-color: #F5F5F5;
 }
 
 .chat {
@@ -64,7 +66,7 @@ html {
 .card {
     height: 500px;
     border-radius: 15px !important;
-    background-color: rgba(0, 0, 0, 0.4) !important;
+    background-color: white;
 }
 
 .contacts_body {
@@ -79,12 +81,12 @@ html {
 
 .card-header {
     border-radius: 15px 15px 0 0 !important;
-    border-bottom: 0 !important;
 }
 
 .card-footer {
     border-radius: 0 0 15px 15px !important;
-    border-top: 0 !important;
+    border-top: 1px solid rgba(0, 0, 0, .125) !important;
+    padding: 0;
 }
 
 .container {
@@ -93,9 +95,9 @@ html {
 
 .search {
     border-radius: 15px 0 0 15px !important;
-    background-color: rgba(0, 0, 0, 0.3) !important;
-    border: 0 !important;
-    color: white !important;
+    background-color: #fafafa !important;
+    color: black !important;
+    border-right: 0 !important;
 }
 
 .search:focus {
@@ -104,9 +106,9 @@ html {
 }
 
 .type_msg {
-    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-color: #fafafa !important;
     border: 0 !important;
-    color: white !important;
+    color: black !important;
     height: 60px !important;
     overflow-y: auto;
 }
@@ -118,7 +120,7 @@ html {
 
 .attach_btn {
     border-radius: 15px 0 0 15px !important;
-    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-color: #F5F5F5 !important;
     border: 0 !important;
     color: white !important;
     cursor: pointer;
@@ -126,17 +128,16 @@ html {
 
 .send_btn {
     border-radius: 0 15px 15px 0 !important;
-    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-color: #e9ecef !important;
     border: 0 !important;
-    color: white !important;
+    color: black !important;
     cursor: pointer;
 }
 
 .search_btn {
     border-radius: 0 15px 15px 0 !important;
-    background-color: rgba(0, 0, 0, 0.3) !important;
-    border: 0 !important;
-    color: white !important;
+    background-color: r##F5F5F5 !important;
+    color: black !important;
     cursor: pointer;
 }
 
@@ -151,8 +152,8 @@ html {
     margin-bottom: 15px !important;
 }
 
-.active {
-    background-color: rgba(0, 0, 0, 0.3);
+.active-texter {
+    background-color: #F0F8FF;
 }
 
 .card-body {
@@ -205,12 +206,12 @@ html {
 
 .user_info span {
     font-size: 20px;
-    color: white;
+    color: black;
 }
 
 .user_info p {
     font-size: 10px;
-    color: rgba(255, 255, 255, 0.6);
+    color: grey;
 }
 
 .video_cam {
@@ -270,7 +271,7 @@ html {
     position: absolute;
     right: 10px;
     top: 10px;
-    color: white;
+    color: black;
     cursor: pointer;
     font-size: 20px;
 }

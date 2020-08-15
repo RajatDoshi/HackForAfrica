@@ -52,13 +52,12 @@ def idGivenEmail(email):
 def home():  
 	if 'user' in session:
 		if session['AccountType'] == 'User':
-			# return render_template('userLanding.html', signInStatus = "Sign Out", acctType=session['AccountType'])
 			nameVar = userDatabase.get('/userInfo', idGivenEmail(session['user']))['Names']
 			day = storeAptDateFinal.get('/storeAptDateFinal', idGivenEmail(session['user']))
 			if day != None:
-				return render_template('userLand.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar=day['day'], timeVar=day['time'], nameVar=nameVar)
+				return render_template('userLanding.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar=day['day'], timeVar=day['time'], nameVar=nameVar)
 			else:
-				return render_template('userLand.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar="",nameVar=nameVar)
+				return render_template('userLanding.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar="",nameVar=nameVar)
 		else:
 			nameVar = doctorInfoDatabase.get('/doctorInfo', idGivenEmail(session['user']))['Names']
 			day = storeAptDateFinal.get('/storeAptDateFinal', 'lisa1bart@gmail1com')
@@ -290,9 +289,9 @@ def chatDoctorGeneric():
 		if msgDict != None:
 			for i in range(0, len(msgDict["Chat"])):
 				msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]})
-		return render_template('chatDoctor.html', tasks=info, msgDict=msgList, chattingWith=chattingWith, )
+		return render_template('chatDoctor.html', signInStatus = 'Sign Out' , tasks=info, msgDict=msgList, chattingWith=chattingWith, )
 	else:
-		return render_template('chatDoctor.html') 		
+		return render_template('chatDoctor.html', signInStatus = 'Sign Out') 		
 
 @app.route("/chatDoctor/<chattingWith>")                   
 def chatDoctor(chattingWith): 

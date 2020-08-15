@@ -13,21 +13,17 @@
             <div class="sidebar-content">
                <div class="sidebar-brand">
                   <a class = "navbar-brand " style= "color:white;font-size:1.3rem;font-family: 'Schoolbell', cursive;" href = "#"> <span style = "color:green">Hack</span><span style = "color:rgb(248, 206, 18)">ForAf</span><span style = "color:red">rica</span></a>
-                  <div style="margin-left: 5%" id="close-sidebar">
-                     <i class="fas fa-times"></i>
-                  </div>
                </div>
-               <div class="sidebar-header">
-                  <div class="user-pic">
-                     <img  class="img-responsive img-rounded" src="https://media.istockphoto.com/photos/portrait-of-smiling-handsome-man-in-blue-tshirt-standing-with-crossed-picture-id1045886560?k=6&m=1045886560&s=612x612&w=0&h=hXrxai1QKrfdqWdORI4TZ-M0ceCVakt4o6532vHaS3I="
-                        alt="User picture">
+               <div style="padding-top: 10%" class="sidebar-header">
+                  <div style="text-align: center" class="user-pic">
+                     <img  class="img-responsive img-rounded" src="https://media.istockphoto.com/photos/portrait-of-smiling-handsome-man-in-blue-tshirt-standing-with-crossed-picture-id1045886560?k=6&m=1045886560&s=612x612&w=0&h=hXrxai1QKrfdqWdORI4TZ-M0ceCVakt4o6532vHaS3I=" alt="User picture">
                   </div>
                   <div class="user-info">
-                     <span class="user-name">
-                     <strong>John Smith</strong>
+                     <span style="color: black; font-size: 2rem; text-align: center" class="user-name">
+                        <strong>John Smith</strong>
                      </span>
-                     <span class="user-status">
-                     <span>Patient</span>
+                     <span style="font-size: 1rem; text-align: center" class="user-status">
+                        <span>Patient</span>
                      </span>
                   </div>
                </div>
@@ -35,27 +31,12 @@
                <div class="sidebar-menu">
                   <ul>
                      <li class="header-menu">
-                        <span>Dashboard Navigation</span>
-                     </li>
-                     <li>
-                        <a href="#calendar">
-                        <i class="fa fa-calendar"></i>
-                        <span>Calendar</span>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="#scheduleVisit">
-                        <i class="fa fa-book"></i>
-                        <span>Schedule Visit</span>
-                        </a>
-                     </li>
-                     <li class="header-menu">
-                        <span>Medical Profile</span>
+                        <div style="text-align: center"><span>Medical Profile</span></div>
                      </li>
                      <li class="sidebar-dropdown">
                         <a href="#">
-                        <i class="fas fa-id-card"></i>
-                        <span>Characteristics</span>
+                           <i class="fas fa-id-card"></i>
+                           <span >Characteristics</span>
                         </a>
                         <div class="sidebar-submenu">
                            <ul>
@@ -67,73 +48,38 @@
                      </li>
                      <li class="sidebar-dropdown">
                         <a href="#">
-                        <i class="fa fa-user-md"></i>
-                        <span>Previous Doctors</span>
+                           <i class="fa fa-user-md"></i>
+                           <span>Previous Doctors</span>
                         </a>
                         <div class="sidebar-submenu">
                            <ul>
-                              <li>
-                                 <a href="#">Kanye West</a>
-                              </li>
-                              <li>
-                                 <a href="#">Biggie Smalls</a>
-                              </li>
-                              <li>
-                                 <a href="#">Jay Z</a>
-                              </li>
+                              <li><a href="#">Kanye West</a></li>
+                              <li><a href="#">Biggie Smalls</a></li>
+                              <li><a href="#">Jay Z</a></li>
                            </ul>
                         </div>
                      </li>
                      <li class="sidebar-dropdown">
                         <a href="#">
-                        <i class="fas fa-heartbeat"></i>
-                        <span>Medical History</span>
+                           <i class="fas fa-heartbeat"></i>
+                           <span>Medical History</span>
                         </a>
                         <div class="sidebar-submenu">
                            <ul>
-                              <li>
-                                 <a href="#">Breathing Problems</a>
-                              </li>
-                              <li>
-                                 <a href="#">Migraines</a>
-                              </li>
-                              <li>
-                                 <a href="#">Spine Surgery</a>
-                              </li>
+                              <li><a href="#">Breathing Problems</a></li>
+                              <li><a href="#">Migraines</a></li>
+                              <li><a href="#">Spine Surgery</a></li>
                            </ul>
                         </div>
                      </li>
-                     <li class="header-menu">
-                        <span>Other Services</span>
-                     </li>
-                     <li>
-                        <a href="/diagnose">
-                        <i class="fa fa-stethoscope"></i>
-                        <span>Instant Diagnosis</span>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="/chat">
-                        <i class="fa fa-comments"></i>
-                        <span>Message Doctors</span>
-                        </a>
-                     </li>
                   </ul>
                </div>
-               <!-- sidebar-menu  -->
-            </div>
-            <!-- sidebar-content  -->
-            <div class="sidebar-footer">
-               <a href="/signOut">
-               <i class="fas fa-sign-out-alt"></i>
-               Sign Out
-               </a>
             </div>
          </nav>
          <!-- sidebar-wrapper  -->
          <main class="page-content">
-            <div class="container-fluid">
-               <section id="calendar" style="padding: 2%; text-align: center">
+            <div class="container-fluid" style="padding-left: 10%; padding-top: 5%">
+               <section id="calendar" style="text-align: center">
                   <h1>Calendar</h1>
                   <div class="container">
                      <div class="row">
@@ -176,31 +122,6 @@
                         </div>
                      </div>
                   </div>
-               </section>
-               <section id="scheduleVisit" style="padding: 2%;text-align: center">
-                  <h1>Schedule Visit</h1>
-                  <form style="margin: 2% 30%;">
-                     <div class="form-group">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                     </div>
-                     <div class="row">
-                        <div class="col">
-                           <label for="date">Date</label>
-                           <input id="date" type="date" class="form-control" placeholder="First name">
-                        </div>
-                        <div class="col">
-                           <label for="time">Time</label>
-                           <input id="time" type="time" class="form-control" placeholder="Last name">
-                        </div>
-                     </div>
-                     <br>
-                     <div class="form-group">
-                        <label for="Description">Describe Your Condition</label>
-                        <textarea class="form-control" id="Description" rows="3"></textarea>
-                     </div>
-                     <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
                </section>
             </div>
          </main>

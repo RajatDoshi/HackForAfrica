@@ -19,32 +19,49 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
+                    {% if  acctType != 'User' %}
                             <li><a class="nav-link active" href="/">
                                     <i class="fas fa-home"></i>
                                     <span>Dashboard</span>
                             </a></li>
-                            <li><a class="nav-link" href="/diagnose">
-                                    <i class="fa fa-stethoscope"></i>
-                                    <span>Instant Diagnosis</span>
+                            <li><a class="nav-link" href="/doctorPortal">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span>Patient Portal</span>
                             </a></li>
-                            <li><a class="nav-link" href="/chat">
+                            <li><a class="nav-link" href="/scheduleDoctor">
+                                    <i class="fa fa-calendar"></i>
+                                    <span>Schedule Avaliability</span>
+                            </a></li>
+                            <li><a class="nav-link" href="/chatDoctor">
                                     <i class="fa fa-comments"></i>
-                                    <span>Message Doctors</span>
+                                    <span>Message Patient</span>
                             </a></li>
+                    {% else %}
+                        <li><a class="nav-link active" href="/">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a></li>
+                        <li><a class="nav-link" href="/diagnose">
+                            <i class="fa fa-stethoscope"></i>
+                            <span>Instant Diagnosis</span>
+                        </a></li>
+                        <li><a class="nav-link" href="/chat">
+                            <i class="fa fa-comments"></i>
+                            <span>Message Doctors</span>
+                        </a></li>
+                    {% endif %}
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             {% if signInStatus == "Sign Out" %}
                                 <a class="nav-link tab3" style = "color:rgb(187, 8, 8)" href="/signOut"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
                             {% else %}
-                                <button id="signInButtonNav" style = "color: white" onclick="document.getElementById('id01').style.display='block'" class="SignInButtonDoctor">Sign In</button>
+                                <a class="nav-link tab3" style = "color: white" href="/signOut"><i class="fas fa-sign-in-alt"></i> Sign In</a>
                             {% endif %}                                
                         </li>
                     </ul>
             </div>
         </nav>
-        <br>
-        <br>
         <main class="container" style="padding: 5%">
             {% block main %}{% endblock %}
         </main>
