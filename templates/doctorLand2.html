@@ -163,7 +163,7 @@
                                     <br>
                                     <ul>
                                        <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
-                                       <li style="width:34%;">Message Patient <span class="fa fa-comment"></span></li>
+                                       <li onclick="window.location='/chatDoctor/Sukesh Ram';" style="width:34%;">Message Patient <span class="fa fa-comment"></span></li>
                                        <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
                                     </ul>
                                  </div>
@@ -179,7 +179,7 @@
                                        <p class="desc">Ashwin Agnihotri ● 8:00 EST</p>
                                        <ul>
                                           <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
-                                          <li style="width:34%;">Message Patient <span class="fa fa-comment"></span></li>
+                                          <li onclick="window.location='/chatDoctor/Ashwin Agnihotri';" style="width:34%;">Message Patient <span class="fa fa-comment"></span></li>
                                           <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
                                        </ul>
                                     </div>
@@ -196,12 +196,12 @@
                                     <br>
                                     <ul>
                                        <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
-                                       <li style="width:34%;">Message Patient <span class="fa fa-comment"></span></li>
+                                       <li onclick="window.location='/chatDoctor/Roshan Warman';" style="width:34%;">Message Patient <span class="fa fa-comment"></span></li>
                                        <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
                                     </ul>
                                  </div>
                               </li>
-                              {% if namVar != "" %}
+                              {% if namVar == "" %}
                                  <li >
                                     <time>
                                     <span class="day">{{dayVar}}</span>
@@ -213,7 +213,7 @@
                                        <p class="desc">{{userNameVar}} ● {{timeVar}} EST</p>
                                        <ul>
                                           <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
-                                          <li style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
+                                          <li onclick="window.location='/chatDoctor/{{userNameVar}}';" style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
                                           <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
                                        </ul>
                                     </div>
