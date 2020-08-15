@@ -300,7 +300,7 @@ def chatDoctor(chattingWith):
 	if msgDict != None:
 		for i in range(0, len(msgDict["Chat"])):
 			msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]}) 
-	return render_template('chatDoctor.html', msgDict=msgList, chattingWith=chattingWith)
+	return render_template('chatDoctor.html', signInStatus = 'Sign Out' , msgDict=msgList, chattingWith=chattingWith)
 
 @app.route("/sendMessageDoctor/<chattingWith>", methods=['POST'])
 def sendMessageDoctor(chattingWith):
