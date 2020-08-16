@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #diffLang{
+            position:relative;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hell0</h1>
+    <select id = "diffLang" onchange = "changeLang(this)">
+        <option selected>English</option>
+        <option>Hindi</option>
+        <option>Spanish</option>
+        <option>French</option>
+        <option>Swahili</option>
+        <option>Bo</option>
+        <option>Latin</option>
+        <option>Urdu</option>
+        <option>German</option>
+    </select>
+    
+
+    <script>
+
+        let dropD = document.getElementById("diffLang");
+        function changeLang(element){
+            if(dropD.options[dropD.selectedIndex].innerHTML == "French"){
+                document.location.replace("landFR.html");
+            }else if(dropD.options[dropD.selectedIndex].innerHTML ==  "Swahili"){
+                document.location.replace("landSW.html");
+            }
+        }
+
+
+
+    </script>
+</body>
+</html>
