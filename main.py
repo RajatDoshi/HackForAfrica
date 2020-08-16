@@ -165,6 +165,7 @@ def scheduleUser():
 					if len(intersection2) != 0:
 						finalTime = list(intersection2)[0]
 						currDoctorUserData = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
+						print(currDoctorUserData)
 						if currDoctorUserData != None:
 							currDoctorUserData['Date'] = "Aug " + k + " @ "  + finalTime + " EST "
 							currDoctorUserData['Link'] = "https://yale.zoom.us/j/983"
@@ -197,8 +198,8 @@ def storeCalendarData():
 	jsdata = request.form['javascript_data']
 	jsonLoadData = json.loads(jsdata)
 	time = jsonLoadData['time']
-	date = jsonLoadData['date']
-	day = getDay(date)
+	day = jsonLoadData['date']
+	# day = getDay(date)
 	fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
 	if fireBaseCalendarData != None:
 		fireBaseCalendarData[day] = (time)
@@ -230,17 +231,18 @@ def scheduleU():
 		for key in firebaseData.keys():
 			dataList.append({"Date": int(key), "Time": firebaseData[key]})
 		print(dataList)
-		return render_template('calendarUser.html', data=json.dumps(dataList))
+		return render_template('calendarUser.html', data=json.dumps(dataList), acctType=session['AccountType'])
 	else:
-		return render_template('calendarUser.html')
+		return render_template('calendarUser.html', acctType=session['AccountType'])
 		
 @app.route('/storeCalendarDataUser', methods = ['POST'])
 def storeCalendarDataUser():
+	print("broooo")
 	jsdata = request.form['javascript_data']
 	jsonLoadData = json.loads(jsdata)
 	time = jsonLoadData['time']
-	date = jsonLoadData['date']
-	day = getDay(date)
+	day = jsonLoadData['date']
+	# day = getDay(date)
 	fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTableUser', idGivenEmail(session['user']))
 	if fireBaseCalendarData != None:
 		fireBaseCalendarData[day] = (time)
@@ -250,6 +252,7 @@ def storeCalendarDataUser():
 	return 'success'
 def getDay(timeVar):
 	timeArr = str(timeVar).split()
+	print(timeArr)
 	return timeArr[1][:-1]
 
 @app.route('/deleteCalendarDataUser', methods = ['POST'])
@@ -283,7 +286,7 @@ def chat():
 					timeList.remove(timeList[0])
 				formattedTime = timeList[0] + ' on ' + str(list(calendar.month_abbr).index(timeList[2])) + '/' + timeList[3] + '/' + timeList[5][:-2]
 				msgList.append({"Chat": msgDict["Chat"][i], "Time": formattedTime, "Type": msgDict["Type"][i]})
-		return render_template('chat.html', msgDict=msgList)
+		return render_template('chat.html', msgDict=msgList, acctType=session['AccountType'])
 	else:
 		return redirect('/signUp')
 
@@ -303,7 +306,7 @@ def chatDoctorGeneric():
 				msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]})
 		return render_template('chatDoctor.html', signInStatus = 'Sign Out' , tasks=info, msgDict=msgList, chattingWith=chattingWith, )
 	else:
-		return render_template('chatDoctor.html', signInStatus = 'Sign Out') 		
+		return render_template('chatDoctor.html', signInStatus = 'Sign Out', acctType=session['AccountType']) 		
 
 @app.route("/chatDoctor/<chattingWith>")                   
 def chatDoctor(chattingWith): 

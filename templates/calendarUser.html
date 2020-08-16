@@ -176,9 +176,9 @@
         });
 
         document.addEventListener("TimeSaved", function(){
-            let calDate =  `${month}. ${ghettoTarget.innerHTML}, ${year}`;
+            let calDate =  `Aug. ${ghettoTarget.innerHTML}`;
             $.post( "/storeCalendarDataUser", {
-                javascript_data: JSON.stringify({date:calDate , time:SelectedDates.get(calDate)})
+                javascript_data: JSON.stringify({date:`${ghettoTarget.innerHTML}` , time:SelectedDates.get(calDate)})
             });
         });
 
@@ -291,13 +291,20 @@
             let x = document.getElementsByClassName("fal");
 
             var dateVar, timeVar;
-            for(i = 0; i < dataDict.length; i++) {
-                dateVar = dataDict[i].Date;
-                timeVar = dataDict[i].Time;
-                x[dateVar-1].click();
-                timesSelected = timeVar;
-                saveTime2();
+            console.log(dataDict);
+            try {
+                for(i = 0; i < dataDict.length; i++) {
+                    dateVar = dataDict[i].Date;
+                    timeVar = dataDict[i].Time;
+                    x[dateVar-1].click();
+                    timesSelected = timeVar;
+                    saveTime2();
+                } 
             }
+            catch {
+                console.log("no data");
+            }
+         
         })
 
 

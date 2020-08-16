@@ -72,10 +72,10 @@
               <br>
               <button style="display: block" class="remove-btn btn btn-outline-danger" onclick = unClickDateSelected()>Remove<span class = "carDDate"></span></button>
             </div>
-            <form style="text-align: center; margin: 2% 20%;" method="POST" action="/scheduleUser">
+<!--             <form style="text-align: center; margin: 2% 20%;" method="POST" action="/scheduleUser">
                 <button type="submit" class="btn btn-info">Schedule Appointment</button>
             </form>
-        </div>
+ -->        </div>
 
     </div>
     <script>
@@ -286,9 +286,9 @@
         });
 
         document.addEventListener("TimeSaved", function(){
-            let calDate =  `${month}. ${ghettoTarget.innerHTML}, ${year}`;
+            let calDate =  `${month}. ${ghettoTarget.innerHTML}`;
             $.post( "/storeCalendarData", {
-                javascript_data: JSON.stringify({date:calDate , time:SelectedDates.get(calDate)})
+                javascript_data: JSON.stringify({date:`${ghettoTarget.innerHTML}` , time:SelectedDates.get(calDate)})
             });
         });
 

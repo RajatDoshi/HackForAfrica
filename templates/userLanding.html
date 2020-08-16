@@ -80,40 +80,40 @@
          <main class="page-content">
             <div class="container-fluid" style="padding-left: 10%; padding-top: 5%">
                <section id="calendar" style="text-align: center">
-                  <h1 onclick="speak(this.innerHTML)">Calendar</h1>
+                  <h1 onclick="speak(this.innerHTML)">Past Appointments</h1>
                   <div class="container">
                      <div class="row">
                         <div style="width:90%">
                            <ul class="event-list">
                               <li >
                                  <time>
-                                 <span class="day">20</span>
-                                 <span class="month">Jan</span>
+                                 <span class="day">21</span>
+                                 <span class="month">June</span>
                                  </time>
                                  <div class="info" style="text-align: center">
-                                    <h2 class="title">Checkup</h2>
+                                    <h2 class="title">Sick Visit</h2>
                                     <br>
-                                    <p class="desc">Dr. Bob Smith ● 5:00pm EST</p>
+                                    <p class="desc">Dr. Ronald Shiller ● 12:00 EST</p>
                                     <br>
                                     <ul>
                                        <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
-                                       <li style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
+                                       <li onclick="window.location='/chat'"; style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
                                        <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
                                     </ul>
                                  </div>
                               </li>
                               <li >
                                  <time>
-                                 <span class="day">21</span>
-                                 <span class="month">Jan</span>
+                                 <span class="day">3</span>
+                                 <span class="month">July</span>
                                  </time>
                                  <div class="info" style="text-align: center">
-                                    <h2 class="title">Physical Examination</h2>
+                                    <h2 class="title">Follow Up</h2>
                                     <br>
-                                    <p class="desc">Dr. Bob Smith ● 6:00pm EST</p>
+                                    <p class="desc">Dr. Ronald Shiller ● 8:00 EST</p>
                                     <ul>
                                        <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
-                                       <li style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
+                                       <li style="width:34%;" onclick="window.location='/chat';">Message Doctor <span class="fa fa-comment"></span></li>
                                        <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
                                     </ul>
                                  </div>
@@ -122,6 +122,52 @@
                         </div>
                      </div>
                   </div>
+                  <h1 onclick="speak(this.innerHTML)">Upcoming Appointments</h1>
+                  <div class="container">
+                     <div class="row">
+                        <div style="width:90%">
+                           <ul class="event-list">
+                               <li >
+                                 <time>
+                                 <span class="day">17</span>
+                                 <span class="month">Aug</span>
+                                 </time>
+                                 <div class="info" style="text-align: center">
+                                    <h2 class="title">Physical Examination</h2>
+                                    <br>
+                                    <p class="desc">Dr. Ronald Shiller ● 12:00 EST</p>
+                                    <br>
+                                    <ul>
+                                       <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
+                                       <li onclick="window.location='/chat'"; style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
+                                       <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
+                                    </ul>
+                                 </div>
+                              </li>
+                              {% if dayVar != "" %}
+                                 <li >
+                                    <time>
+                                    <span class="day">{{dayVar}}</span>
+                                    <span class="month">Aug</span>
+                                    </time>
+                                    <div class="info" style="text-align: center">
+                                       <h2 class="title">Sick Visit</h2>
+                                       <br>
+                                       <p class="desc">Dr. Lisa Bert ● {{timeVar}} EST</p>
+                                       <ul>
+                                          <li style="width:33%;">Join <span class="fa fa-video-camera"></span></li>
+                                          <li onclick="window.location='/chat'"; style="width:34%;">Message Doctor <span class="fa fa-comment"></span></li>
+                                          <li style="width:33%;">Cancel <span class="fa fa-trash-o"></span></li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              {% endif %}
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+
+
                </section>
             </div>
          </main>
