@@ -61,10 +61,11 @@ def home():
 		else:
 			nameVar = doctorInfoDatabase.get('/doctorInfo', idGivenEmail(session['user']))['Names']
 			day = storeAptDateFinal.get('/storeAptDateFinal', 'lisa1bart@gmail1com')
-			if day != None:
-				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar=day['day'], timeVar=day['time'], userNameVar=day['name'])
+			if day != None and len(day.keys()) > 3:
+				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar=day['day'], timeVar=day['time'], userNameVar=day['name'])			
 			else:
-				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar="", timeVar="", userNameVar="")
+				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar="empty")
+			 
 	else: 
 		return render_template('land.html')	
 
@@ -89,6 +90,8 @@ def diagnose():
 		symptomInput = []
 		for sym in data:
 			symptomInput.append(sym)
+		print(symptomInput)
+		
 		diagnoses_json, main_diagnosis, warnings = symptomClassifierAPI.symptomClassifierFunc(symptomInput=symptomInput)
 		if len(diagnoses_json) > 0:
 				data = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))

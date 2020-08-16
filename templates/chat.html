@@ -2,9 +2,12 @@
 
 {% block importCssAndOtherLinks %}
       <link rel="stylesheet" href="{{ url_for('static', filename='css/chatDoctor.css') }}">
+
 {% endblock %}
 
 {% block main %}
+
+      
       <script>
       $(document).ready(function(){
         $("#myInput").on("keyup", function() {
