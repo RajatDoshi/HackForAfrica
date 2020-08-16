@@ -14,9 +14,10 @@
   <style>
     #video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, 300px);
-      grid-auto-rows: 300px;
+      grid-template-columns: repeat(auto-fill, 450px 30px);
+      grid-auto-rows: 450px;
       /* width:600px; */
+      width:100%;
     }
     
     video {
@@ -24,6 +25,13 @@
       height: 100%;
       object-fit: cover;
     }
+
+    .hackVideo{
+      width:20%;
+      height:0%;
+      object-fit:cover;
+    }
+
     body{
       height:100%;
       width:100%;
@@ -32,11 +40,11 @@
 
     }
     .intro{
-      height:400px;
+      height:250px;
       width:70%;
       display:grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-rows: 2fr 2fr .2fr;
     }
     .phrase{
       grid-row:1/span 2;
@@ -54,11 +62,14 @@
 
   <div class = "website" style = "width:80%; margin:auto; background-color:#f6f5f3">
     <div class = "intro">
-      <h1 class = "phrase"><span style = "font-size:250%;color:#3d3d3f ;">Hi, {patient name}.</span> <span><br></span><span style = "color:#3d3d3f;">Meet your assigned caretaker, {Doctor name}</span></h1>
-      <h1 class = "phrase2" style = "padding-top:.5em;"> <span style = "color:#bd8c7d">How are you today?</span></h1>
+      <h1 class = "phrase"><span style = "font-size:250%;color:#3d3d3f ;">Hi, Sukesh.</span> <span><br></span><span style = "color:#3d3d3f;">Meet your assigned caretaker: Dr.  Doshi</span></h1>
+      <!-- <h1 class = "phrase2" > <span style = "color:#bd8c7d">How are you today?</span></h1> -->
     </div>
     
-      <div id="video-grid" > </div>
+      <div style= "display:block;margin:auto;">
+        <div id="video-grid"> </div>
+      </div>
+
     </div>
   </div>
 </body>

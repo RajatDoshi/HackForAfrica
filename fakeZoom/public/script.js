@@ -1,3 +1,5 @@
+const recorder = require('node-record-lpcm16');
+
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
@@ -5,11 +7,12 @@ const myPeer = new Peer(undefined, {
   port: '3001'
 })
 const myVideo = document.createElement('video')
-myVideo.muted = true
+// myVideo.muted = true
 const peers = {}
+
 navigator.mediaDevices.getUserMedia({
-  video: true,
-  audio: true
+  audio:false,
+  video: true
 }).then(stream => {
   addVideoStream(myVideo, stream)
 
@@ -26,6 +29,27 @@ navigator.mediaDevices.getUserMedia({
   })
 })
 
+
+
+navigator.mediaDevices.getUserMedia({
+  audio:true,
+  video:false
+}).then(  function(stream){
+
+    //on broadcast this will return stream of audio
+    socket.on('needAudio', function(){
+      socket.emit('googleTrasfer', stream);
+    })
+
+
+})
+
+
+
+
+
+
+
 socket.on('user-disconnected', userId => {
   if (peers[userId]) peers[userId].close()
 })
@@ -35,7 +59,8 @@ myPeer.on('open', id => {
 })
 
 function connectToNewUser(userId, stream) {
-  const call = myPeer.call(userId, stream)
+  const call = myPeer.call(userId, stream);
+
   const video = document.createElement('video')
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
@@ -48,6 +73,11 @@ function connectToNewUser(userId, stream) {
 }
 
 function addVideoStream(video, stream) {
+  if(videoGrid.childElementCount % 2 == 1){
+    let dummy = document.createElement('div');
+    dummy.classList.add("hackVideo");
+    videoGrid.append(dummy);
+  }
   video.srcObject = stream
   video.addEventListener('loadedmetadata', () => {
     video.play()
@@ -62,10 +92,12 @@ function addVideoStream(video, stream) {
   video.style.marginLeft = "45px";
   video.style.marginBottom = "245px"
 
-    videoGrid.append(video)
-    if(videoGrid.childElementCount <= 1){
-      let dummy = document.createElement('video');
-      videoGrid.append(dummy);
-    }
+ 
+
+  videoGrid.append(video)
+
+ 
+  
+  
    
 }
