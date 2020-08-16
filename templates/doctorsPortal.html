@@ -7,8 +7,10 @@
 {% block main %}
 	<header id="TableHeader">	
 		<br>
-		<h1><span class="blue">Schedule Portal</span></h1>
-		<table class="container">
+		<br>
+		<h1><span class="text-info">Patient Portal</span></h1>
+		<br>
+		<table class="container" cellspacing="0">
 			<div class="tbl-header">
 				<thead>
 					<tr>
@@ -24,11 +26,11 @@
 				<tbody>
 					{% for task in tasks %}
 					<tr>
-					  <td onclick="window.location='/chatDoctor/{{ task.Name }}';"><b>{{ task.Name }}</b></td>
-                      <td onclick="window.location='{{ task.SymptomsLink }}';">{{ task.Symptoms }}</td> 
-                      <td onclick="window.location='{{ task.DiagnosisLink }}';">{{ task.Diagnosis }}</td>
+					  <td class="uniqueLink" onclick="window.location='/chatDoctor/{{ task.Name }}';"><b><a>{{ task.Name }}</a></b></td>
+                      <td class="uniqueLink" onclick="window.location='{{ task.SymptomsLink }}';"><a>{{ task.Symptoms }}</a></td> 
+                      <td class="uniqueLink" onclick="window.location='{{ task.DiagnosisLink }}';"><a>{{ task.Diagnosis }}</a></td>
                       <td>{{ task.Date }}</td>
-                      <td onclick="window.location='{{ task.Link }}';">{{ task.Link }}</td>
+                      <td class="taskLink" onclick="window.location='{{ task.Link }}';"><a>{{ task.Link }}</a></td>
                 	</tr>
                 	{% endfor %}
 				</tbody>
