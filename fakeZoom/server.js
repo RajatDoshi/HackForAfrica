@@ -31,7 +31,9 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-  res.redirect(`/${uuidV4()}`)
+  res.render('room', { roomId: req.params.room })
+  // res.redirect(`/${uuidV4()}`)
+
 })
 
 app.get('/:room', (req, res) => {
