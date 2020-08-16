@@ -1,51 +1,87 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
 
-<html lang="en">
-	<head>
-		<title>HackForAfrica</title>
-		<meta charset="UTF-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% block importCssAndOtherLinks %}
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/diagnose.css') }}">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	</head>
+{% endblock %}
 
-	<body>
-		<header id="askQuestionHeader">
-			<br><br>
-			<h1 style="text-align: center"> AI Diagnosis Results </h1>
-			<br>
-			<table id="customers"> 
-				<tr>
-					<th>Symptoms</th>
-					<th>Detected Disease</th>
-					<th>Contact Doctor From</th>
-					<th>Confidence</th>
-				</tr>
-				{% for task in tasks%}
-				<tr>
-					<td>{{ task.Symptoms }}</td>
-					<td>{{ task.Name }}</td>
-					<td>{{ task.Spec }}</td>
-					<td>{{ task.Confidence }}</td>
-				</tr>
-				{% endfor %}
-			</table>
-			<br><br><br>
-			<h2 style="text-align: center"> Select Symptoms Below</h2>
+{% block main %}
+    <!-- Top header -->
+    <div class="w-50 px-3 py-3 pt-md-4 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 font-weight-bold">Diagnosis</h1>
+        <p class="lead">Powered by cutting-edge AI, the diagnostics algorithm has determined you likely have one of the following ailments based off of the selected symtoms.</p>
+    </div>
+
+<!-- Cards container -->
+    <div class="container text-center">
+        <div class="row">
+			
+			{% for task in tasks%}
+<!-- Card #1, Starter -->
+            <div class="col-lg-4 col-md-6 col-sm-10 pb-4 d-block m-auto">
+                <div class="pricing-item" style="box-shadow: 0px 0px 30px -7px rgba(0,0,0,0.29)">
+                    <!-- Indicator of subscription type -->
+                    <div class="pt-4 pb-3" style="letter-spacing: 2px">
+                        <h4>{{ task.Confidence }}% Confidence</h4>
+                    </div>
+                    <!-- Price class -->
+                    <div class="pricing-price pb-1 text-info color-info-text ">
+                        <h1 style="font-weight: 1000; font-size: 3.5em;">
+                            {{ task.Name }}
+                        </h1>
+                    </div>
+                    <!-- Perks of said subscription -->
+                    <div class="pricing-description">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li class="pl-3 pr-3"><b>Contact Experts in: </b></li>
+                            <li class="pl-3 pr-3">{{ task.Spec }}</li>
+                            <li class="pl-3 pr-3"><b>Symptoms: </b></li>
+                            <li class="pl-3 pr-3">{{ task.Symptoms }}</li>
+                        </ul>
+                    </div>
+                    <!-- Button -->
+                    <div class="pricing-button pb-4">
+                        <button type="button" class="btn btn-lg btn-info w-75">Find Experts</button>
+                    </div>
+                </div>
+            </div>
+			{% endfor %}
+        </div>
+		<div class="row">
+			<table class="table">
+				<tbody>
+					<tr>
+					{% for sym in symList %}
+						{% if loop.index is divisibleby 10 %}
+						{{sym}}
+							</tr>
+							<tr>
+						{% else %}
+							<td>{{sym}}</td>	 
+						{% endif %}
+					{% endfor %}
+					</tr>
+               </tbody>
+            </table>
+    	</div>
+    </div>
+
+
 			<form id = "UserSymptomsForm" action="/diagnose" method="POST">
-				{% for sym in symList %}
-					<label class="container"> {{ sym }}
-					  <input type="checkbox" name="{{ sym }}" id="checkbox" value="Checked">
+					<label class="container"> sym
+					  <input type="checkbox" name="sym" id="checkbox" value="Checked">
 					  <span class="checkmark"></span>
 					</label>
-				{% endfor %}
 				<br>
 				<button type="submit" class="signupbtn">Diagnose</button>
 			</form>
 		</header>
 		<script src="../speech_synthesis.js"></script>
-	</body>
-</html>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+        integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl"
+        crossorigin="anonymous"></script>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+{% endblock %}
 
