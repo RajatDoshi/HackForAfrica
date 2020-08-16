@@ -69,6 +69,11 @@ def home():
 	else: 
 		return render_template('land.html')	
 
+@app.route("/sendDoctorFile", methods=['POST'])                   
+def sendDoctorFile():  
+	return redirect('/')	
+
+
 @app.route('/landFR')
 def landFR():
 	return render_template("landFR.html")
