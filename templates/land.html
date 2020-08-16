@@ -251,9 +251,24 @@
                                 {% if signInStatus == "Sign Out" %}
                                     <a class="nav-link tab3" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/signOut">Sign Out</a>
                                 {% else %}
-                                    <button id="signInButtonNav" onclick="document.getElementById('id01').style.display='block'" class="SignInButtonDoctor">Sign In</button>
-                                {% endif %}                                
-                                
+                                     <button id="signInButtonNav" onclick="document.getElementById('id01').style.display='block'" style = "font-size: 100%; color:white; font-family: 'Recursive', sans-serif;" class="SignInButtonDoctor">Sign In</button>
+                                {% endif %}  
+                                <li class="nav-item">
+                                        <a class="nav-link tab2" style = "color:rgb(187, 8, 8); font-family: 'Recursive', sans-serif;" href="/doctorPortal">  </a>
+                                    </li> 
+                                <div class="nav-item"style="display:block;margin:auto">
+                                    <select id = "diffLang" onchange = "changeLang(this)" style="background-color: transparent;font-size: 100%; color:white; text-align:bottom;font-family: 'Recursive', sans-serif;">
+                                        <option selected>English</option>
+                                        <option>Hindi</option>
+                                        <option>Spanish</option>
+                                        <option>French</option>
+                                        <option>Swahili</option>
+                                        <option>Bo</option>
+                                        <option>Latin</option>
+                                        <option>Urdu</option>
+                                        <option>German</option>
+                                    </select>  
+                                </div>                            
                             </ul>
                         </div>                    
                 </nav>
@@ -586,6 +601,18 @@
             }
             });
 
+        </script>
+
+        <script>
+
+        let dropD = document.getElementById("diffLang");
+        function changeLang(element){
+            if(dropD.options[dropD.selectedIndex].innerHTML == "French"){
+                document.location.replace("landFR");
+            }else if(dropD.options[dropD.selectedIndex].innerHTML ==  "Swahili"){
+                document.location.replace("landSW");
+            }
+        }
         </script>
     </body>
 </html>

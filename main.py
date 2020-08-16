@@ -69,6 +69,15 @@ def home():
 	else: 
 		return render_template('land.html')	
 
+@app.route('/landFR')
+def landFR():
+	return render_template("landFR.html")
+
+@app.route('/landSW')
+def landSW():
+	return render_template("landSW.html")
+
+
 @app.route("/diagnose", methods=['GET', 'POST'])                   
 def diagnose():               
 	if request.method == 'GET':
@@ -80,7 +89,7 @@ def diagnose():
 				if data != None:
 					for i in range(0, len(data['Confidence'])):
 						tasks.append({'Name': data['Name'][i],'Symptoms': ', '.join(data['Symptoms'][i]),'Confidence': data['Confidence'][i], "Spec": ', '.join(data['Spec'][i]) })
-				return render_template('diagnose.html', signInStatus = "Sign Out", symList=symList, tasks=tasks)
+				return render_template('diagnose.html', signInStatus = "Sign Out", symList=symList, tasks=tasks, acctType=session['AccountType'])
 			else:
 				return redirect('/')
 		else:
