@@ -179,8 +179,26 @@
             <div class="card-header msg_head">
                <div class="d-flex bd-highlight">
                   <div class="img_cont">
+                     {% if chattingWith == 'Sanchita Kedia' %}
+                     <img src="https://scontent.ftpa1-2.fna.fbcdn.net/v/t1.0-1/cp0/p80x80/90225897_1175381119477424_1635268038712360960_n.jpg?_nc_cat=100&_nc_sid=dbb9e7&_nc_ohc=BKk-2o9LyEQAX8nslCp&_nc_oc=AQl58gA0hAZNmYqJkP0mF37b4kYfBFWc3aIojJxFC66vsXO0FWtKffBEMtIqRCkCnzZDj02rRNA88CigOmsf6LTB&_nc_ht=scontent.ftpa1-2.fna&oh=304b0256d14cc1717d00d82d11d45130&oe=5F5BDCF3"></span>
+                     <span class="online_icon offline"></span>
+                     
+                     {% elif chattingWith == 'Ashwin Agnihotri' %}
+                     <img src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t1.0-1/cp0/p80x80/94491304_1143093726039870_5755133649812979712_n.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=C5H5aN_oArQAX9eLrwv&_nc_ht=scontent.ftpa1-1.fna&oh=e9e7392d604590807cd6c2279e97b798&oe=5F5A2618"></span>
+                     <span class="online_icon offline"></span>
+
+                     {% elif chattingWith == 'Sukesh Ram' %}
+                     <img src="https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-1/p200x200/82981735_641903363284269_1318200972962430976_o.jpg?_nc_cat=108&_nc_sid=dbb9e7&_nc_ohc=m1WIdYAYqIEAX-Y7Km5&_nc_ht=scontent-mia3-1.xx&_nc_tp=6&oh=7a3f3c213bdbfd3b7e3f06b4ec701f24&oe=5F59AD62" class="rounded-circle user_img"></span>
+                     <span class="online_icon offline"></span>
+
+                     {% elif chattingWith == 'Roshan Warman' %}
+                     <img src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t1.0-1/p200x200/61041619_434946724003807_3242171954488147968_o.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=9jkAekeX4n4AX-tKQxy&_nc_ht=scontent.ftpa1-1.fna&_nc_tp=6&oh=2be503fe3515c4754056c8f2beaf124e&oe=5F5B257D" class="rounded-circle user_img"></span>
+                     <span class="online_icon"></span>
+                     
+                     {% else %}
                      <img src="https://scontent.ftpa1-1.fna.fbcdn.net/v/t31.0-1/cp0/c457.201.567.567a/s80x80/26063455_2000808266865216_2112541681492013849_o.jpg?_nc_cat=105&_nc_sid=dbb9e7&_nc_ohc=XizTM4FZEY8AX9AyJ70&_nc_ht=scontent.ftpa1-1.fna&oh=f362a9f114f0deb174a4de24476caefc&oe=5F598890" class="rounded-circle user_img">
                      <span class="online_icon"></span>
+                     {% endif %}
                   </div>
                   <div class="user_info">
                      <span>Chat with {{chattingWith}}</span>
