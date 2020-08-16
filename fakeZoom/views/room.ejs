@@ -8,6 +8,8 @@
     const ROOM_ID = "<%= roomId %>"
   </script>
   <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+  <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+
   <script src="/socket.io/socket.io.js" defer></script>
   <script src="script.js" defer></script>
   <title>Physician Call</title>
@@ -51,10 +53,13 @@
       grid-column:1/span 3;
       font-size:250%;
     }
-    .phrase2{
-      grid-row:3;
-      grid-column: 1/span 3;
-      font-size:250%;
+    .hthing{
+      position:relative;
+      font-size:150%;
+      color:#bd8c7d;
+    }
+    #easy{
+      position:relative;
     }
   </style>
 </head>
@@ -69,8 +74,37 @@
       <div style= "display:block;margin:auto;">
         <div id="video-grid"> </div>
       </div>
+      <div></div>
+      <div id = "easy">
+        <h1 class = "hthing">Transcription:</h1>
+      </div>
 
+      <div>
+        <button id="startbtn1" >Start Recording</button>
+        <button id="stopbtn1" >Stop Recording</button>
     </div>
+
   </div>
+
+
+  <script>
+
+// 
+    // const fs = require('fs')
+
+    // let start = document.getElementById("startbtn1");
+    // let transc = document.getElementById("hthing")
+    // start.onclick = function(){
+    //   var dat;
+    //   fs.readFile('/Users/roshanwarman/Downloads/practiceGoogleAPI/output.txt', function (err, data) {
+    //     if (err) {
+    //        return console.error(err);
+    //     }
+    //     dat = data.toString();
+    //     console.log(dat);
+    //  });
+    //  transc.innerHTML = dat;
+    // }
+  </script>
 </body>
 </html>

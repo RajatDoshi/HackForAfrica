@@ -3,8 +3,9 @@ const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
-
-
+const path = require('path');
+const ss = require('socket.io-stream')
+const fs = require('fs')
 const recorder = require('node-record-lpcm16');
 const speech = require('@google-cloud/speech');
 
@@ -14,7 +15,7 @@ const encoding = 'LINEAR16';
 const sampleRateHertz = 16000;
 const languageCode = 'en-US';
 
-const requestGoogle = {
+const request = {
   config: {
     encoding: encoding,
     sampleRateHertz: sampleRateHertz,
@@ -23,16 +24,7 @@ const requestGoogle = {
   interimResults: false, // If you want interim results, set this to true
 };
 
-const recognizeStream = client
-  .streamingRecognize(request)
-  .on('error', console.error)
-  .on('data', data =>
-    process.stdout.write(
-      data.results[0] && data.results[0].alternatives[0]
-        ? `Transcription: ${data.results[0].alternatives[0].transcript}\n`
-        : '\n\nReached transcription time limit, press Ctrl+C\n'
-    )
-  );
+
 
 
 app.set('view engine', 'ejs')
@@ -53,12 +45,26 @@ io.on('connection', socket => {
     socket.join(roomId)
     socket.to(roomId).broadcast.emit('user-connected', userId)
 
-    //broadcast to usermedia to get audio
-    socket.to(roomId).broadcast.emit('needAudio');
+    socket.on('message-transcribe', async function(data) {
+      console.log("reached here I thnk");
+      const dataURL = data.audio.dataURL.split(',').pop();
+      console.log(dataURL)
+      let fileBuffer = Buffer.from(dataURL, 'base64');
+      const results = await transcribeAudio(fileBuffer);
+      client.emit('results', results);
+    });
 
-    socket.on('googleTransfer', function(stream){
 
 
+    socket.on('readFile', () =>{
+      var dat;
+      fs.readFile('/Users/roshanwarman/Downloads/practiceGoogleAPI/output.txt', function (err, data) {
+        if (err) {
+           return console.error(err);
+        }
+        socket.emit('fileData', data.toString())
+
+     });
 
     })
     socket.on('disconnect', () => {
@@ -68,7 +74,18 @@ io.on('connection', socket => {
     
   })
 
-  socket.on('googleAudio',)
 })
+
+async function transcribeAudio(audio){
+  request.audio = {
+    content: audio
+  };
+  console.log(audio)
+  const responses = await client.recognize(request);
+  console.log(responses.results)
+  const transcription = response.results.map(result => result.alternatives[0].transcript).join('\n');
+  console.log(`Transcription: ${transcription}`);
+  return transcription;
+}
 
 server.listen(3000)
