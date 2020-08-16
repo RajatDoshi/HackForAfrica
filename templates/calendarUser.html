@@ -1,36 +1,19 @@
-<!DOCTPYE html>
+{% extends "layout.html" %}
 
-<head>
-<!--     <script src = "calendar.js" defer></script> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+{% block importCssAndOtherLinks %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}">
      <script type="text/javascript">
         var dataDict = JSON.parse('{{data|safe}}');
         console.log(dataDict);
     </script>
+{% endblock %}
 
-</head>
-
-<body>
+{% block main %}
     <br><br>
     <div class = overall>
         <div class = "CAL">
             <div class = "web">
-                <table class = "Calendar table">
-                    <tr>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
-
-                </table>
-            
-        
                 <div class = "monthAndYear">
                     <select id="months" onchange="monthc()">
                         <option value="Jan">Jan</option>
@@ -61,33 +44,40 @@
                         <option>2031</option>
                     </select>
                 </div>
+
+                <table class = "Calendar table">
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                </table>
+            
             </div>
-        <form style="margin: 2% 20%;" method="POST" action="/scheduleUser">
-         <button type="submit" class="btn btn-primary">Schedule Appointment</button>
-        </form>
         </div>
-
-        <div class="card decideHere" style="width: 18rem;">
-            <img class="card-img-top" src="https://i.pinimg.com/originals/33/16/c1/3316c14722c6401415aba3d48fde223d.jpg" alt="Card image cap">
+        <div class="card decideHere" style="margin-left: 3rem; width: 22rem; text-align: center">
             <div class="card-body">
-              <h5 class="card-title">What times work well for <span style = "color:rgb(187, 8, 8)">you</span> on <span class = "carDDate"></span>?</h5>
-              <select id = "times" class = "oneTimeStamp lastTime">
-                  <option selected>--Choose Time--</option>
+              <h5 class="card-title">What Times Work on <span class = "carDDate"></span>?</h5>
+              <select style="text-align: center" id = "times" class = "oneTimeStamp lastTime">
+                  <option selected>Select Time</option>
               </select>
-       
-              <div></div>
-              <div onclick = newTimes()>Add more times.</div>
-              <div></div>
-              <a onclick = unClickDateSelected()>Remove <span class = "carDDate"></span></a>
-              <div></div>
-              <div class = "timesaveButton" onclick = saveTime()>Save times.</div>
+                <br>
+                <br>
+              <button style="display: inline" class="btn btn-outline-success" onclick = newTimes()>Add Times</button>
+              <button style="display: inline"  class = "timesaveButton btn btn-outline-primary" onclick = saveTime()>Save Times</button>
+              <br>
+              <br>
+              <button style="display: block" class="remove-btn btn btn-outline-danger" onclick = unClickDateSelected()>Remove<span class = "carDDate"></span></button>
             </div>
+            <form style="text-align: center; margin: 2% 20%;" method="POST" action="/scheduleUser">
+                <button type="submit" class="btn btn-info">Schedule Appointment</button>
+            </form>
           </div>
-
     </div>    
-
-    <script>
-    </script>
 
 
     <script type="text/javascript">
@@ -133,7 +123,7 @@
 
         document.addEventListener("CalendarDateClicked", function(e){
             const specific = ghettoTarget;
-            let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
+            let cardDate = `${month} ${specific.innerHTML}`;
 
             let date = document.getElementsByClassName("carDDate");
             let dlen = date.length;
@@ -211,7 +201,7 @@
             let last = document.querySelector(".lastTime");
             let newT = document.createElement("select");
             let defaul = document.createElement("option");
-            defaul.innerHTML = "--Choose Time--"
+            defaul.innerHTML = "Select Time"
             defaul.selected = true;
             newT.appendChild(defaul);
             hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
@@ -242,7 +232,7 @@
 
         document.addEventListener("TimeSaved", function(){
             ghettoTarget.setAttribute("data-savedTime", 1);
-            let cardDate = `${month}. ${ghettoTarget.innerHTML}, ${year}`;
+            let cardDate = `${month}. ${ghettoTarget.innerHTML}`;
             let cBody = document.querySelector("div.card-body");
             cBody.innerHTML = "";
             let timesOnThisDate = SelectedDates.get(cardDate);
@@ -258,10 +248,9 @@
                 // console.log(list.innerHTML);
                 cBody.appendChild(list);
             }
-
-            let deleteButton = document.createElement("div");
-            deleteButton.classList.add("card-text");
-            deleteButton.innerHTML = `Delete ${cardDate} from my schedule.`
+            let deleteButton = document.createElement("BUTTON");
+            deleteButton.classList.add("card-text", "btn", "btn-outline-danger");
+            deleteButton.innerHTML = `Delete ${cardDate}`
             cBody.appendChild(deleteButton);
             deleteButton.onclick = function(){unClickDateSelected()};
         })
@@ -270,19 +259,19 @@
            
             ghettoTarget.setAttribute("data-savedTime", 0);
             let cBody = document.querySelector("div.card-body");
-            let cardDate = `${month}. ${ghettoTarget.innerHTML}, ${year}`;
+            let cardDate = `${month}. ${ghettoTarget.innerHTML}`;
             // cBody.innerHTML = "";
-            cBody.innerHTML= ` <h5 class="card-title">What times work well for <span style = "color:rgb(187, 8, 8)">you</span> on <span class = "carDDate">${cardDate}</span>?</h5>
-            <select id = "times" class = "oneTimeStamp lastTime">
-                <option selected>--Choose Time--</option>
+            cBody.innerHTML= ` <h5 class="card-title">What Times Work on <span class = "carDDate">${cardDate}</span>?</h5>
+            <select style="text-align: center" id = "times" class = "oneTimeStamp lastTime">
+                <option selected>Select Time</option>
             </select>
-
-            <div></div>
-            <div onclick = newTimes()>Add more times.</div>
-            <div></div>
-            <a onclick = unClickDateSelected()>Remove <span class = "carDDate">${cardDate}</span></a>
-            <div></div>
-            <div onclick = saveTime()>Save times.</div>`;
+            <br>
+            <br>
+            <button style="display: inline" class="btn btn-outline-success"  onclick = newTimes()>Add Times</button>
+            <button style="display: inline" class="btn btn-outline-primary"  onclick = saveTime()>Save Times</button>
+            <br>
+            <br>
+            <button style="display: block" class="remove-btn btn btn-outline-danger" onclick = unClickDateSelected()>Remove ${cardDate}</button>`;
 
             let event = new Event("timeStampsForCard");
             document.dispatchEvent(event);
@@ -409,7 +398,7 @@
                 timesSelected.push(allTimes[i].options[allTimes[i].selectedIndex].value);
             }
             const specific = ghettoTarget;
-            let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
+            let cardDate = `${month}. ${specific.innerHTML}`;
           
             SelectedDates.set(cardDate, timesSelected);
             document.dispatchEvent(event);
@@ -420,7 +409,7 @@
 
             let event = new Event("TimeSaved");
             const specific = ghettoTarget;
-            let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
+            let cardDate = `${month}. ${specific.innerHTML}`;
           
             SelectedDates.set(cardDate, timesSelected);
             document.dispatchEvent(event);
@@ -437,7 +426,7 @@
         }
         function unClickDateSelected(){
             const specific = ghettoTarget;
-            let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
+            let cardDate = `${month}. ${specific.innerHTML}`;
             console.log("gettin called")
             SelectedDates.delete(cardDate);
             ghettoTarget.setAttribute("data-savedTime", 0);
@@ -450,5 +439,5 @@
         }
 
     </script>
-</body>
+{% endblock %}
 

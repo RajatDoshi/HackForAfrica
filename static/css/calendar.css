@@ -1,78 +1,86 @@
-.overall{
-    display:grid;
+.overall {
+    display: grid;
     grid-template-columns: 2;
     grid-template-rows: 1;
-    margin:auto;
+    margin: auto;
 }
-.web{
+
+.web {
     justify-self: center;
-    align-self:center;
-    width:60%;
-    margin:auto;
+    align-self: center;
+    width: 100%;
+    margin: auto;
 }
-.monthAndYear{
-    position:relative;
-    left:50%;
+
+.monthAndYear {
+    position: relative;
+    left: 45%;
+    margin-bottom: 1rem;
 }
-.inb{
-    display:inline-block;
+
+.inb {
+    display: inline-block;
 }
-.circle{
+
+.circle {
     display: inline-block;
     height: 2em;
     width: 2em;
     line-height: 2em;
-
-    border-radius:50%;
+    border-radius: 50%;
     background-color: black;
     color: white;
     text-align: center;
 }
-.today{
+
+.today {
     display: inline-block;
     height: 2em;
     width: 2em;
     line-height: 2em;
-
     border-radius: 50%;
-    background-color: red ;
+    background-color: red;
     color: white;
     text-align: center;
 }
-.Calendar{
-    grid-row:1;
+
+.Calendar {
+    grid-row: 1;
     grid-column: 1;
-    align-self:center;
+    align-self: center;
     justify-self: center;
     visibility: visible;
 }
-th{
+
+th {
     vertical-align: middle;
-    text-align:center;
+    text-align: center;
     width: 5px;
 }
-td{
+
+td {
     vertical-align: center;
-    text-align:center;
+    text-align: center;
     overflow: hidden;
-    
 }
-.fal{
+
+.fal {
     transition: .7s;
 }
-.fal:hover{
+
+.fal:hover {
     display: inline-block;
     height: 2em;
     width: 2em;
     line-height: 2em;
-
-    border-radius: 50%; 
+    border-radius: 50%;
     background-color: transparent;
     transition: .2s;
     color: white;
     text-align: center;
 }
-.choose{
+
+.choose {
     /* display: inline-block;
     height: 1.5em;
     width: 1.5em;
@@ -84,11 +92,12 @@ td{
     background-color: black;
     color: white;
     text-align: center; */
-} 
+}
 
-.table{
+.table {
     table-layout: fixed;
 }
+
 
 /* .hvr-sweep-to-right {
     display: inline-block;
@@ -130,6 +139,7 @@ td{
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
 } */
+
 .hvr-radial-out {
     display: inline-block;
     vertical-align: middle;
@@ -139,12 +149,12 @@ td{
     position: relative;
     overflow: hidden;
     border-radius: 50%;
-
     -webkit-transition-property: color;
     transition-property: color;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
 }
+
 .hvr-radial-out:before {
     content: "";
     position: absolute;
@@ -163,40 +173,59 @@ td{
     transition-duration: 0.4s;
     -webkit-transition-timing-function: ease-out;
     transition-timing-function: ease-out;
-    border-radius:50%;
+    border-radius: 50%;
 }
-.hvr-radial-out:hover, .hvr-radial-out:focus, .hvr-radial-out:active {
+
+.hvr-radial-out:hover,
+.hvr-radial-out:focus,
+.hvr-radial-out:active {
     color: white;
 }
-.hvr-radial-out:hover:before, .hvr-radial-out:focus:before, .hvr-radial-out:active:before {
+
+.hvr-radial-out:hover:before,
+.hvr-radial-out:focus:before,
+.hvr-radial-out:active:before {
     -webkit-transform: scale(1);
     transform: scale(1);
 }
-.CAL{
-    grid-row:1;
-    grid-column:1;
-    justify-self: center;
-    align-self:center;
-}
-.card{
-    display: none;
-    grid-row:1;
-    grid-column:2;
+
+.CAL {
+    grid-row: 1;
+    grid-column: 1;
     justify-self: center;
     align-self: center;
 }
-.carDDate{
-    color:rgb(187, 8, 8);
+
+.card {
+    display: none;
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: center;
+    align-self: center;
 }
+
+.remove-btn {
+    position: relative;
+    left: 25%;
+}
+
+.carDDate {
+    color: rgb(187, 8, 8);
+}
+
+
 /* .decideHere{
     display: none;
 } */
-.lastTime{
-    position:relative;
+
+.lastTime {
+    position: relative;
 }
-.oneTimeStamp{
-    position:relative;
+
+.oneTimeStamp {
+    position: relative;
 }
-.timesaveButton{
-    position:relative;
+
+.timesaveButton {
+    position: relative;
 }
