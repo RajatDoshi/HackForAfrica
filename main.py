@@ -176,7 +176,7 @@ def scheduleDoctor():
 		for key in firebaseData.keys():
 			dataList.append({"Date": int(key), "Time": firebaseData[key]})
 		print(dataList)
-		return render_template('calendar.html', data=json.dumps(dataList))
+		return render_template('calendar.html', signInStatus = "Sign Out", data=json.dumps(dataList))
 	else:
 		return render_template('calendar.html')
 		
@@ -300,7 +300,7 @@ def chatDoctor(chattingWith):
 	if msgDict != None:
 		for i in range(0, len(msgDict["Chat"])):
 			msgList.append({"Chat": msgDict["Chat"][i], "Time": msgDict["Time"][i], "Type": msgDict["Type"][i]}) 
-	return render_template('chatDoctor.html', msgDict=msgList, chattingWith=chattingWith)
+	return render_template('chatDoctor.html', signInStatus = 'Sign Out' , msgDict=msgList, chattingWith=chattingWith)
 
 @app.route("/sendMessageDoctor/<chattingWith>", methods=['POST'])
 def sendMessageDoctor(chattingWith):
@@ -335,7 +335,7 @@ def sendMessageUser():
 @app.route("/doctorPortal")                   
 def doctorsPortal():  
 	doctorPortalList = getPortalInfo()
-	return render_template('doctorsPortal.html', tasks=doctorPortalList)
+	return render_template('doctorsPortal.html', signInStatus = 'Sign Out', tasks=doctorPortalList)
 def getPortalInfo():
 	portalDict = doctorPortalDatabase.get('/doctorPortal', None)
 	portalList = []

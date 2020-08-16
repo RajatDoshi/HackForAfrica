@@ -1,17 +1,15 @@
-<!DOCTPYE html>
+{% extends "layout.html" %}
 
-<head>
-<!--     <script src = "calendar.js" defer></script> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+{% block importCssAndOtherLinks %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}">
      <script type="text/javascript">
         var dataDict = JSON.parse('{{data|safe}}');
         console.log(dataDict);
     </script>
+{% endblock %}
 
-</head>
-
+{% block main %}
 <body>
     <br><br>
     <div class = overall>
@@ -19,13 +17,13 @@
             <div class = "web">
                 <table class = "Calendar table">
                     <tr>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
+                        <th onclick = "speak(this.innerHTML)">Sun</th>
+                        <th onclick = "speak(this.innerHTML)">Mon</th>
+                        <th onclick = "speak(this.innerHTML)">Tue</th>
+                        <th onclick = "speak(this.innerHTML)">Wed</th>
+                        <th onclick = "speak(this.innerHTML)">Thu</th>
+                        <th onclick = "speak(this.innerHTML)">Fri</th>
+                        <th onclick = "speak(this.innerHTML)">Sat</th>
                     </tr>
 
                 </table>
@@ -81,12 +79,119 @@
             </div>
           </div>
 
-    </div>    
-
+    </div>
     <script>
-    </script>
-
-
+            //Variable that actually performs the text to speech
+                var synth = window.speechSynthesis;
+                
+                //If we want a form or input of text to be converted to speech
+                //Used this for initial coding tests; keep for future debugging
+                //var inputForm = document.querySelector('form');
+                //var inputTxt = document.querySelector('.txt');
+                
+                //var voiceSelect = document.querySelector('select');
+                
+                //var pitch = document.querySelector('#pitch');
+                var pitchValue = 1 //Subject to change
+                //var rate = document.querySelector('#rate');
+                var rateValue = 0.8 //Subject to change
+                
+                var voices = [];
+                
+                function populateVoiceList()
+                {
+                voices = synth.getVoices().sort(function (a, b)
+                {
+                    const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
+                    if ( aname < bname ) return -1;
+                    else if ( aname == bname ) return 0;
+                    else return +1;
+                    //Was for internal purposes of alphabetizing voices
+                }
+                );
+                
+                //Additional functionality of having a choice of the different voices (accents) if needed
+                
+                //var selectedIndex = voiceSelect.selectedIndex < 0 ? 0 : voiceSelect.selectedIndex;
+                //voiceSelect.innerHTML = '';
+                // for(i = 0; i < voices.length ; i++) {
+                //   var option = document.createElement('option');
+                //   option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+                    
+                //   if(voices[i].default) {
+                //     option.textContent += ' -- DEFAULT';
+                //   }
+                
+                //   option.setAttribute('data-lang', voices[i].lang);
+                //   option.setAttribute('data-name', voices[i].name);
+                //   voiceSelect.appendChild(option);
+                // }
+                // voiceSelect.selectedIndex = selectedIndex;
+                }
+                
+                populateVoiceList();
+                if (speechSynthesis.onvoiceschanged !== undefined)
+                {
+                speechSynthesis.onvoiceschanged = populateVoiceList;
+                }
+                
+                function speak(elmt){
+                    if (synth.speaking)
+                    {
+                        console.error('speechSynthesis.speaking');
+                        return;
+                    }
+                    if (elmt !== '')
+                    {
+                    //Just calling this var utterance b/c of the class name lmao
+                    var utterance = new SpeechSynthesisUtterance(elmt);
+                    utterance.onend = function (event)
+                    {
+                        console.log('SpeechSynthesisUtterance.onend');
+                    }
+                    utterance.onerror = function (event)
+                    {
+                        console.error('SpeechSynthesisUtterance.onerror');
+                    }
+                    //Removed this line afterward since we are sticking with one fixed voice
+                    //var selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
+                    for(i = 0; i < voices.length ; i++)
+                    {
+                    if(voices[i].name === "Google US English")
+                    {
+                        utterance.voice = voices[i];
+                        break;
+                    }
+                    }
+                    utterance.pitch = pitchValue;
+                    //Setting the rate to fixed at 0.85 so people less comfortable with English can hear but it isn't too slow
+                    utterance.rate = rateValue;
+                    synth.speak(utterance);
+                    //document.write(selectedOption)
+                    //document.write(inputTxt.value)
+                }
+                }
+                
+                // inputForm.onsubmit = function(event) {
+                //   event.preventDefault();
+                
+                //   speak();
+                
+                //   inputTxt.blur();
+                // }
+                //For if we want to give them the option of pitch/rate
+                // pitch.onchange = function() {
+                //   pitchValue.textContent = pitch.value;
+                // }
+                
+                // rate.onchange = function() {
+                //   rateValue.textContent = rate.value;
+                // }
+                //For aforementioned functionality of choosing voice/accent
+                // voiceSelect.onchange = function(){
+                //   speak();
+                // }
+            </script>
     <script type="text/javascript">
         let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -448,4 +553,5 @@
 
     </script>
 </body>
+{% endblock %}
 
