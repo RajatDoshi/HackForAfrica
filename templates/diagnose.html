@@ -8,7 +8,7 @@
     <!-- Top header -->
     <div class="w-50 px-3 py-3 pt-md-4 pb-md-4 mx-auto text-center">
         <h1 class="display-4 font-weight-bold">Diagnosis</h1>
-        <p class="lead">Powered by cutting-edge AI, the diagnostics algorithm has determined you likely have one of the following ailments based off of the selected symtoms.</p>
+        <p class="lead">Our cutting-edge AI,  diagnostics algorithm has determined you likely have one of the below conditions.</p>
     </div>
 
 <!-- Cards container -->
@@ -46,6 +46,12 @@
             </div>
 			{% endfor %}
         </div>
+		<br>
+		<div class="w-50 px-3 py-3 pt-md-4 pb-md-4 mx-auto text-center">
+			<h1 class="display-4 font-weight-bold">Symptoms</h1>
+			<br>
+			<p class="lead">Select all applicable symptoms below:</p>
+		</div>
 		<form id = "UserSymptomsForm" action="/diagnose" method="POST">
 			<div class="row">
 				<table class="table">
@@ -55,8 +61,8 @@
 							{% if loop.index is divisibleby 5 %}
 								<td>
 								<label class="container"> {{sym}}
-					  				<input type="checkbox" name="{{ sym }}" id="checkbox" value="Checked">
-					  				<span class="checkmark"></span>
+									<br>
+									<input type="checkbox" name="{{ sym }}" id="checkbox" value="Checked" class="switch_1">
 								</label>
 								<td>
 								</tr>
@@ -64,8 +70,8 @@
 							{% else %}
 								<td>					
 									<label class="container"> {{sym}}
-										<input type="checkbox" name="{{ sym }}" id="checkbox" value="Checked">
-										<span class="checkmark"></span>
+									<br>
+									<input type="checkbox" name="{{ sym }}" id="checkbox" value="Checked" class="switch_1">
 									</label>
 								</td>	 
 							{% endif %}
@@ -74,8 +80,7 @@
 				</tbody>
 				</table>
 				<br>
-				<button type="submit" class="signupbtn">Diagnose</button>
-
+				<button style="position: relative; left: 40%" type="submit" class="btn btn-info">Diagnose</button>
 			</div>
 		</form>
     </div>
