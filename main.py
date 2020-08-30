@@ -291,7 +291,7 @@ def chat():
 					timeList.remove(timeList[0])
 				formattedTime = timeList[0] + ' on ' + str(list(calendar.month_abbr).index(timeList[2])) + '/' + timeList[3] + '/' + timeList[5][:-2]
 				msgList.append({"Chat": msgDict["Chat"][i], "Time": formattedTime, "Type": msgDict["Type"][i]})
-		return render_template('chat.html', msgDict=msgList, acctType=session['AccountType'])
+		return render_template('chat.html', msgDict=msgList, acctType=session['AccountType'], currUser=session['name'])
 	else:
 		return redirect('/signUp')
 
