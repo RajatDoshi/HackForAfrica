@@ -7,6 +7,10 @@ Our platform directly **virtually connects American physicians to the patients i
 
 TellusDoc bridges the gap between the surplus of American doctors and the shortage of doctors in Africa. 
 
+**btw** "Tellus" in Latin means Earth - the name "TellusDoc" signifies our mission to connect doctors and patients around the globe. TellusDoc bridges the gap between the surplus of American doctors and the shortage of doctors in Africa.
+
+
+
 ## What it does
 In the modern age of telemedicine, it's vital that the services provided by so many doctors around the world can be afforded by those who require them. We provide a self-contained platform for this entire telemedicine process, which also breaks the information and literacy barrier which many of the patients in Africa face. This includes evaluating the patient's clinical status, scheduling them with an appropriate specialist, and providing a video and message interface with built-in transcription and language accommodations. Our user portals allow patients and doctors to keep track of their past and future appointments and also provide an avenue for patients to upload pertinent medical files for their doctor’s reference. We also ensure that the patients who need the most urgent care are matched up with doctors who can best help them through our state-of-the-art triage system. By incorporating both a severity classification, through our preliminary AI diagnoser, and a specialist matching system, we make this possible.
 
