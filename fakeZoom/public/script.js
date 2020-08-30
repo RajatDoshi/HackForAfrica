@@ -28,13 +28,15 @@ navigator.mediaDevices.getUserMedia({
     connectToNewUser(userId, stream)
   })
 })
-
+let translateMessage = "default";
+let translang = "sw";
 
 // let startButton = document.getElementById("startbtn");
 // let stopButton = document.getElementById("stopbtn");
 
 let startb1 = document.getElementById("startbtn1")
 let stopb1 = document.getElementById("stopbtn1")
+let langbtn = document.getElementById("langbtn")
 
 stopb1.onclick = function(){
   socket.emit('readFile')
@@ -47,8 +49,17 @@ socket.on('fileData', data =>{
   console.log(data)
   newEl.innerHTML = data;
   easy.appendChild(newEl);
+  translateMessage = data;
 
 
+})
+
+langbtn.onclick = function(){
+  socket.emit('languageButton', translateMessage, translang);
+}
+
+socket.on('langData', results =>{
+  newEl.innerHTML = results;
 })
 
 let recordedAudio;

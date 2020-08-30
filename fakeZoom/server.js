@@ -8,6 +8,12 @@ const ss = require('socket.io-stream')
 const fs = require('fs')
 const recorder = require('node-record-lpcm16');
 const speech = require('@google-cloud/speech');
+const {Translate} = require('@google-cloud/translate').v2;
+const translate = new Translate();
+// const text = 'Hello, world!';
+// const target = 'ru';
+
+
 
 
 const client = new speech.SpeechClient();
@@ -56,6 +62,12 @@ io.on('connection', socket => {
       client.emit('results', results);
     });
 
+    socket.on('languageButton', async function(message, lang){
+      console.log("reaching here at least");
+      const results = await translateText(message, lang);
+      socket.emit('langData', results);
+    })
+
 
 
     socket.on('readFile', () =>{
@@ -88,6 +100,19 @@ async function transcribeAudio(audio){
   const transcription = response.results.map(result => result.alternatives[0].transcript).join('\n');
   console.log(`Transcription: ${transcription}`);
   return transcription;
+}
+
+async function translateText(text, target) {
+  let final;
+  let [translations] = await translate.translate(text, target);
+  translations = Array.isArray(translations) ? translations : [translations];
+  console.log('Translations:');
+  translations.forEach((translation, i) => {
+    console.log(`${translation}`);
+    final = translation;
+  });
+  return final;
+  
 }
 
 server.listen(3000)
