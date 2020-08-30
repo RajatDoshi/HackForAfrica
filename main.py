@@ -11,16 +11,27 @@ app = Flask(__name__)
 
 app.secret_key = '#d\xe9X\x00\xbe~Uq\xebX\xae\x82\x1fs\t\xb4\x99\xa3\x87\xe6.\xd1_'
 
+# firebaseConfig = {
+#   "apiKey": "AIzaSyCI_ONhAh6vn9mukkqgW7N7HK73iURIJoI",
+#   "authDomain": "hackforafrica.firebaseapp.com",
+#   "databaseURL": "https://hackforafrica.firebaseio.com",
+#   "projectId": "hackforafrica",
+#   "storageBucket": "hackforafrica.appspot.com",
+#   "messagingSenderId": "772320941941",
+#   "appId": "1:772320941941:web:a1907b15aa8e1b0af3e53c",
+#   "measurementId": "G-SL800DE53W"
+# }
+
 firebaseConfig = {
-  "apiKey": "AIzaSyCI_ONhAh6vn9mukkqgW7N7HK73iURIJoI",
-  "authDomain": "hackforafrica.firebaseapp.com",
-  "databaseURL": "https://hackforafrica.firebaseio.com",
-  "projectId": "hackforafrica",
-  "storageBucket": "hackforafrica.appspot.com",
-  "messagingSenderId": "772320941941",
-  "appId": "1:772320941941:web:a1907b15aa8e1b0af3e53c",
-  "measurementId": "G-SL800DE53W"
-}
+    "apiKey": "AIzaSyAMTa6hwa_LiyBNwerTor1agnn7QYavoAE",
+    "authDomain": "tellusdoc.firebaseapp.com",
+    "databaseURL": "https://tellusdoc.firebaseio.com",
+    "projectId": "tellusdoc",
+    "storageBucket": "tellusdoc.appspot.com",
+    "messagingSenderId": "315068328660",
+    "appId": "1:315068328660:web:24c07ca8e258652ebb2941",
+    "measurementId": "G-E5YDS58WWL"
+  }
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
