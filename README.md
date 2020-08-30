@@ -5,7 +5,6 @@ The amount of elective procedures in the United States and other countries has d
 
 Our platform directly **virtually connects American physicians to the patients in Africa**, enabling them to perform telemedicine in their added “free time” from the decrease in elective procedures in their own country. With our platform, American doctors can see patients and prescribe critical treatments, even from thousands of miles away. This process also **alleviates congestion in healthcare systems** by leaving doctors physically present in those countries to focus on the high priority cases, leaving no one behind. Further, crucial and time-critical data like X-rays and blood test results can be **analyzed quickly**, saving lives. 
 
-TellusDoc bridges the gap between the surplus of American doctors and the shortage of doctors in Africa. 
 
 **btw** "Tellus" in Latin means Earth - the name "TellusDoc" signifies our mission to connect doctors and patients around the globe. TellusDoc bridges the gap between the surplus of American doctors and the shortage of doctors in Africa.
 
