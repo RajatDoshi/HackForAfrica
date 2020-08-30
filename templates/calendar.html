@@ -288,7 +288,7 @@
         document.addEventListener("TimeSaved", function(){
             let calDate =  `${month}. ${ghettoTarget.innerHTML}`;
             $.post( "/storeCalendarData", {
-                javascript_data: JSON.stringify({date:`${ghettoTarget.innerHTML}` , time:SelectedDates.get(calDate)})
+                javascript_data: JSON.stringify({month: `${month}`, date:`${ghettoTarget.innerHTML}` , time:SelectedDates.get(calDate), year: `${year}`})
             });
         });
 
@@ -401,30 +401,44 @@
             buildCalendar(f.getMonth(), f.getFullYear());
             let x = document.getElementsByClassName("fal");
 
-            var dateVar, timeVar;
-            for(i = 0; i < dataDict.length; i++) {
-                dateVar = dataDict[i].Date;
-                timeVar = dataDict[i].Time;
-                x[dateVar-1].click();
-                timesSelected = timeVar;
-                saveTime2();
+            var dateVar, timeVar, monthVar, yearVar;
+            console.log(dataDict);
+            try {
+                for(i = 0; i < dataDict.length; i++) {
+                    dateVar = dataDict[i].Date;
+                    //var yearVar = dateVar[i].substring(dateVar.length -4, dateVar.length);
+                    console.log(year)
+                    timeVar = dataDict[i].Time;
+                    monthVar = dataDict[i].Month;
+                    yearVar = dataDict[i].Year;
+                    if(monthVar == f.getMonth() && yearVar == f.getFullYear()){
+                        x[dateVar-1].click();
+                        timesSelected = timeVar;
+                        saveTime2();
+                    }
+                } 
+            }
+            catch {
+                console.log("no data");
             }
         })
 
 
         let tbl = document.querySelector(".Calendar");
 
-        function buildCalendar(month, year){
+        function buildCalendar(monthCal, year){
             tbl.innerHTML = " <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>";
             let f= new Date();
             let todayDay = f.getDate();
             let todayMonth = f.getMonth();
             let todayYear = f.getFullYear();
           
+            month = months[monthCal];
+
             let arr = [];
-            let dayR = parseInt(daysInMonth[months[month]])
+            let dayR = parseInt(daysInMonth[months[monthCal]])
             // return dayR;
-            let nD = new Date(year, month, 1);
+            let nD = new Date(year, monthCal, 1);
             let dayNum = parseInt(nD.getDay());
             // console.log(dayNum);
             let n = 1;
@@ -450,7 +464,7 @@
                     }
                     if(index < dayR+dayNum){
                         sp.innerHTML =  dates;
-                        if(dates == todayDay && todayMonth == month && todayYear == year){
+                        if(dates == todayDay && todayMonth == monthCal && todayYear == year){
                             sp.classList.add("today");
                         }
                         dates++;
@@ -471,6 +485,31 @@
                 }
                 tbl.appendChild(rw);
             }
+            let x = document.getElementsByClassName("fal");
+
+            var dateVar, timeVar, monthVar, yearVar;
+            console.log(dataDict);
+            try {
+                for(i = 0; i < dataDict.length; i++) {
+                    dateVar = dataDict[i].Date;
+                    //var yearVar = dateVar[i].substring(dateVar.length -4, dateVar.length);
+                    timeVar = dataDict[i].Time;
+                    monthVar = dataDict[i].Month;
+                    yearVar = dataDict[i].Year;
+                    if(monthVar == months[monthCal] && yearVar == year){
+                        x[dateVar-1].click();
+                        timesSelected = timeVar;
+                        saveTime2();
+                    }
+                    else {
+                        console.log("bro")
+                    }
+                    
+                } 
+}
+catch {
+    console.log("no data");
+}
 
         }
 
