@@ -55,14 +55,14 @@ def home():
 			nameVar = userDatabase.get('/userInfo', idGivenEmail(session['user']))['Names']
 			day = storeAptDateFinal.get('/storeAptDateFinal', idGivenEmail(session['user']))
 			if day != None:
-				return render_template('userLanding.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar=day['day'], timeVar=day['time'], nameVar=nameVar)
+				return render_template('userLanding.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar=day['day'], timeVar=day['time'], monthVar=day['month'], nameVar=nameVar)
 			else:
 				return render_template('userLanding.html', signInStatus = "Sign Out", acctType=session['AccountType'], dayVar="",nameVar=nameVar)
 		else:
 			nameVar = doctorInfoDatabase.get('/doctorInfo', idGivenEmail(session['user']))['Names']
 			day = storeAptDateFinal.get('/storeAptDateFinal', 'lisa1bart@gmail1com')
 			if day != None:
-				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar=day['day'], timeVar=day['time'], userNameVar=day['name'])			
+				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar=day['day'], timeVar=day['time'], monthVar=day['month'], userNameVar=day['name'])			
 			else:
 				return render_template('doctorLand2.html', signInStatus = "Sign Out", acctType=session['AccountType'], nameVar=nameVar, dayVar="empty")
 			 
@@ -157,6 +157,7 @@ def nlp():
 def scheduleUser():
 	# description = request.form['Description']
 	uSchedData = storeCalendarDatabaseU.get('/storeCalendarDataTableUser', idGivenEmail(session['user']))	
+	print("lemon", uSchedData)
 	if uSchedData != None:
 		uSchedList = uSchedData.keys()
 		uSchedDict = set(uSchedList)
@@ -166,17 +167,17 @@ def scheduleUser():
 			if len(intersection) != 0:
 				keyVar = list(intersection)
 				for k in keyVar:
-					intersection2 = set(uSchedData[k]).intersection(doctorSchedData[doc][k])
+					intersection2 = set(uSchedData[k][0]).intersection(doctorSchedData[doc][k][0])
 					if len(intersection2) != 0:
 						finalTime = list(intersection2)[0]
 						currDoctorUserData = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
 						print(currDoctorUserData)
 						if currDoctorUserData != None:
-							currDoctorUserData['Date'] = "Sep " + k + " @ "  + finalTime + " EST "
+							currDoctorUserData['Date'] = uSchedData[k][1] + " " + k + " @ "  + finalTime + " EST "
 							currDoctorUserData['Link'] = "2"
 							db.child("doctorPortal").child(idGivenEmail(session['user'])).set(currDoctorUserData)
-							db.child("storeAptDateFinal").child(idGivenEmail(session['user'])).set({"day": k, "time": finalTime[0:5]})
-							db.child("storeAptDateFinal").child(idGivenEmail('lisa.bart@gmail.com')).set({"day": k, "time": finalTime[0:5], "name": session['name']})
+							db.child("storeAptDateFinal").child(idGivenEmail(session['user'])).set({"day": k, "time": finalTime[0:5], "month": uSchedData[k][1]})
+							db.child("storeAptDateFinal").child(idGivenEmail('lisa.bart@gmail.com')).set({"day": k, "time": finalTime[0:5], "month": uSchedData[k][1], "name": session['name']})
 						return redirect('/')
 		currDoctorUserData = doctorPortalDatabase.get('/doctorPortal', idGivenEmail(session['user']))
 		if currDoctorUserData != None:
