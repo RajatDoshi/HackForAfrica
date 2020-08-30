@@ -379,8 +379,7 @@ function saveTime2(){
 
     let event = new Event("TimeSaved");
     const specific = ghettoTarget;
-    let cardDate = `${month}. ${specific.innerHTML}, ${year}`;
-  
+    let cardDate = `${month}. ${specific.innerHTML}, ${year}`;  
     SelectedDates.set(cardDate, timesSelected);
     document.dispatchEvent(event);
 }

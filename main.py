@@ -190,10 +190,11 @@ def scheduleUser():
 def scheduleDoctor():  
 	firebaseData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
 	if firebaseData != None:
+		print("bro", firebaseData)
 		dataList = []
 		for key in firebaseData.keys():
 			dataList.append({"Date": int(key), "Time": firebaseData[key]})
-		print(dataList)
+		print("yo", dataList)
 		return render_template('calendar.html', signInStatus = "Sign Out", data=json.dumps(dataList))
 	else:
 		return render_template('calendar.html')
@@ -234,7 +235,7 @@ def scheduleU():
 	if firebaseData != None:
 		dataList = []
 		for key in firebaseData.keys():
-			dataList.append({"Date": int(key), "Time": firebaseData[key]})
+			dataList.append({"Month": firebaseData[key][1], "Date": int(key), "Time": firebaseData[key][0], "Year": firebaseData[key][2]})
 		print(dataList)
 		return render_template('calendarUser.html', data=json.dumps(dataList), acctType=session['AccountType'])
 	else:
@@ -242,18 +243,19 @@ def scheduleU():
 		
 @app.route('/storeCalendarDataUser', methods = ['POST'])
 def storeCalendarDataUser():
-	print("broooo")
 	jsdata = request.form['javascript_data']
 	jsonLoadData = json.loads(jsdata)
 	time = jsonLoadData['time']
 	day = jsonLoadData['date']
+	month = jsonLoadData['month']
+	year = jsonLoadData['year']
 	# day = getDay(date)
 	fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTableUser', idGivenEmail(session['user']))
 	if fireBaseCalendarData != None:
-		fireBaseCalendarData[day] = (time)
+		fireBaseCalendarData[day] = [time, month, year]
 		db.child("storeCalendarDataTableUser").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
 	else:
-		db.child("storeCalendarDataTableUser").child(idGivenEmail(session['user'])).set({int(day): (time)})
+		db.child("storeCalendarDataTableUser").child(idGivenEmail(session['user'])).set({int(day): [time, month, year]})
 	return 'success'
 def getDay(timeVar):
 	timeArr = str(timeVar).split()
