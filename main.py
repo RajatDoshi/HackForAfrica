@@ -173,7 +173,7 @@ def scheduleUser():
 						print(currDoctorUserData)
 						if currDoctorUserData != None:
 							currDoctorUserData['Date'] = "Aug " + k + " @ "  + finalTime + " EST "
-							currDoctorUserData['Link'] = "https://yale.zoom.us/j/983"
+							currDoctorUserData['Link'] = "2"
 							db.child("doctorPortal").child(idGivenEmail(session['user'])).set(currDoctorUserData)
 							db.child("storeAptDateFinal").child(idGivenEmail(session['user'])).set({"day": k, "time": finalTime[0:5]})
 							db.child("storeAptDateFinal").child(idGivenEmail('lisa.bart@gmail.com')).set({"day": k, "time": finalTime[0:5], "name": session['name']})
