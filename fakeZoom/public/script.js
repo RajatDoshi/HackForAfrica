@@ -31,8 +31,21 @@ navigator.mediaDevices.getUserMedia({
 let translateMessage = "default";
 let translang = "sw";
 
-// let startButton = document.getElementById("startbtn");
-// let stopButton = document.getElementById("stopbtn");
+//possibleLangs is the dropdown for languages to translate into
+let possibleLangs = document.getElementById("patientLang");
+
+let langEncoding = {
+    "Swahili" : "sw",
+    "English" : "en",
+    "French" : "fr"
+}
+
+translang = langEncoding[possibleLangs.options[possibleLangs.selectedIndex].innerHTML];
+console.log(translang);
+possibleLangs.onchange = function(){
+  translang = langEncoding[possibleLangs.options[possibleLangs.selectedIndex].innerHTML];
+
+}
 
 let startb1 = document.getElementById("startbtn1")
 let stopb1 = document.getElementById("stopbtn1")
