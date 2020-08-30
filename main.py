@@ -193,7 +193,7 @@ def scheduleDoctor():
 		print("bro", firebaseData)
 		dataList = []
 		for key in firebaseData.keys():
-			dataList.append({"Date": int(key), "Time": firebaseData[key]})
+			dataList.append({"Month": firebaseData[key][1], "Date": int(key), "Time": firebaseData[key][0], "Year": firebaseData[key][2]})
 		print("yo", dataList)
 		return render_template('calendar.html', signInStatus = "Sign Out", data=json.dumps(dataList))
 	else:
@@ -205,13 +205,15 @@ def storeCalendarData():
 	jsonLoadData = json.loads(jsdata)
 	time = jsonLoadData['time']
 	day = jsonLoadData['date']
+	month = jsonLoadData['month']
+	year = jsonLoadData['year']
 	# day = getDay(date)
 	fireBaseCalendarData = doctorPortalDatabase.get('/storeCalendarDataTable', idGivenEmail(session['user']))
 	if fireBaseCalendarData != None:
-		fireBaseCalendarData[day] = (time)
+		fireBaseCalendarData[day] = [time, month, year]
 		db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set(fireBaseCalendarData)
 	else:
-		db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set({int(day): (time)})
+		db.child("storeCalendarDataTable").child(idGivenEmail(session['user'])).set({int(day): [time, month, year]})
 	return 'success'
 def getDay(timeVar):
 	timeArr = str(timeVar).split()
