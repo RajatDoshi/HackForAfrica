@@ -61,7 +61,6 @@ def idGivenEmail(email):
 
 @app.route("/")                   
 def home():
-	return render_template('land.html')
 	if 'user' in session:
 		if session['AccountType'] == 'User':
 			nameVar = userDatabase.get('/userInfo', idGivenEmail(session['user']))['Names']
