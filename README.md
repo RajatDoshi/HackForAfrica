@@ -1,5 +1,7 @@
 # TellusDoc
-
+## 
+Built with :heart: by Ashwin Agnihotri, Rajat Doshi, Roshan Warman, Sukesh Ram.
+## 
 ## Inspiration
 The amount of elective procedures in the United States and other countries has dropped significantly as a result of COVID-19. Consequently, doctors who are not actively working with COVID-19 patients are seeing far less work throughput. Meanwhile, Africa has a quarter of the global disease burden but **only 2% of the world’s doctors**. Further, in developing countries, making behavior changes to reduce the reproduction rate is significantly harder, making COVID-19, among other infectious diseases, significantly more potent. Doctors in the U.S. could help those in developing countries suffering from pandemics such as Ebola or COVID-19, but **often lack the ability or funding** to actually connect with and help them. 
 
