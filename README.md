@@ -59,3 +59,6 @@ We are planning on building out a full fledged nonprofit, with additional featur
 
 ## Try it Out
 http://rajatdoshi.pythonanywhere.com/
+
+## License
+This software is protected under an MIT License.
