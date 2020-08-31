@@ -17,7 +17,8 @@ access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjY4MTg1ZmYxLTRlNTEt
 account_id = '8999522'
 signer_name = 'Roshan Warman'
 signer_email = 'roshanwarman22@gmail.com'
-file_name_path = 'docuSignExamples/exEHR.pdf'
+confirm_file_upload = 'docuSignExamples/exEHR.pdf'
+second_confirm_doctor = "docuSignExamples/docusign.pdf"
 base_url = 'http://localhost:5000'
 client_user_id = '123'
 authentication_method = 'None'
@@ -29,14 +30,14 @@ if 'FLASK_ENV' not in os.environ:
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
-def signFirstThingy():
+def signFirstThingy(file_name_path):
     with open(os.path.join(APP_PATH, file_name_path), "rb") as file:
         content_bytes = file.read()
     base64_file_content = base64.b64encode(content_bytes).decode('ascii')
 
     document = Document(
         document_base64=base64_file_content,
-        name='doctorSignup',
+        name='File Upload',
         file_extension='pdf',
         document_id=1
     )
@@ -61,7 +62,6 @@ def signFirstThingy():
         status="sent"
     )
 
-
     api_client = ApiClient()
     api_client.host = base_path
     api_client.set_default_header("Authorization", "Bearer " + access_token)
@@ -80,6 +80,7 @@ def signFirstThingy():
                                                  recipient_view_request=recipient_view_request)
 
     return results.url
+
 
 
 app.secret_key = '#d\xe9X\x00\xbe~Uq\xebX\xae\x82\x1fs\t\xb4\x99\xa3\x87\xe6.\xd1_'
@@ -158,7 +159,7 @@ def home():
 @app.route("/sendDoctorFile", methods=['POST'])                   
 def sendDoctorFile():  
 	if request.method == "POST":
-		return redirect(signFirstThingy())
+		return redirect(signFirstThingy(confirm_file_upload))
 	return redirect('/')	
 
 
@@ -495,7 +496,8 @@ def signUp2(email):
 		otherMetaData = userDatabase.get('/doctorInfo', idGivenEmail(email))
 		session['name'] = otherMetaData['Names']
 		session['AccountType'] = otherMetaData['AccountType']
-		return redirect('/')
+		return redirect(signFirstThingy(second_confirm_doctor))
+
 
 
 @app.route("/signUp", methods=['GET', 'POST'])                   
