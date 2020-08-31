@@ -37,7 +37,8 @@ let possibleLangs = document.getElementById("patientLang");
 let langEncoding = {
     "Swahili" : "sw",
     "English" : "en",
-    "French" : "fr"
+    "French" : "fr",
+    "Hindi" : "hi"
 }
 
 translang = langEncoding[possibleLangs.options[possibleLangs.selectedIndex].innerHTML];
