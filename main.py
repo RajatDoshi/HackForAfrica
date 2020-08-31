@@ -1,16 +1,90 @@
 from flask import Flask, render_template, redirect, request, session
 import json
+import base64, os
 import time
 import pyrebase
 import symptomClassifierAPI
 import re
 import calendar
 from googlesearch import search
+from docusign_esign import ApiClient, EnvelopesApi, EnvelopeDefinition, Signer, SignHere, Tabs, Recipients, Document, \
+    RecipientViewRequest
 
 app = Flask(__name__)   
 
+#docusign config
+access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjY4MTg1ZmYxLTRlNTEtNGNlOS1hZjFjLTY4OTgxMjIwMzMxNyJ9.eyJUb2tlblR5cGUiOjUsIklzc3VlSW5zdGFudCI6MTU5ODg3MTkyMiwiZXhwIjoxNTk4OTAwNzIyLCJVc2VySWQiOiJkNzJjODkwYi0zZGFjLTQ3NjMtOTVmMS0yYzM1OWQ3NWFkZTkiLCJzaXRlaWQiOjEsInNjcCI6WyJzaWduYXR1cmUiLCJjbGljay5tYW5hZ2UiLCJvcmdhbml6YXRpb25fcmVhZCIsInJvb21fZm9ybXMiLCJncm91cF9yZWFkIiwicGVybWlzc2lvbl9yZWFkIiwidXNlcl9yZWFkIiwidXNlcl93cml0ZSIsImFjY291bnRfcmVhZCIsImRvbWFpbl9yZWFkIiwiaWRlbnRpdHlfcHJvdmlkZXJfcmVhZCIsImR0ci5yb29tcy5yZWFkIiwiZHRyLnJvb21zLndyaXRlIiwiZHRyLmRvY3VtZW50cy5yZWFkIiwiZHRyLmRvY3VtZW50cy53cml0ZSIsImR0ci5wcm9maWxlLnJlYWQiLCJkdHIucHJvZmlsZS53cml0ZSIsImR0ci5jb21wYW55LnJlYWQiLCJkdHIuY29tcGFueS53cml0ZSJdLCJhdWQiOiJmMGYyN2YwZS04NTdkLTRhNzEtYTRkYS0zMmNlY2FlM2E5NzgiLCJhenAiOiJmMGYyN2YwZS04NTdkLTRhNzEtYTRkYS0zMmNlY2FlM2E5NzgiLCJpc3MiOiJodHRwczovL2FjY291bnQtZC5kb2N1c2lnbi5jb20vIiwic3ViIjoiZDcyYzg5MGItM2RhYy00NzYzLTk1ZjEtMmMzNTlkNzVhZGU5IiwiYW1yIjpbImludGVyYWN0aXZlIl0sImF1dGhfdGltZSI6MTU5ODg3MTkyMCwicHdpZCI6IjIwZWFkZDIyLTVjN2QtNGFjNi04MDEyLWFhNjlkMjAzMjNkOSJ9.ka4SN3gDPZgiW2nTuVwRcM-bhWkcX-SKmwZi6Mt6We4d2q_IpUO40DoiVaec8bn7qH2iuD_RT-P_r_Ki-OwbodknvBFQxtgF1lGlcly7ujcb1g61wULv1td5kpYHrZ0WdZDe8_KW7LeXcsrrmi7s-oQ9vD6ms2Fzpe8ZnLi4G1IJiPet40aNrBeo5vV2HiDjZn5xNi0nz9BVa3Htch1bSMTgRqNvlelMZUH-gCL-cvGR4n5ZVX_uJxlmVqaCS9epj7zY9Ewu3fvsQZSQ2hoN13iLmvXEs-BUP_1ckAV0frZJrmZ8MvTs3D80ePWAPX4xvUh0XbIedT_TT3_msZwZ8Q'
+account_id = '8999522'
+signer_name = 'Roshan Warman'
+signer_email = 'roshanwarman22@gmail.com'
+file_name_path = 'docuSignExamples/exEHR.pdf'
+base_url = 'http://localhost:5000'
+client_user_id = '123'
+authentication_method = 'None'
+base_path = 'https://demo.docusign.net/restapi'
+
+if 'FLASK_ENV' not in os.environ:
+    os.environ['FLASK_ENV'] = 'development'
+
+APP_PATH = os.path.dirname(os.path.abspath(__file__))
+
+
+def signFirstThingy():
+    with open(os.path.join(APP_PATH, file_name_path), "rb") as file:
+        content_bytes = file.read()
+    base64_file_content = base64.b64encode(content_bytes).decode('ascii')
+
+    document = Document(
+        document_base64=base64_file_content,
+        name='doctorSignup',
+        file_extension='pdf',
+        document_id=1
+    )
+
+
+    signer = Signer(
+        email=signer_email, name=signer_name, recipient_id="1", routing_order="1",
+        client_user_id=client_user_id,
+    )
+
+    sign_here = SignHere(document_id='1', page_number='1', recipient_id='1', tab_label='Your Name, Doctor Nanme',x_position='195', y_position='147')
+	
+
+
+	
+
+    signer.tabs = Tabs(sign_here_tabs=[sign_here])
+    envelope_definition = EnvelopeDefinition(
+        email_subject="blahblahblahheheh",
+        documents=[document],
+        recipients=Recipients(signers=[signer]),
+        status="sent"
+    )
+
+
+    api_client = ApiClient()
+    api_client.host = base_path
+    api_client.set_default_header("Authorization", "Bearer " + access_token)
+
+    envelope_api = EnvelopesApi(api_client)
+    results = envelope_api.create_envelope(account_id, envelope_definition=envelope_definition)
+
+    envelope_id = results.envelope_id
+    recipient_view_request = RecipientViewRequest(
+        authentication_method=authentication_method, client_user_id=client_user_id,
+        recipient_id='1', return_url=base_url + '/',
+        user_name=signer_name, email=signer_email
+    )
+
+    results = envelope_api.create_recipient_view(account_id, envelope_id,
+                                                 recipient_view_request=recipient_view_request)
+
+    return results.url
+
+
 app.secret_key = '#d\xe9X\x00\xbe~Uq\xebX\xae\x82\x1fs\t\xb4\x99\xa3\x87\xe6.\xd1_'
 
+#Rajat config
 firebaseConfig = {
   "apiKey": "AIzaSyCI_ONhAh6vn9mukkqgW7N7HK73iURIJoI",
   "authDomain": "hackforafrica.firebaseapp.com",
@@ -22,6 +96,7 @@ firebaseConfig = {
   "measurementId": "G-SL800DE53W"
 }
 
+#Roshan config
 # firebaseConfig = {
 #     "apiKey": "AIzaSyAMTa6hwa_LiyBNwerTor1agnn7QYavoAE",
 #     "authDomain": "tellusdoc.firebaseapp.com",
@@ -82,6 +157,8 @@ def home():
 
 @app.route("/sendDoctorFile", methods=['POST'])                   
 def sendDoctorFile():  
+	if request.method == "POST":
+		return redirect(signFirstThingy())
 	return redirect('/')	
 
 
