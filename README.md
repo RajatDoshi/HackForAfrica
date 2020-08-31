@@ -58,7 +58,7 @@ How to build intricate web applications with **API integration**, highly efficie
 We are planning on building out a full fledged nonprofit, with additional features such as: order and delivery system for doctors to send critical health supplies based on telemedicine consultation and nurses portal. 
 
 ## Try it Out
-http://rajatdoshi.pythonanywhere.com/
+http://tellusdoc.pythonanywhere.com/
 
 ## License
 This software is protected under an MIT License.
